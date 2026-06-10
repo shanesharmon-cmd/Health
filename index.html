@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Health IQ">
-<title>Health IQ — Shane Harmon</title>
+<title>Health IQ - Shane Harmon</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -14,178 +14,161 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Ne
 button{font-family:inherit;cursor:pointer;-webkit-appearance:none}
 a{text-decoration:none}
 .hidden{display:none!important}
-
 #header{padding:52px 20px 20px;background:linear-gradient(180deg,#0d1421 0%,#080b12 100%)}
 .header-row{display:flex;justify-content:space-between;align-items:flex-start}
-.header-label{font-size:10px;letter-spacing:3px;color:#4f7296;text-transform:uppercase;margin-bottom:6px}
-.header-name{font-size:24px;font-weight:800;letter-spacing:-0.5px}
-.header-sub{font-size:12px;color:#4a5568;margin-top:4px}
-
+.header-label{font-size:10px;letter-spacing:3px;color:#7dd3fc;text-transform:uppercase;margin-bottom:6px;text-shadow:0 0 12px #38bdf880}
+.header-name{font-size:24px;font-weight:800;letter-spacing:-0.5px;color:#f1f5f9}
+.header-sub{font-size:12px;color:#94a3b8;margin-top:4px}
 .stat-row{display:flex;gap:8px;margin-top:16px}
-.stat-pill{flex:1;border-radius:10px;padding:8px 4px;text-align:center;border-width:1px;border-style:solid;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.stat-pill{flex:1;border-radius:10px;padding:8px 4px;text-align:center;border-width:2px;border-style:solid;cursor:pointer;transition:all 0.2s}
 .stat-pill:active{transform:scale(0.96)}
-.stat-pill.active-filter::after{content:"";position:absolute;inset:0;border-radius:10px;border:2px solid currentColor;pointer-events:none}
 .stat-num{font-size:20px;font-weight:800}
-.stat-lbl{font-size:10px;color:#4a5568;letter-spacing:1px}
-
-#tabnav{display:flex;border-bottom:1px solid #1a2235;position:sticky;top:0;background:#080b12;z-index:50;padding-top:4px}
-.tabn{flex:1;background:none;border:none;color:#4a5568;font-size:11px;font-weight:500;padding:10px 2px 9px;border-bottom:2px solid transparent;transition:all .2s}
+.stat-lbl{font-size:10px;color:#94a3b8;letter-spacing:1px;margin-top:2px}
+#tabnav{display:flex;border-bottom:1px solid #1e293b;position:sticky;top:0;background:#080b12;z-index:50;padding-top:4px}
+.tabn{flex:1;background:none;border:none;color:#64748b;font-size:11px;font-weight:500;padding:10px 4px 9px;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:0.2px}
 .tabn.active{color:#60a5fa;font-weight:700;border-bottom-color:#60a5fa}
 .badge{display:inline-block;background:#ef4444;color:#fff;border-radius:99px;font-size:7px;padding:1px 4px;margin-left:3px;font-weight:800;vertical-align:middle}
-
 .page{padding:16px 20px 0;display:none}
 .page.active{display:block}
-.sec-label{font-size:10px;letter-spacing:2px;color:#4f7296;text-transform:uppercase;margin-bottom:12px;margin-top:4px}
-
+.sec-label{font-size:10px;letter-spacing:2px;color:#7dd3fc;text-transform:uppercase;margin-bottom:12px;margin-top:4px;text-shadow:0 0 10px #38bdf850}
 .timeline{display:flex;align-items:center;margin-bottom:20px}
 .tl-node{text-align:center}
 .tl-dot{width:10px;height:10px;border-radius:50%;border:2px solid #60a5fa;margin:0 auto 6px}
-.tl-dot.active{background:#60a5fa}
-.tl-dot.past{background:#1a2235}
-.tl-label{font-size:10px;white-space:nowrap}
-.tl-line{flex:1;height:1px;background:#1a2235;margin:0 8px 14px}
-
+.tl-dot.active{background:#60a5fa;box-shadow:0 0 8px #60a5fa80}
+.tl-dot.past{background:#1e293b}
+.tl-label{font-size:10px;white-space:nowrap;color:#94a3b8}
+.tl-label.current{color:#60a5fa}
+.tl-line{flex:1;height:1px;background:#1e293b;margin:0 8px 14px}
 .pill-row{display:flex;gap:6px;margin-bottom:16px}
-.pill-banner{flex:1;border-radius:11px;padding:8px 11px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid}
-.pill-title{font-size:10px;font-weight:600}
-.pill-sub{font-size:9px;color:#4a5568;margin-top:1px}
-
-/* BM CARDS */
-.bm-card{background:#0d1421;border-radius:14px;padding:13px 15px;margin-bottom:9px;cursor:pointer;border-width:1px;border-style:solid;transition:all 0.2s}
-.bm-card:active{transform:scale(0.99)}
+.pill-banner{flex:1;border-radius:11px;padding:8px 9px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;transition:opacity 0.15s}
+.pill-banner:active{opacity:0.8}
+.pill-title{font-size:10px;font-weight:700}
+.pill-sub{font-size:9px;color:#94a3b8;margin-top:1px}
+.bm-card{background:#0d1421;border-radius:14px;padding:13px 15px;margin-bottom:9px;cursor:pointer;border-width:1px;border-style:solid;transition:border-color 0.2s}
 .bm-inner{display:flex;align-items:center;gap:12px;width:100%}
-.bm-label-row{display:flex;align-items:center;gap:7px;margin-bottom:2px}
-.bm-name{font-size:13px;font-weight:600}
-.bm-note{font-size:11px;color:#4a5568}
+.bm-label-row{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.bm-name{font-size:13px;font-weight:600;color:#e2e8f0}
+.bm-note{font-size:11px;color:#94a3b8}
 .bm-val{font-size:18px;font-weight:800;text-align:right}
-.bm-unit{font-size:10px;color:#4a5568;text-align:right}
-.ibtn{background:none;border:1px solid #2a3f5a;color:#4f7296;border-radius:50%;width:19px;height:19px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
+.bm-unit{font-size:10px;color:#94a3b8;text-align:right;margin-top:1px}
+.bm-prev{font-size:10px;color:#94a3b8;margin-top:2px}
+.ibtn{background:none;border:1px solid #334155;color:#7dd3fc;border-radius:50%;width:19px;height:19px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
 .dot{display:inline-block;border-radius:50%;flex-shrink:0}
-
-/* INLINE CHART — expands inside the card */
-.inline-chart{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1),opacity 0.3s ease;opacity:0}
-.inline-chart.open{max-height:400px;opacity:1}
+.inline-chart{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1),opacity 0.3s ease;opacity:0}
+.inline-chart.open{max-height:420px;opacity:1}
 .inline-chart-inner{padding-top:14px;border-top:1px solid #1e3a5f;margin-top:14px}
-.chart-optimal{font-size:10px;color:#22c55e;margin-top:8px}
+.chart-optimal{font-size:10px;color:#4ade80;margin-top:8px}
 .chart-points{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
 .chart-pt{flex:1;min-width:55px;background:#080b12;border-radius:8px;padding:7px 5px;text-align:center;border-width:1px;border-style:solid}
-.chart-pt-date{font-size:9px;color:#4a5568;margin-bottom:3px}
+.chart-pt-date{font-size:9px;color:#94a3b8;margin-bottom:3px}
 .chart-pt-val{font-size:13px;font-weight:700}
 .chart-close-row{display:flex;justify-content:flex-end;margin-top:10px}
-.chart-close-btn{background:#1a2235;border:none;color:#4a5568;border-radius:99px;padding:4px 12px;font-size:11px;font-family:inherit}
-
+.chart-close-btn{background:#1e293b;border:none;color:#94a3b8;border-radius:99px;padding:5px 14px;font-size:11px;font-family:inherit}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .cat-card{background:#0d1421;border-radius:12px;padding:12px 14px;cursor:pointer;border-width:1px;border-style:solid;transition:transform 0.15s}
 .cat-card:active{transform:scale(0.97)}
 .cat-top{display:flex;justify-content:space-between;align-items:center}
-.cat-name{font-size:12px;font-weight:600;margin-top:8px}
-.cat-sub{font-size:10px;color:#4a5568;margin-top:2px}
-.cat-bar-bg{margin-top:8px;height:3px;border-radius:99px;background:#1a2235;overflow:hidden}
+.cat-name{font-size:12px;font-weight:600;margin-top:8px;color:#e2e8f0}
+.cat-sub{font-size:10px;color:#94a3b8;margin-top:2px}
+.cat-bar-bg{margin-top:8px;height:3px;border-radius:99px;background:#1e293b;overflow:hidden}
 .cat-bar{height:100%;border-radius:99px}
-
 .cat-scroll{overflow-x:auto;padding-bottom:12px;margin-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .cat-scroll::-webkit-scrollbar{display:none}
 .cat-scroll-inner{display:flex;gap:6px;width:max-content}
-.cat-btn{border-radius:99px;font-size:11px;padding:6px 12px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1a2235;color:#4a5568;transition:all 0.2s}
+.cat-btn{border-radius:99px;font-size:11px;padding:6px 12px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1e293b;color:#94a3b8;transition:all 0.2s}
 .cat-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
-
-/* STATUS FILTER BANNER */
-#status-filter-banner{display:none;background:#1a2235;border-radius:10px;padding:8px 12px;margin-bottom:12px;flex-direction:row;align-items:center;justify-content:space-between}
+#status-filter-banner{display:none;background:#1e293b;border-radius:10px;padding:8px 12px;margin-bottom:12px;flex-direction:row;align-items:center;justify-content:space-between}
 #status-filter-banner.visible{display:flex}
 .sfb-label{font-size:11px;font-weight:600}
 .sfb-clear{background:none;border:none;font-size:11px;color:#60a5fa;font-family:inherit}
-
 .ins-card{border-radius:14px;padding:14px 16px;margin-bottom:10px;border-width:1px;border-style:solid}
 .ins-row{display:flex;gap:10px;align-items:flex-start}
 .ins-icon{font-size:15px;flex-shrink:0;min-width:20px;text-align:center}
 .ins-title{font-size:13px;font-weight:700;margin-bottom:5px}
-.ins-body{font-size:12px;color:#94a3b8;line-height:1.65}
+.ins-body{font-size:12px;color:#cbd5e1;line-height:1.65}
 .ins-filter{overflow-x:auto;padding-bottom:10px;margin-bottom:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .ins-filter::-webkit-scrollbar{display:none}
 .ins-filter-inner{display:flex;gap:6px;width:max-content}
-.ins-btn{border-radius:99px;font-size:10px;padding:5px 11px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1a2235;color:#4a5568}
+.ins-btn{border-radius:99px;font-size:10px;padding:5px 11px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1e293b;color:#94a3b8}
 .ins-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
-
 .action-card{background:#0d1421;border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;border-width:1px;border-style:solid}
 .action-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;border-width:1px;border-style:solid}
 .action-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
 .urgency-badge{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:99px}
-.doctor-badge{font-size:9px;color:#4a5568;background:#1a2235;padding:2px 7px;border-radius:99px}
-.action-title{font-size:13px;font-weight:600;margin-bottom:5px;line-height:1.4}
-.action-why{font-size:11px;color:#4a5568;line-height:1.5}
-.next-panel{background:#0d1421;border:1px solid #1a2235;border-radius:14px;padding:14px 16px;margin-top:8px}
+.doctor-badge{font-size:9px;color:#94a3b8;background:#1e293b;padding:2px 7px;border-radius:99px}
+.action-title{font-size:13px;font-weight:600;margin-bottom:5px;line-height:1.4;color:#e2e8f0}
+.action-why{font-size:11px;color:#94a3b8;line-height:1.5}
+.next-panel{background:#0d1421;border:1px solid #1e293b;border-radius:14px;padding:14px 16px;margin-top:8px}
 .panel-item{display:flex;align-items:center;gap:8px;padding:7px 0}
-.panel-dot{width:5px;height:5px;border-radius:50%;background:#4f7296;flex-shrink:0}
-.panel-text{font-size:12px;color:#94a3b8}
-
+.panel-dot{width:5px;height:5px;border-radius:50%;background:#7dd3fc;flex-shrink:0}
+.panel-text{font-size:12px;color:#cbd5e1}
 .care-toggle{display:flex;gap:6px;margin-bottom:16px}
-.care-btn{flex:1;border-radius:10px;font-size:10px;padding:8px 4px;border-width:1px;border-style:solid;background:#0d1421;border-color:#1a2235;color:#4a5568}
+.care-btn{flex:1;border-radius:10px;font-size:10px;padding:8px 4px;border-width:1px;border-style:solid;background:#0d1421;border-color:#1e293b;color:#94a3b8;transition:all 0.2s}
 .care-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
 .doc-card{background:#0d1421;border:1px solid #1e3a5f;border-radius:14px;margin-bottom:12px;overflow:hidden}
 .doc-header{padding:14px 16px;cursor:pointer;display:flex;gap:12px;align-items:center}
-.doc-avatar{width:40px;height:40px;border-radius:12px;background:#1a2235;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.doc-name{font-size:13px;font-weight:700}
-.doc-role{font-size:11px;color:#60a5fa;margin-top:1px}
-.doc-practice{font-size:10px;color:#4a5568;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.doc-chevron{color:#4a5568;font-size:16px;flex-shrink:0;margin-left:auto}
-.doc-body{border-top:1px solid #1a2235;padding:14px 16px;display:none;flex-direction:column;gap:10px}
+.doc-avatar{width:40px;height:40px;border-radius:12px;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden}
+.doc-name{font-size:13px;font-weight:700;color:#e2e8f0}
+.doc-role{font-size:11px;color:#7dd3fc;margin-top:2px}
+.doc-practice{font-size:10px;color:#94a3b8;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-chevron{color:#64748b;font-size:16px;flex-shrink:0;margin-left:auto}
+.doc-body{border-top:1px solid #1e293b;padding:14px 16px;display:none;flex-direction:column;gap:10px}
 .doc-body.open{display:flex}
 .doc-link{display:flex;align-items:center;gap:10px}
 .doc-link-icon{width:36px;height:36px;border-radius:10px;background:#0a1e35;border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.doc-link-label{font-size:10px;color:#4a5568}
+.doc-link-label{font-size:10px;color:#94a3b8}
 .doc-link-val{font-size:13px;color:#60a5fa;font-weight:600;line-height:1.4}
 .doc-bm-box{background:#080b12;border-radius:10px;padding:10px 12px}
-.doc-bm-label{font-size:9px;color:#4f7296;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.doc-bm-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
 .doc-bm-tags{display:flex;flex-wrap:wrap;gap:5px}
-.bm-tag{background:#1a2235;color:#60a5fa;font-size:10px;padding:3px 8px;border-radius:99px}
+.bm-tag{background:#1e293b;color:#7dd3fc;font-size:10px;padding:3px 8px;border-radius:99px}
 .med-card{border-radius:14px;padding:16px;margin-bottom:12px;border-width:1px;border-style:solid}
 .med-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
 .med-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border-width:1px;border-style:solid}
-.med-name{font-size:15px;font-weight:800}
+.med-name{font-size:15px;font-weight:800;color:#e2e8f0}
 .med-dose{font-size:12px;margin-top:2px}
-.med-rx{font-size:10px;color:#4a5568;margin-top:1px}
+.med-rx{font-size:10px;color:#94a3b8;margin-top:1px}
 .med-section{background:#080b12;border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.med-sec-label{font-size:9px;color:#4f7296;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.med-sec-text{font-size:12px;color:#94a3b8;line-height:1.6}
-.med-impact-item{font-size:12px;color:#22c55e;margin-top:2px}
+.med-sec-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.med-sec-text{font-size:12px;color:#cbd5e1;line-height:1.6}
+.med-impact-item{font-size:12px;color:#4ade80;margin-top:3px}
 .med-note{border-radius:10px;padding:10px 12px;border-width:1px;border-style:solid}
 .med-note-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.med-note-text{font-size:12px;color:#94a3b8;line-height:1.6}
-.supp-header-banner{background:#0a1628;border:1px solid #1e3a5f;border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;gap:8px;align-items:center}
-.supp-score{font-size:11px;font-weight:600;color:#60a5fa}
-.supp-sub{font-size:10px;color:#4a5568;margin-top:1px}
+.med-note-text{font-size:12px;color:#cbd5e1;line-height:1.6}
+.supp-header-banner{background:#0a1e35;border:1px solid #1e3a5f;border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.supp-score{font-size:11px;font-weight:600;color:#7dd3fc}
+.supp-sub{font-size:10px;color:#94a3b8;margin-top:1px}
 .supp-card{border-radius:14px;margin-bottom:10px;overflow:hidden;border-width:1px;border-style:solid}
 .supp-row{padding:12px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
 .supp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.supp-name{font-size:12px;font-weight:700}
-.supp-brand{font-size:10px;color:#4a5568;margin-top:1px}
+.supp-name{font-size:12px;font-weight:700;color:#e2e8f0}
+.supp-brand{font-size:10px;color:#94a3b8;margin-top:1px}
 .supp-goal-tag{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600}
-.supp-chev{color:#4a5568;font-size:14px}
+.supp-chev{color:#64748b;font-size:14px}
 .supp-body{border-top-width:1px;border-top-style:solid;padding:12px 14px;display:none;flex-direction:column;gap:8px}
 .supp-body.open{display:flex}
 .supp-sec{background:#080b12;border-radius:10px;padding:10px 12px}
-.supp-sec-label{font-size:9px;color:#4f7296;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.supp-sec-text{font-size:12px;color:#94a3b8;line-height:1.6}
-.supp-impact{font-size:11px;color:#22c55e;margin-top:3px}
+.supp-sec-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.supp-sec-text{font-size:12px;color:#cbd5e1;line-height:1.6}
+.supp-impact{font-size:11px;color:#4ade80;margin-top:3px}
 .supp-note-box{border-radius:10px;padding:10px 12px;border-width:1px;border-style:solid}
 .supp-note-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.supp-note-text{font-size:12px;color:#94a3b8;line-height:1.6}
-
-#info-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
+.supp-note-text{font-size:12px;color:#cbd5e1;line-height:1.6}
+#info-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
 #info-modal.open{display:flex}
 .info-sheet{background:#0d1421;border-radius:20px 20px 0 0;border:1px solid #1e3a5f;border-bottom:none;padding:20px 20px 44px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto}
 .info-handle{width:36px;height:4px;background:#1e3a5f;border-radius:99px;margin:0 auto 18px}
 .info-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.info-bm-label{font-size:9px;letter-spacing:2px;color:#4f7296;text-transform:uppercase;margin-bottom:4px}
-.info-bm-name{font-size:20px;font-weight:800}
-.info-bm-cat{font-size:11px;color:#4a5568;margin-top:2px}
-.info-close{background:#1a2235;border:none;color:#94a3b8;border-radius:99px;width:30px;height:30px;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-bm-label{font-size:9px;letter-spacing:2px;color:#7dd3fc;text-transform:uppercase;margin-bottom:4px}
+.info-bm-name{font-size:20px;font-weight:800;color:#f1f5f9}
+.info-bm-cat{font-size:11px;color:#94a3b8;margin-top:2px}
+.info-close{background:#1e293b;border:none;color:#94a3b8;border-radius:99px;width:30px;height:30px;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .info-sec{background:#080b12;border-radius:12px;padding:12px 14px;margin-bottom:10px}
-.info-sec-label{font-size:9px;color:#4f7296;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
-.info-sec-text{font-size:13px;color:#cbd5e1;line-height:1.7}
-.info-range{background:#0a1628;border-radius:12px;padding:10px 14px;border:1px solid #22c55e25}
-.info-range-label{font-size:9px;color:#22c55e;letter-spacing:1px;margin-bottom:3px}
-.info-range-val{font-size:13px;color:#94a3b8}
+.info-sec-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.info-sec-text{font-size:13px;color:#e2e8f0;line-height:1.7}
+.info-range{background:#0a1e35;border-radius:12px;padding:10px 14px;border:1px solid #22c55e30}
+.info-range-label{font-size:9px;color:#4ade80;letter-spacing:1px;margin-bottom:3px}
+.info-range-val{font-size:13px;color:#cbd5e1}
 </style>
 </head>
 <body>
@@ -198,23 +181,23 @@ a{text-decoration:none}
       <div class="header-sub">Last updated: Jun 2026 &middot; Age 46</div>
     </div>
     <svg width="70" height="70" viewBox="0 0 70 70">
-      <circle cx="35" cy="35" r="30" fill="none" stroke="#1a2235" stroke-width="5"/>
+      <circle cx="35" cy="35" r="30" fill="none" stroke="#1e293b" stroke-width="5"/>
       <circle id="score-ring" cx="35" cy="35" r="30" fill="none" stroke="#22c55e" stroke-width="5" stroke-dasharray="0 188.5" stroke-linecap="round" transform="rotate(-90 35 35)"/>
-      <text id="score-text" x="35" y="33" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="800">--</text>
-      <text x="35" y="46" text-anchor="middle" fill="#4a5568" font-size="8">SCORE</text>
+      <text id="score-text" x="35" y="33" text-anchor="middle" fill="#f1f5f9" font-size="18" font-weight="800">--</text>
+      <text x="35" y="46" text-anchor="middle" fill="#64748b" font-size="8">SCORE</text>
     </svg>
   </div>
   <div class="stat-row">
     <div class="stat-pill" id="pill-optimal" style="background:#0f2818;border-color:#22c55e25" onclick="filterByStatus('optimal')">
-      <div class="stat-num" style="color:#22c55e" id="cnt-optimal">--</div>
+      <div class="stat-num" style="color:#4ade80" id="cnt-optimal">--</div>
       <div class="stat-lbl">OPTIMAL</div>
     </div>
-    <div class="stat-pill" id="pill-concern" style="background:#1e1708;border-color:#f59e0b25" onclick="filterByStatus('concern')">
-      <div class="stat-num" style="color:#f59e0b" id="cnt-concern">--</div>
+    <div class="stat-pill" id="pill-concern" style="background:#1c1505;border-color:#f59e0b25" onclick="filterByStatus('concern')">
+      <div class="stat-num" style="color:#fbbf24" id="cnt-concern">--</div>
       <div class="stat-lbl">MONITOR</div>
     </div>
-    <div class="stat-pill" id="pill-high" style="background:#200e0e;border-color:#ef444425" onclick="filterByStatus('high')">
-      <div class="stat-num" style="color:#ef4444" id="cnt-high">--</div>
+    <div class="stat-pill" id="pill-high" style="background:#1a0808;border-color:#ef444425" onclick="filterByStatus('high')">
+      <div class="stat-num" style="color:#f87171" id="cnt-high">--</div>
       <div class="stat-lbl">ACTION</div>
     </div>
   </div>
@@ -225,30 +208,33 @@ a{text-decoration:none}
   <button class="tabn" onclick="showTab('labs')">Labs</button>
   <button class="tabn" onclick="showTab('insights')">Insights</button>
   <button class="tabn" onclick="showTab('actions')">Actions<span class="badge">5</span></button>
-  <button class="tabn" onclick="showTab('care')">Care</button>
 </div>
 
 <div id="page-overview" class="page active">
   <div style="margin-bottom:20px">
     <div class="sec-label">Lab History</div>
     <div class="timeline">
-      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label" style="color:#4a5568">Oct 2018</div></div>
+      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label">Oct 2018</div></div>
       <div class="tl-line"></div>
-      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label" style="color:#4a5568">Jan 2025</div></div>
+      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label">Jan 2025</div></div>
       <div class="tl-line"></div>
-      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label" style="color:#4a5568">Mar 2026</div></div>
+      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label">Mar 2026</div></div>
       <div class="tl-line"></div>
-      <div class="tl-node"><div class="tl-dot active"></div><div class="tl-label" style="color:#60a5fa">Jun 2026</div></div>
+      <div class="tl-node"><div class="tl-dot active"></div><div class="tl-label current">Jun 2026</div></div>
     </div>
   </div>
   <div class="pill-row">
-    <div class="pill-banner" style="background:#0a1628;border-color:#60a5fa30" onclick="showTab('care')">
-      <span style="font-size:14px">💊</span>
-      <div><div class="pill-title" style="color:#60a5fa">Levothyroxine 50mcg</div><div class="pill-sub">TSH needs review</div></div>
+    <div class="pill-banner" style="background:#0a1628;border-color:#3b82f640" onclick="goToCare('rx')">
+      <span style="font-size:15px">&#128138;</span>
+      <div><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine 50mcg</div></div>
     </div>
-    <div class="pill-banner" style="background:#0a1628;border-color:#a78bfa30" onclick="showTab('care')">
-      <span style="font-size:14px">🌿</span>
-      <div><div class="pill-title" style="color:#a78bfa">15 Supplements</div><div class="pill-sub">SuppCo score: 89</div></div>
+    <div class="pill-banner" style="background:#0a0e1e;border-color:#a78bfa40" onclick="goToCare('supplements')">
+      <span style="font-size:15px">&#127807;</span>
+      <div><div class="pill-title" style="color:#c4b5fd">Supplements</div><div class="pill-sub">SuppCo score: 89</div></div>
+    </div>
+    <div class="pill-banner" style="background:#051a12;border-color:#34d39940" onclick="goToCare('contacts')">
+      <span style="font-size:15px">&#128241;</span>
+      <div><div class="pill-title" style="color:#34d399">Contacts</div><div class="pill-sub">Doctors &amp; Pharmacy</div></div>
     </div>
   </div>
   <div class="sec-label">Key Biomarkers</div>
@@ -261,7 +247,7 @@ a{text-decoration:none}
   <div class="cat-scroll"><div class="cat-scroll-inner" id="cat-filter-btns"></div></div>
   <div id="status-filter-banner">
     <span class="sfb-label" id="sfb-label"></span>
-    <button class="sfb-clear" onclick="clearStatusFilter()">Clear filter &times;</button>
+    <button class="sfb-clear" onclick="clearStatusFilter()">Clear x</button>
   </div>
   <div id="bm-list"></div>
 </div>
@@ -282,11 +268,11 @@ a{text-decoration:none}
 
 <div id="page-care" class="page">
   <div class="care-toggle">
-    <button class="care-btn active" onclick="showCare('doctors')">Doctors</button>
-    <button class="care-btn" onclick="showCare('rx')">Meds</button>
-    <button class="care-btn" onclick="showCare('supplements')">Supplements</button>
+    <button class="care-btn active" id="cbtn-contacts" onclick="showCare('contacts')">Contacts</button>
+    <button class="care-btn" id="cbtn-rx" onclick="showCare('rx')">Meds</button>
+    <button class="care-btn" id="cbtn-supplements" onclick="showCare('supplements')">Supplements</button>
   </div>
-  <div id="care-doctors"></div>
+  <div id="care-contacts"></div>
   <div id="care-rx" class="hidden"></div>
   <div id="care-supplements" class="hidden"></div>
 </div>
@@ -295,8 +281,12 @@ a{text-decoration:none}
   <div class="info-sheet" onclick="event.stopPropagation()">
     <div class="info-handle"></div>
     <div class="info-header">
-      <div><div class="info-bm-label">Biomarker</div><div class="info-bm-name" id="info-name"></div><div class="info-bm-cat" id="info-cat"></div></div>
-      <button class="info-close" onclick="closeInfo()">x</button>
+      <div>
+        <div class="info-bm-label">Biomarker</div>
+        <div class="info-bm-name" id="info-name"></div>
+        <div class="info-bm-cat" id="info-cat"></div>
+      </div>
+      <button class="info-close" onclick="closeInfo()">&#10005;</button>
     </div>
     <div class="info-sec"><div class="info-sec-label">What is it?</div><div class="info-sec-text" id="info-what"></div></div>
     <div class="info-sec"><div class="info-sec-label">Why it matters</div><div class="info-sec-text" id="info-why"></div></div>
@@ -305,392 +295,428 @@ a{text-decoration:none}
 </div>
 
 <script>
-const BM = {
+var BM = {
   totalCholesterol:{label:"Total Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,200],concern:[200,239],high:[240,999],data:[{d:"Oct 2018",v:164},{d:"Jan 2025",v:203},{d:"Mar 2026",v:224},{d:"Jun 2026",v:187}],what:"A waxy fat in your blood. Total adds up all types.",why:"Too much clogs arteries over time, raising heart attack and stroke risk."},
   ldl:{label:"LDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,100],concern:[100,129],high:[130,999],data:[{d:"Oct 2018",v:97},{d:"Jan 2025",v:127},{d:"Mar 2026",v:153},{d:"Jun 2026",v:113}],what:"The bad cholesterol. When too high it sticks to artery walls and builds plaque.",why:"One of the biggest drivers of heart disease. Still above optimal but heading in the right direction."},
-  hdl:{label:"HDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[60,999],concern:[40,59],high:[0,39],data:[{d:"Oct 2018",v:50},{d:"Jan 2025",v:55},{d:"Mar 2026",v:49},{d:"Jun 2026",v:52}],hb:true,what:"The good cholesterol — acts like a cleanup crew, returning excess cholesterol to your liver.",why:"Higher HDL means better protection. Low HDL leaves harmful cholesterol in your arteries."},
+  hdl:{label:"HDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[60,999],concern:[40,59],high:[0,39],data:[{d:"Oct 2018",v:50},{d:"Jan 2025",v:55},{d:"Mar 2026",v:49},{d:"Jun 2026",v:52}],hb:true,what:"The good cholesterol. Acts like a cleanup crew returning excess cholesterol to your liver.",why:"Higher HDL means better protection. Low HDL leaves harmful cholesterol in your arteries."},
   triglycerides:{label:"Triglycerides",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,150],concern:[150,199],high:[200,999],data:[{d:"Oct 2018",v:79},{d:"Jan 2025",v:107},{d:"Mar 2026",v:103},{d:"Jun 2026",v:71}],what:"Blood fats from sugar, alcohol, and refined carbs.",why:"High levels thicken blood and make LDL particles smaller and more dangerous."},
-  nonHdl:{label:"Non-HDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,130],concern:[130,159],high:[160,999],data:[{d:"Oct 2018",v:114},{d:"Jan 2025",v:148},{d:"Mar 2026",v:165},{d:"Jun 2026",v:129}],what:"All harmful cholesterol combined — everything except your protective HDL.",why:"A more complete heart risk picture than LDL alone."},
-  cholHdlRatio:{label:"Chol/HDL Ratio",unit:"",cat:"Cardiovascular",optimal:[0,3.5],concern:[3.5,5.0],high:[5,99],data:[{d:"Oct 2018",v:3.3},{d:"Jan 2025",v:3.7},{d:"Mar 2026",v:4.4},{d:"Jun 2026",v:3.5}],what:"Total cholesterol divided by HDL — bad vs good ratio.",why:"High ratio means more junk than cleanup capacity. Lower is better."},
-  apoB:{label:"ApoB",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,90],concern:[90,129],high:[130,999],data:[{d:"Jan 2025",v:null},{d:"Mar 2026",v:129},{d:"Jun 2026",v:99}],what:"Counts the actual number of harmful cholesterol particles. Every LDL has exactly one ApoB.",why:"Even if LDL looks okay, you may have many small dangerous particles. ApoB catches that."},
-  lpa:{label:"Lipoprotein(a)",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,75],concern:[75,125],high:[125,999],data:[{d:"Jan 2025",v:null},{d:"Mar 2026",v:13},{d:"Jun 2026",v:10}],what:"A cholesterol particle almost entirely determined by genes.",why:"High Lp(a) makes blood more likely to clot. Yours is low and stable — a genuine win."},
-  ldlParticle:{label:"LDL Particle #",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,1138],concern:[1138,1409],high:[1409,9999],data:[{d:"Jan 2025",v:null},{d:"Mar 2026",v:2097},{d:"Jun 2026",v:1387}],what:"Counts the actual number of LDL particles rather than how much cholesterol they carry.",why:"More particles means more chances to invade artery walls. Down dramatically but still in concern zone."},
-  ldlSmall:{label:"LDL Small",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,142],concern:[142,219],high:[219,9999],data:[{d:"Jan 2025",v:null},{d:"Mar 2026",v:596},{d:"Jun 2026",v:321}],what:"Small, dense LDL — the most dangerous type, slipping through artery walls most easily.",why:"High small LDL dramatically increases plaque buildup. Yours dropped 46% — real progress."},
-  hsCRP:{label:"hs-CRP",unit:"mg/L",cat:"Cardiovascular",optimal:[0,1.0],concern:[1.0,3.0],high:[3.0,999],data:[{d:"Jan 2025",v:null},{d:"Mar 2026",v:1.4},{d:"Jun 2026",v:0.2}],what:"A protein your liver makes when your body is inflamed.",why:"Went from 1.4 to under 0.2 — a dramatic improvement in vascular inflammation."},
-  lpPla2:{label:"Lp-PLA2 Activity",unit:"nmol/min/mL",cat:"Cardiovascular",optimal:[0,123],concern:[0,123],high:[123,999],data:[{d:"Jan 2025",v:null},{d:"Mar 2026",v:179},{d:"Jun 2026",v:155}],what:"An enzyme active specifically inside artery walls when cholesterol is building up there.",why:"Still elevated but dropped 24 points. Heading in the right direction."},
+  nonHdl:{label:"Non-HDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,130],concern:[130,159],high:[160,999],data:[{d:"Oct 2018",v:114},{d:"Jan 2025",v:148},{d:"Mar 2026",v:165},{d:"Jun 2026",v:129}],what:"All harmful cholesterol combined, everything except your protective HDL.",why:"A more complete heart risk picture than LDL alone."},
+  cholHdlRatio:{label:"Chol/HDL Ratio",unit:"",cat:"Cardiovascular",optimal:[0,3.5],concern:[3.5,5.0],high:[5,99],data:[{d:"Oct 2018",v:3.3},{d:"Jan 2025",v:3.7},{d:"Mar 2026",v:4.4},{d:"Jun 2026",v:3.5}],what:"Total cholesterol divided by HDL. The ratio of bad to good.",why:"High ratio means more junk than cleanup capacity. Lower is better."},
+  apoB:{label:"ApoB",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,90],concern:[90,129],high:[130,999],data:[{d:"Mar 2026",v:129},{d:"Jun 2026",v:99}],what:"Counts the actual number of harmful cholesterol particles. Every LDL has exactly one ApoB.",why:"Even if LDL looks okay you may have many small dangerous particles. ApoB catches that."},
+  lpa:{label:"Lipoprotein(a)",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,75],concern:[75,125],high:[125,999],data:[{d:"Mar 2026",v:13},{d:"Jun 2026",v:10}],what:"A cholesterol particle almost entirely determined by genes.",why:"High Lp(a) makes blood more likely to clot. Yours is low and stable, a genuine win."},
+  ldlParticle:{label:"LDL Particle #",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,1138],concern:[1138,1409],high:[1409,9999],data:[{d:"Mar 2026",v:2097},{d:"Jun 2026",v:1387}],what:"Counts the actual number of LDL particles rather than how much cholesterol they carry.",why:"More particles means more chances to invade artery walls. Down dramatically but still elevated."},
+  ldlSmall:{label:"LDL Small",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,142],concern:[142,219],high:[219,9999],data:[{d:"Mar 2026",v:596},{d:"Jun 2026",v:321}],what:"Small dense LDL, the most dangerous type, slipping through artery walls most easily.",why:"High small LDL dramatically increases plaque buildup. Yours dropped 46 percent, real progress."},
+  hsCRP:{label:"hs-CRP",unit:"mg/L",cat:"Cardiovascular",optimal:[0,1.0],concern:[1.0,3.0],high:[3.0,999],data:[{d:"Mar 2026",v:1.4},{d:"Jun 2026",v:0.2}],what:"A protein your liver makes when your body is inflamed.",why:"Went from 1.4 to under 0.2, a dramatic improvement in vascular inflammation."},
+  lpPla2:{label:"Lp-PLA2 Activity",unit:"nmol/min/mL",cat:"Cardiovascular",optimal:[0,123],concern:[0,123],high:[123,999],data:[{d:"Mar 2026",v:179},{d:"Jun 2026",v:155}],what:"An enzyme active specifically inside artery walls when cholesterol is building up there.",why:"Still elevated but dropped 24 points. Heading in the right direction."},
   glucose:{label:"Fasting Glucose",unit:"mg/dL",cat:"Metabolic",optimal:[65,99],concern:[100,125],high:[126,999],data:[{d:"Oct 2018",v:80},{d:"Jan 2025",v:90},{d:"Mar 2026",v:88},{d:"Jun 2026",v:96}],what:"The amount of sugar in your blood after not eating. Your bodys main fuel.",why:"Ticked up slightly to 96 but still comfortably within the optimal range."},
-  hba1c:{label:"HbA1c",unit:"%",cat:"Metabolic",optimal:[0,5.7],concern:[5.7,6.4],high:[6.5,99],data:[{d:"Jan 2025",v:4.6},{d:"Mar 2026",v:4.5}],what:"Shows your average blood sugar over 2-3 months.",why:"Not tested this round but was 4.5% last draw — excellent metabolic control."},
-  creatinine:{label:"Creatinine",unit:"mg/dL",cat:"Metabolic",optimal:[0.6,1.29],concern:[1.29,1.7],high:[1.7,99],data:[{d:"Oct 2018",v:0.97},{d:"Jan 2025",v:1.16},{d:"Mar 2026",v:1.26},{d:"Jun 2026",v:1.26}],what:"A waste product from muscle use. Kidneys filter it out of your blood.",why:"Stable at 1.26 — no change from last draw. Creatine supplements affect this number."},
-  egfr:{label:"eGFR",unit:"mL/min",cat:"Metabolic",optimal:[90,999],concern:[60,89],high:[0,59],data:[{d:"Oct 2018",v:98},{d:"Jan 2025",v:79},{d:"Mar 2026",v:71},{d:"Jun 2026",v:71}],hb:true,what:"Estimates how well your kidneys filter your blood per minute.",why:"Stable at 71 — no further decline this period. The plateauing is a positive sign."},
-  alt:{label:"ALT",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:48},{d:"Jan 2025",v:34},{d:"Mar 2026",v:39},{d:"Jun 2026",v:54}],what:"An enzyme inside liver cells. Leaks into blood when liver cells are stressed or damaged.",why:"Back above range at 54. Was normalized last draw. Worth discussing with Brian Barragan."},
-  ast:{label:"AST",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:31},{d:"Jan 2025",v:22},{d:"Mar 2026",v:24},{d:"Jun 2026",v:31}],what:"An enzyme in liver, heart, and muscle cells. Rises when any of those tissues are stressed.",why:"Back to 31 — within normal range."},
-  albumin:{label:"Albumin",unit:"g/dL",cat:"Metabolic",optimal:[3.6,5.1],concern:[3.0,3.6],high:[0,2.9],data:[{d:"Oct 2018",v:5.1},{d:"Jan 2025",v:4.8},{d:"Mar 2026",v:5.0},{d:"Jun 2026",v:5.2}],hb:true,what:"The most abundant blood protein, made by your liver. Carries hormones and vitamins.",why:"At 5.2 the lab flagged it high but this is just barely over the upper limit and not clinically concerning."},
+  hba1c:{label:"HbA1c",unit:"%",cat:"Metabolic",optimal:[0,5.7],concern:[5.7,6.4],high:[6.5,99],data:[{d:"Jan 2025",v:4.6},{d:"Mar 2026",v:4.5}],what:"Shows your average blood sugar over 2 to 3 months.",why:"Not tested this round but was 4.5 percent last draw, excellent metabolic control."},
+  creatinine:{label:"Creatinine",unit:"mg/dL",cat:"Metabolic",optimal:[0.6,1.29],concern:[1.29,1.7],high:[1.7,99],data:[{d:"Oct 2018",v:0.97},{d:"Jan 2025",v:1.16},{d:"Mar 2026",v:1.26},{d:"Jun 2026",v:1.26}],what:"A waste product from muscle use. Kidneys filter it out of your blood.",why:"Stable at 1.26. Creatine supplements affect this number."},
+  egfr:{label:"eGFR",unit:"mL/min",cat:"Metabolic",optimal:[90,999],concern:[60,89],high:[0,59],data:[{d:"Oct 2018",v:98},{d:"Jan 2025",v:79},{d:"Mar 2026",v:71},{d:"Jun 2026",v:71}],hb:true,what:"Estimates how well your kidneys filter your blood per minute.",why:"Stable at 71 with no further decline. The plateauing is a positive sign."},
+  alt:{label:"ALT",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:48},{d:"Jan 2025",v:34},{d:"Mar 2026",v:39},{d:"Jun 2026",v:54}],what:"An enzyme inside liver cells. Leaks into blood when liver cells are stressed or damaged.",why:"Back above range at 54 after normalizing last draw. Worth discussing with Brian Barragan."},
+  ast:{label:"AST",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:31},{d:"Jan 2025",v:22},{d:"Mar 2026",v:24},{d:"Jun 2026",v:31}],what:"An enzyme in liver heart and muscle cells. Rises when any of those tissues are stressed.",why:"Back to 31, within normal range. Together with ALT gives a fuller liver picture."},
+  albumin:{label:"Albumin",unit:"g/dL",cat:"Metabolic",optimal:[3.6,5.1],concern:[3.0,3.6],high:[0,2.9],data:[{d:"Oct 2018",v:5.1},{d:"Jan 2025",v:4.8},{d:"Mar 2026",v:5.0},{d:"Jun 2026",v:5.2}],hb:true,what:"The most abundant blood protein, made by your liver. Carries hormones and vitamins.",why:"At 5.2 the lab flagged it high but this is barely over the upper limit and not clinically concerning."},
   bun:{label:"BUN",unit:"mg/dL",cat:"Metabolic",optimal:[7,25],concern:[25,35],high:[35,999],data:[{d:"Oct 2018",v:22},{d:"Jan 2025",v:29},{d:"Mar 2026",v:25},{d:"Jun 2026",v:19}],what:"A waste product from protein breakdown. Kidneys filter it out.",why:"Dropped back into optimal range at 19. A good sign for kidney function."},
-  tsh:{label:"TSH",unit:"mIU/L",cat:"Thyroid",optimal:[0.4,2.5],concern:[2.5,4.5],high:[4.5,99],data:[{d:"Oct 2018",v:8.52},{d:"Jan 2025",v:8.09},{d:"Mar 2026",v:4.67},{d:"Jun 2026",v:5.36}],what:"The signal your brain sends to your thyroid to make more hormone — like a thermostat reading.",why:"Ticked back up from 4.67 to 5.36 after improving for years. Levothyroxine dose review needed."},
-  freeT4:{label:"Free T4",unit:"ng/dL",cat:"Thyroid",optimal:[0.8,1.8],concern:[0.5,0.79],high:[0,0.49],data:[{d:"Oct 2018",v:1.1},{d:"Jan 2025",v:1.0},{d:"Mar 2026",v:1.2},{d:"Jun 2026",v:1.4}],what:"Your thyroids main hormone. Free means the portion your cells can actually use.",why:"Improved to 1.4 — best reading yet. The medication is converting well."},
-  freeT3:{label:"Free T3",unit:"pg/mL",cat:"Thyroid",optimal:[2.3,4.2],concern:[1.8,2.29],high:[0,1.79],data:[{d:"Oct 2018",v:3.2},{d:"Jan 2025",v:null},{d:"Mar 2026",v:3.1},{d:"Jun 2026",v:3.1}],what:"The active thyroid hormone your cells actually use — the gas pedal for metabolism.",why:"Stable at 3.1 — solidly in the optimal range."},
-  totalTesto:{label:"Total Testosterone",unit:"ng/dL",cat:"Hormones",optimal:[400,1100],concern:[250,399],high:[0,249],data:[{d:"Jan 2025",v:632},{d:"Mar 2026",v:526}],hb:true,what:"All testosterone in your blood — both bound to proteins and freely available.",why:"Not tested this round. Last reading of 526 was in optimal range but declining."},
-  freeTesto:{label:"Free Testosterone",unit:"pg/mL",cat:"Hormones",optimal:[46,224],concern:[30,45],high:[0,29],data:[{d:"Jan 2025",v:58.9},{d:"Mar 2026",v:39.8}],hb:true,what:"The portion of testosterone not bound to proteins — what your body can actually use right now.",why:"Not tested this round. Was below optimal at 39.8. Endocrinology consult still warranted."},
+  tsh:{label:"TSH",unit:"mIU/L",cat:"Thyroid",optimal:[0.4,2.5],concern:[2.5,4.5],high:[4.5,99],data:[{d:"Oct 2018",v:8.52},{d:"Jan 2025",v:8.09},{d:"Mar 2026",v:4.67},{d:"Jun 2026",v:5.36}],what:"The signal your brain sends to your thyroid to make more hormone, like a thermostat reading.",why:"Ticked back up from 4.67 to 5.36 after years of improvement. Levothyroxine dose review needed."},
+  freeT4:{label:"Free T4",unit:"ng/dL",cat:"Thyroid",optimal:[0.8,1.8],concern:[0.5,0.79],high:[0,0.49],data:[{d:"Oct 2018",v:1.1},{d:"Jan 2025",v:1.0},{d:"Mar 2026",v:1.2},{d:"Jun 2026",v:1.4}],what:"Your thyroids main hormone. Free means the portion your cells can actually use.",why:"Improved to 1.4, best reading yet. The medication is converting well."},
+  freeT3:{label:"Free T3",unit:"pg/mL",cat:"Thyroid",optimal:[2.3,4.2],concern:[1.8,2.29],high:[0,1.79],data:[{d:"Oct 2018",v:3.2},{d:"Mar 2026",v:3.1},{d:"Jun 2026",v:3.1}],what:"The active thyroid hormone your cells actually use, the gas pedal for metabolism.",why:"Stable at 3.1, solidly in the optimal range."},
+  totalTesto:{label:"Total Testosterone",unit:"ng/dL",cat:"Hormones",optimal:[400,1100],concern:[250,399],high:[0,249],data:[{d:"Jan 2025",v:632},{d:"Mar 2026",v:526}],hb:true,what:"All testosterone in your blood, both bound to proteins and freely available.",why:"Not tested this round. Last reading of 526 was in optimal range but declining."},
+  freeTesto:{label:"Free Testosterone",unit:"pg/mL",cat:"Hormones",optimal:[46,224],concern:[30,45],high:[0,29],data:[{d:"Jan 2025",v:58.9},{d:"Mar 2026",v:39.8}],hb:true,what:"The portion of testosterone not bound to proteins, what your body can actually use right now.",why:"Not tested this round. Was below optimal at 39.8. Endocrinology consult still warranted."},
   shbg:{label:"SHBG",unit:"nmol/L",cat:"Hormones",optimal:[10,50],concern:[50,70],high:[70,999],data:[{d:"Jan 2025",v:52},{d:"Mar 2026",v:62}],what:"A protein that binds testosterone in blood. Bound testosterone cannot be used.",why:"Not tested this round. Was elevated at 62, reducing free testosterone availability."},
-  wbc:{label:"WBC",unit:"K/uL",cat:"Blood",optimal:[3.8,10.8],concern:[3.0,3.79],high:[0,2.99],data:[{d:"Oct 2018",v:9.1},{d:"Jan 2025",v:3.9},{d:"Mar 2026",v:8.5},{d:"Jun 2026",v:3.8}],what:"Your immune system soldiers — they fight infections, viruses, and invaders.",why:"At 3.8 — right at the lower boundary of normal. Worth watching but not alarming."},
-  hemoglobin:{label:"Hemoglobin",unit:"g/dL",cat:"Blood",optimal:[13.2,17.1],concern:[11,13.1],high:[0,10.9],data:[{d:"Oct 2018",v:14.4},{d:"Jan 2025",v:15.1},{d:"Mar 2026",v:15.6},{d:"Jun 2026",v:15.2}],hb:true,what:"The protein inside red blood cells that carries oxygen from lungs to every cell.",why:"Stable at 15.2 — well within optimal range."},
-  hematocrit:{label:"Hematocrit",unit:"%",cat:"Blood",optimal:[38.5,50],concern:[35,38.4],high:[0,34.9],data:[{d:"Oct 2018",v:40.7},{d:"Jan 2025",v:44.7},{d:"Mar 2026",v:44.1},{d:"Jun 2026",v:44.7}],what:"The percentage of your blood made up of red blood cells.",why:"Stable and optimal at 44.7%."},
+  wbc:{label:"WBC",unit:"K/uL",cat:"Blood",optimal:[3.8,10.8],concern:[3.0,3.79],high:[0,2.99],data:[{d:"Oct 2018",v:9.1},{d:"Jan 2025",v:3.9},{d:"Mar 2026",v:8.5},{d:"Jun 2026",v:3.8}],what:"Your immune system soldiers. They fight infections viruses and invaders.",why:"At 3.8, right at the lower boundary of normal. Worth watching but not alarming."},
+  hemoglobin:{label:"Hemoglobin",unit:"g/dL",cat:"Blood",optimal:[13.2,17.1],concern:[11,13.1],high:[0,10.9],data:[{d:"Oct 2018",v:14.4},{d:"Jan 2025",v:15.1},{d:"Mar 2026",v:15.6},{d:"Jun 2026",v:15.2}],hb:true,what:"The protein inside red blood cells that carries oxygen from lungs to every cell.",why:"Stable at 15.2, well within optimal range."},
+  hematocrit:{label:"Hematocrit",unit:"%",cat:"Blood",optimal:[38.5,50],concern:[35,38.4],high:[0,34.9],data:[{d:"Oct 2018",v:40.7},{d:"Jan 2025",v:44.7},{d:"Mar 2026",v:44.1},{d:"Jun 2026",v:44.7}],what:"The percentage of your blood made up of red blood cells.",why:"Stable and optimal at 44.7 percent."},
   platelets:{label:"Platelet Count",unit:"K/uL",cat:"Blood",optimal:[140,400],concern:[100,139],high:[0,99],data:[{d:"Oct 2018",v:196},{d:"Jan 2025",v:213},{d:"Mar 2026",v:227},{d:"Jun 2026",v:216}],what:"Tiny fragments that clump together to stop bleeding at injured blood vessels.",why:"Stable and optimal at 216."},
-  vitD:{label:"Vitamin D",unit:"ng/mL",cat:"Vitamins",optimal:[40,100],concern:[30,39],high:[0,29],data:[{d:"Jan 2025",v:68}],hb:true,what:"Made by skin in sunlight. Acts more like a hormone than a vitamin.",why:"Not retested — was 68 ng/mL (optimal). Supplements are maintaining this well."},
-  vitB12:{label:"Vitamin B12",unit:"pg/mL",cat:"Vitamins",optimal:[300,1100],concern:[200,299],high:[0,199],data:[{d:"Jan 2025",v:596}],hb:true,what:"Found mainly in animal products. Essential for red blood cells and nervous system.",why:"Not retested — was 596 pg/mL (optimal)."},
-  folate:{label:"Folate",unit:"ng/mL",cat:"Vitamins",optimal:[5.4,99],concern:[3.4,5.3],high:[0,3.3],data:[{d:"Jan 2025",v:16.5}],hb:true,what:"Vitamin B9 — helps build DNA and make new cells, especially red blood cells.",why:"Not retested — was 16.5 ng/mL (optimal)."},
-  psa:{label:"PSA Total",unit:"ng/mL",cat:"Prostate",optimal:[0,2.5],concern:[2.5,4.0],high:[4.0,99],data:[{d:"Jan 2025",v:0.26}],what:"A protein made by prostate cells. Small amounts normally enter the blood.",why:"Not retested — was 0.26 ng/mL (optimal)."},
+  vitD:{label:"Vitamin D",unit:"ng/mL",cat:"Vitamins",optimal:[40,100],concern:[30,39],high:[0,29],data:[{d:"Jan 2025",v:68}],hb:true,what:"Made by skin in sunlight. Acts more like a hormone than a vitamin.",why:"Not retested. Was 68 ng/mL, optimal. Supplements are maintaining this well."},
+  vitB12:{label:"Vitamin B12",unit:"pg/mL",cat:"Vitamins",optimal:[300,1100],concern:[200,299],high:[0,199],data:[{d:"Jan 2025",v:596}],hb:true,what:"Found mainly in animal products. Essential for red blood cells and nervous system.",why:"Not retested. Was 596 pg/mL, optimal."},
+  folate:{label:"Folate",unit:"ng/mL",cat:"Vitamins",optimal:[5.4,99],concern:[3.4,5.3],high:[0,3.3],data:[{d:"Jan 2025",v:16.5}],hb:true,what:"Vitamin B9. Helps build DNA and make new cells especially red blood cells.",why:"Not retested. Was 16.5 ng/mL, optimal."},
+  psa:{label:"PSA Total",unit:"ng/mL",cat:"Prostate",optimal:[0,2.5],concern:[2.5,4.0],high:[4.0,99],data:[{d:"Jan 2025",v:0.26}],what:"A protein made by prostate cells. Small amounts normally enter the blood.",why:"Not retested. Was 0.26 ng/mL, optimal."}
 };
 
-const CATS=["All","Cardiovascular","Metabolic","Thyroid","Hormones","Blood","Vitamins","Prostate"];
-const CAT_ICONS={Cardiovascular:"♥",Metabolic:"⚡",Thyroid:"◈",Hormones:"◉",Blood:"◆",Vitamins:"✦",Prostate:"◎"};
+var CATS=["All","Cardiovascular","Metabolic","Thyroid","Hormones","Blood","Vitamins","Prostate"];
+var CICONS={Cardiovascular:"&#9829;",Metabolic:"&#9889;",Thyroid:"&#9672;",Hormones:"&#9711;",Blood:"&#9670;",Vitamins:"&#10022;",Prostate:"&#9676;"};
 
-const INSIGHTS=[
-  {type:"positive",title:"LDL: Real Progress — Down 40 Points",body:"LDL dropped from 153 to 113 mg/dL — the first meaningful decline after three consecutive rises. ApoB fell 129 to 99, LDL particle # dropped from 2,097 to 1,387, and LDL Small nearly halved. Your Omega-3s, Berberine, and Psyllium stack appears to be working."},
-  {type:"positive",title:"hs-CRP: Dramatic Improvement",body:"hs-CRP went from 1.4 mg/L down to under 0.2 mg/L — essentially undetectable. This is a major win for vascular inflammation. Lp-PLA2 also dropped from 179 to 155. The anti-inflammatory combination in your stack is clearly having an effect."},
-  {type:"positive",title:"Triglycerides: Excellent Drop",body:"Triglycerides fell from 103 to 71 mg/dL — now in an excellent range. This likely reflects your dietary improvements and Omega-3 supplementation."},
-  {type:"warning",title:"TSH: Ticked Back Up",body:"TSH rose from 4.67 to 5.36 mIU/L — moving in the wrong direction after years of improvement. Free T4 improved to 1.4 (best reading yet). This pattern may suggest your Levothyroxine dose needs adjustment. Discuss with Brian Barragan soon."},
-  {type:"warning",title:"ALT: Back Above Range",body:"ALT jumped from 39 to 54 U/L — back above the 46 U/L cutoff after normalizing last draw. Could reflect increased supplement load, exercise intensity, or diet. Worth flagging with Brian Barragan."},
-  {type:"stabilized",title:"eGFR: Holding Steady",body:"eGFR remained at 71 mL/min — no further decline from the March 2026 reading. After dropping 27 points over the prior 7 years, stabilization is meaningful. Continue staying well hydrated."},
-  {type:"turning",title:"LDL Particle # and Small LDL: Turning a Corner",body:"LDL particle # dropped from 2,097 to 1,387 (still in concern zone but significant). LDL Small dropped from 596 to 321. Pattern B persists but the direction is clearly improving."},
-  {type:"alert",title:"Free Testosterone: Still Needs Evaluation",body:"Not retested this round. Last reading (39.8 pg/mL) was below the optimal 46+ range with rising SHBG at 62. An endocrinology consult is still the right next step."},
-  {type:"positive",title:"Metabolic Health Remains Excellent",body:"Glucose at 96 (optimal), BUN improved to 19, and prior HbA1c of 4.5% reflects excellent blood sugar control. Your metabolic foundation is strong."},
-  {type:"rx",title:"Levothyroxine Timing — Still Critical",body:"TSH rising despite good T4 may reflect timing or absorption issues. Ensure Levothyroxine is taken fasted, 30-60 minutes before food, and at least 4 hours before Magnesium, Psyllium, and the O.N.E. Multivitamin."},
+var INSIGHTS=[
+  {type:"positive",title:"LDL: Real Progress Down 40 Points",body:"LDL dropped from 153 to 113 mg/dL, the first meaningful decline after three consecutive rises. ApoB fell 129 to 99, LDL particle # dropped from 2,097 to 1,387, and LDL Small nearly halved. Your Omega-3s, Berberine, and Psyllium stack appears to be working."},
+  {type:"positive",title:"hs-CRP: Dramatic Improvement",body:"hs-CRP went from 1.4 mg/L down to under 0.2 mg/L, essentially undetectable. This is a major win for vascular inflammation. Lp-PLA2 also dropped from 179 to 155. The anti-inflammatory combination in your stack is clearly having an effect."},
+  {type:"positive",title:"Triglycerides: Excellent Drop",body:"Triglycerides fell from 103 to 71 mg/dL, now in an excellent range. This likely reflects your dietary improvements and Omega-3 supplementation."},
+  {type:"warning",title:"TSH: Ticked Back Up",body:"TSH rose from 4.67 to 5.36 mIU/L, moving in the wrong direction after years of improvement. Free T4 improved to 1.4, best reading yet. This pattern may suggest your Levothyroxine dose needs adjustment. Discuss with Brian Barragan soon."},
+  {type:"warning",title:"ALT: Back Above Range",body:"ALT jumped from 39 to 54 U/L, back above the 46 cutoff after normalizing last draw. Could reflect increased supplement load, exercise intensity, or diet. Worth flagging with Brian Barragan."},
+  {type:"stabilized",title:"eGFR: Holding Steady",body:"eGFR remained at 71 mL/min with no further decline from March 2026. After dropping 27 points over the prior 7 years, stabilization is meaningful. Continue staying well hydrated."},
+  {type:"turning",title:"LDL Particle and Small LDL: Turning a Corner",body:"LDL particle # dropped from 2,097 to 1,387, still in concern zone but significant. LDL Small dropped from 596 to 321. Pattern B persists but the direction is clearly improving."},
+  {type:"alert",title:"Free Testosterone: Still Needs Evaluation",body:"Not retested this round. Last reading of 39.8 pg/mL was below the optimal 46+ range with rising SHBG at 62. An endocrinology consult is still the right next step."},
+  {type:"positive",title:"Metabolic Health Remains Excellent",body:"Glucose at 96, BUN improved to 19, and prior HbA1c of 4.5% reflects excellent blood sugar control. Your metabolic foundation is strong."},
+  {type:"rx",title:"Levothyroxine Timing Still Critical",body:"TSH rising despite good T4 may reflect timing or absorption issues. Ensure Levothyroxine is taken fasted 30 to 60 minutes before food, and at least 4 hours before Magnesium, Psyllium, and the O.N.E. Multivitamin."}
 ];
 
-const ACTIONS=[
-  {priority:1,action:"Discuss TSH rising to 5.36 with Brian Barragan — Levothyroxine dose review",why:"TSH went backward 4.67 to 5.36 despite good Free T4. Dose adjustment may be needed.",urgency:"high",doctor:"Brian Barragan, PA"},
-  {priority:2,action:"Discuss ALT elevation (54) with Brian Barragan",why:"Back above range after normalizing last draw. Cause needs to be identified.",urgency:"high",doctor:"Brian Barragan, PA"},
-  {priority:3,action:"Follow up with Dr. Nguyen — share improved lipid results",why:"LDL down 40 pts, hs-CRP near zero, Lp-PLA2 improving. Discuss whether current approach is sufficient.",urgency:"medium",doctor:"Huy Nguyen, MD"},
-  {priority:4,action:"Get endocrinology referral for free testosterone evaluation",why:"Still unaddressed from last panel — 39.8 pg/mL below optimal, SHBG elevated.",urgency:"medium",doctor:"Brian Barragan, PA"},
-  {priority:5,action:"Retest LDL particle #, ApoB, and Lp-PLA2 in 3-4 months",why:"Lipid picture improving but still needs to reach optimal. Track the momentum.",urgency:"low",doctor:"Brian Barragan, PA"},
+var ACTIONS=[
+  {priority:1,action:"Discuss TSH rising to 5.36 with Brian Barragan, Levothyroxine dose review",why:"TSH went backward 4.67 to 5.36 despite good Free T4. Dose adjustment may be needed.",urgency:"high",doctor:"Brian Barragan, PA"},
+  {priority:2,action:"Discuss ALT elevation of 54 with Brian Barragan",why:"Back above range after normalizing last draw. Cause needs to be identified.",urgency:"high",doctor:"Brian Barragan, PA"},
+  {priority:3,action:"Follow up with Dr. Nguyen, share improved lipid results",why:"LDL down 40 pts, hs-CRP near zero, Lp-PLA2 improving. Discuss whether current approach is sufficient.",urgency:"medium",doctor:"Huy Nguyen, MD"},
+  {priority:4,action:"Get endocrinology referral for free testosterone evaluation",why:"Still unaddressed from last panel, 39.8 pg/mL below optimal, SHBG elevated.",urgency:"medium",doctor:"Brian Barragan, PA"},
+  {priority:5,action:"Retest LDL particle #, ApoB, and Lp-PLA2 in 3 to 4 months",why:"Lipid picture improving but still needs to reach optimal. Track the momentum.",urgency:"low",doctor:"Brian Barragan, PA"}
 ];
 
-const NEXT_PANEL=["TSH + Free T4 (Levothyroxine dose review)","ALT + AST + GGT (liver enzyme follow-up)","Free testosterone + SHBG + LH/FSH","Repeat ApoB + LDL-P (track improvement)","Lp-PLA2 + hs-CRP (confirm inflammation trend)","HbA1c + fasting glucose (metabolic check)"];
+var NEXT_PANEL=["TSH + Free T4 (Levothyroxine dose review)","ALT + AST + GGT (liver enzyme follow-up)","Free testosterone + SHBG + LH/FSH","Repeat ApoB + LDL-P (track improvement)","Lp-PLA2 + hs-CRP (confirm inflammation trend)","HbA1c + fasting glucose (metabolic check)"];
 
-const DOCTORS=[
-  {id:"pcp",icon:"🩺",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",bms:["TSH","Free T4","Free T3","ALT","AST","eGFR","Creatinine"]},
-  {id:"cardio",icon:"♥",role:"Cardiologist",name:"Huy Nguyen, MD, FACC",practice:"Coastal Cardiology of Orange County",address:"333 Corporate Drive Ste 102, Ladera Ranch, CA 92694",phone:"949-276-2446",email:"",bms:["LDL","ApoB","Lp-PLA2","hs-CRP","LDL Particle #","LDL Small"]},
+var CONTACTS=[
+  {id:"pcp",icon:"steth",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",tags:["TSH","Free T4","ALT","AST","eGFR"]},
+  {id:"cardio",icon:"heart",role:"Cardiologist",name:"Huy Nguyen, MD, FACC",practice:"Coastal Cardiology of Orange County",address:"333 Corporate Drive Ste 102, Ladera Ranch, CA 92694",phone:"949-276-2446",email:"",tags:["LDL","ApoB","Lp-PLA2","hs-CRP","LDL Particle #"]},
+  {id:"walgreens",icon:"walg",role:"Pharmacy",name:"Walgreens",practice:"Prescription Refills and Supplements",phone:"",email:"",mapsUrl:"https://maps.apple.com/place?auid=3C2.0GEwVVMd3",tags:["Levothyroxine refills","Supplement orders"]}
 ];
 
-const MEDS=[
-  {name:"Levothyroxine",dose:"50 mcg",freq:"Daily — morning, fasted",rx:"Brian Barragan, PA",purpose:"Thyroid hormone replacement for hypothyroidism (elevated TSH).",how:"Replaces T4 your thyroid does not produce enough of. Body converts it to active T3, driving metabolism and energy.",impact:["Free T4 improved to 1.4 — best reading yet","Free T3 stable at 3.1 — optimal","TSH ticked back up to 5.36 — dose review needed"],note:"TSH rose from 4.67 to 5.36 this draw despite improving Free T4. Discuss urgently with Brian Barragan. Ensure strict separation from Mg, psyllium, and multivitamin.",color:"#60a5fa"},
+var MEDS=[
+  {name:"Levothyroxine",dose:"50 mcg",freq:"Daily, morning fasted",rx:"Brian Barragan, PA",purpose:"Thyroid hormone replacement for hypothyroidism.",how:"Replaces T4 your thyroid does not produce enough of. Body converts it to active T3, driving metabolism and energy.",impact:["Free T4 improved to 1.4, best reading yet","Free T3 stable at 3.1, optimal","TSH ticked back up to 5.36, dose review needed"],note:"TSH rose from 4.67 to 5.36 despite improving Free T4. Discuss urgently with Brian Barragan. Ensure strict separation from Mg, psyllium, and multivitamin by 4+ hours.",color:"#60a5fa"}
 ];
 
-const SUPPS=[
-  {name:"Ultimate Omega",brand:"Nordic Naturals",dose:"2 caps/day",goal:"Cardiovascular",color:"#ef4444",effect:"Reduces triglycerides and vascular inflammation (EPA+DHA).",impact:["hs-CRP: 1.4 to 0.2 — dramatic improvement","Triglycerides: 103 to 71 — excellent","Lp-PLA2: 179 to 155 — improving"],note:"This is doing exactly what it should. hs-CRP is near zero and triglycerides have dropped significantly."},
-  {name:"Berberine",brand:"Thorne",dose:"1 cap/day",goal:"Cardiovascular",color:"#f59e0b",effect:"Activates AMPK — improves insulin sensitivity, lowers LDL and blood sugar.",impact:["LDL: 153 to 113 — down 40 points","Triglycerides: 103 to 71","Glucose: 96 — still optimal"],note:"LDL drop is consistent with berberine mechanism. Separate from Levothyroxine by 2+ hours."},
-  {name:"Nattokinase 4000 FU",brand:"Double Wood",dose:"2 caps/day",goal:"Cardiovascular",color:"#f59e0b",effect:"Enzyme that breaks down fibrin — supports healthy blood flow.",impact:["Blood viscosity support","Arterial stiffness reduction"],note:"Mild blood-thinning effect — keep Dr. Nguyen informed."},
-  {name:"Whey Protein Isolate",brand:"Thorne",dose:"1 scoop/day",goal:"Fitness",color:"#22c55e",effect:"Fast-absorbing complete protein for muscle synthesis and recovery.",impact:["Albumin: 5.2 — excellent","Muscle retention with low free testosterone"],note:"Keep prioritizing protein intake — critical given free testosterone picture."},
-  {name:"Creatine",brand:"Thorne",dose:"1 scoop/day",goal:"Fitness",color:"#22c55e",effect:"Increases strength, power, and lean mass.",impact:["Creatinine stable at 1.26 (partly affected by creatine)","eGFR stable at 71 — no decline this period"],note:"IMPORTANT: creatine raises creatinine. Ensure Brian Barragan knows you take this."},
-  {name:"LMNT Electrolytes",brand:"LMNT",dose:"1 packet/day",goal:"Fitness",color:"#22c55e",effect:"Sodium, potassium, magnesium — replaces electrolytes lost through sweat.",impact:["Sodium: 140 — optimal","Potassium: 4.9 — optimal","Hydration supports stable eGFR"],note:"eGFR held stable this draw — hydration is helping."},
-  {name:"UltraFlora Probiotic",brand:"Metagenics",dose:"1 cap/day",goal:"Gut Health",color:"#a78bfa",effect:"Supports gut microbiome, immune function, reduces systemic inflammation.",impact:["hs-CRP near zero — inflammation dramatically reduced","Gut-cardiovascular axis support"],note:"The hs-CRP near-zero result likely reflects the combined effect of Omega-3s, probiotic, and sulforaphane."},
-  {name:"Psyllium Whole Husks",brand:"Yerba Prima",dose:"1 scoop/day",goal:"Gut Health",color:"#a78bfa",effect:"Soluble fiber that binds cholesterol in the gut for excretion.",impact:["LDL: 153 to 113 — contributing factor","Total Cholesterol: 224 to 187","Non-HDL back into optimal range"],note:"Separate from Levothyroxine by 2+ hours. One of the most impactful items in your stack."},
-  {name:"Sulforaphane",brand:"Double Wood",dose:"2 caps/day",goal:"Detox",color:"#a78bfa",effect:"Activates Nrf2 pathway — master switch for cellular detox and antioxidant defense.",impact:["hs-CRP near zero — anti-inflammatory contribution","ALT back up to 54 — liver may need monitoring"],note:"Despite sulforaphane, ALT rose this draw. May be worth evaluating total supplement load with your doctor."},
-  {name:"O.N.E. Multivitamin",brand:"Pure Encapsulations",dose:"1 cap/day",goal:"Essential Health",color:"#60a5fa",effect:"Activated B vitamins, antioxidants, micronutrients.",impact:["B12 and folate maintained optimally","Selenium and zinc support thyroid conversion"],note:"Separate from Levothyroxine by 4+ hours due to mineral content."},
-  {name:"Magnesium Glycinate 400mg",brand:"Double Wood",dose:"1 cap/day",goal:"Essential Health",color:"#60a5fa",effect:"Most bioavailable magnesium — supports sleep, muscle, blood pressure, insulin.",impact:["Glucose: 96 — stable and optimal","Sleep and recovery support"],note:"TIMING: take at dinner or bedtime — at least 4 hours after morning Levothyroxine."},
-  {name:"D3 125mcg + K2 100mcg",brand:"Sports Research",dose:"1 gel/day",goal:"Bone and Joint",color:"#60a5fa",effect:"D3 for immune, bone, and mood. K2 directs calcium into bones not arteries.",impact:["Vitamin D maintained at 68 ng/mL (optimal)","K2 relevant given improving lipid picture"],note:"D3+K2 pairing is especially smart given your cardiovascular picture."},
-  {name:"Turmeric Glucosamine",brand:"Natures Nutrition",dose:"3 caps/day",goal:"Joint",color:"#f59e0b",effect:"Glucosamine rebuilds cartilage. Curcumin reduces inflammation.",impact:["hs-CRP near zero — curcumin contributing","Joint mobility supports exercise capacity"],note:"The hs-CRP near-zero result likely reflects the combined anti-inflammatory effect of this plus Omega-3s."},
-  {name:"Resveratrol 500mg",brand:"Vital Nutrients",dose:"1 cap/day",goal:"Longevity",color:"#a78bfa",effect:"Activates sirtuin longevity proteins. Antioxidant and anti-inflammatory.",impact:["hs-CRP reduction — anti-inflammatory contribution","Synergistic with NMN"],note:"Pairs synergistically with NMN. Human longevity evidence still growing."},
-  {name:"Fast Dissolve NMN",brand:"Renue by Science",dose:"1 scoop/day",goal:"Longevity",color:"#a78bfa",effect:"Raises NAD+ levels — supports mitochondrial function, DNA repair, and energy.",impact:["Cellular energy support (not a standard lab test)","Synergistic with Resveratrol"],note:"Sublingual delivery improves bioavailability significantly over standard capsules."},
+var SUPPS=[
+  {name:"Ultimate Omega",brand:"Nordic Naturals",dose:"2 caps/day",goal:"Cardiovascular",color:"#f87171",effect:"Reduces triglycerides and vascular inflammation via EPA and DHA.",impact:["hs-CRP: 1.4 to 0.2, dramatic improvement","Triglycerides: 103 to 71, excellent","Lp-PLA2: 179 to 155, improving"],note:"This is doing exactly what it should. hs-CRP is near zero and triglycerides have dropped significantly."},
+  {name:"Berberine",brand:"Thorne",dose:"1 cap/day",goal:"Cardiovascular",color:"#fbbf24",effect:"Activates AMPK, improves insulin sensitivity, lowers LDL and blood sugar.",impact:["LDL: 153 to 113, down 40 points","Triglycerides: 103 to 71","Glucose: 96, still optimal"],note:"LDL drop is consistent with berberine mechanism. Separate from Levothyroxine by 2+ hours."},
+  {name:"Nattokinase 4000 FU",brand:"Double Wood",dose:"2 caps/day",goal:"Cardiovascular",color:"#fbbf24",effect:"Enzyme that breaks down fibrin and supports healthy blood flow.",impact:["Blood viscosity support","Arterial stiffness reduction"],note:"Mild blood-thinning effect. Keep Dr. Nguyen informed."},
+  {name:"Whey Protein Isolate",brand:"Thorne",dose:"1 scoop/day",goal:"Fitness",color:"#4ade80",effect:"Fast-absorbing complete protein for muscle synthesis and recovery.",impact:["Albumin: 5.2, excellent","Muscle retention with low free testosterone"],note:"Keep prioritizing protein intake. Critical given free testosterone picture."},
+  {name:"Creatine",brand:"Thorne",dose:"1 scoop/day",goal:"Fitness",color:"#4ade80",effect:"Increases strength, power, and lean mass.",impact:["Creatinine stable at 1.26, partly affected by creatine","eGFR stable at 71, no decline this period"],note:"IMPORTANT: creatine raises creatinine. Ensure Brian Barragan knows you take this."},
+  {name:"LMNT Electrolytes",brand:"LMNT",dose:"1 packet/day",goal:"Fitness",color:"#4ade80",effect:"Sodium, potassium, magnesium. Replaces electrolytes lost through sweat.",impact:["Sodium: 140, optimal","Potassium: 4.9, optimal","Hydration supports stable eGFR"],note:"eGFR held stable this draw. Hydration is helping."},
+  {name:"UltraFlora Probiotic",brand:"Metagenics",dose:"1 cap/day",goal:"Gut Health",color:"#c4b5fd",effect:"Supports gut microbiome, immune function, reduces systemic inflammation.",impact:["hs-CRP near zero, inflammation dramatically reduced","Gut-cardiovascular axis support"],note:"The hs-CRP near-zero result likely reflects the combined effect of Omega-3s, probiotic, and sulforaphane."},
+  {name:"Psyllium Whole Husks",brand:"Yerba Prima",dose:"1 scoop/day",goal:"Gut Health",color:"#c4b5fd",effect:"Soluble fiber that binds cholesterol in the gut for excretion.",impact:["LDL: 153 to 113, contributing factor","Total Cholesterol: 224 to 187","Non-HDL back into optimal range"],note:"Separate from Levothyroxine by 2+ hours. One of the most impactful items in your stack."},
+  {name:"Sulforaphane",brand:"Double Wood",dose:"2 caps/day",goal:"Detox",color:"#c4b5fd",effect:"Activates Nrf2 pathway, master switch for cellular detox and antioxidant defense.",impact:["hs-CRP near zero, anti-inflammatory contribution","ALT back up to 54, liver may need monitoring"],note:"Despite sulforaphane, ALT rose this draw. May be worth evaluating total supplement load with your doctor."},
+  {name:"O.N.E. Multivitamin",brand:"Pure Encapsulations",dose:"1 cap/day",goal:"Essential Health",color:"#7dd3fc",effect:"Activated B vitamins, antioxidants, micronutrients.",impact:["B12 and folate maintained optimally","Selenium and zinc support thyroid conversion"],note:"Separate from Levothyroxine by 4+ hours due to mineral content."},
+  {name:"Magnesium Glycinate 400mg",brand:"Double Wood",dose:"1 cap/day",goal:"Essential Health",color:"#7dd3fc",effect:"Most bioavailable magnesium. Supports sleep, muscle, blood pressure, insulin.",impact:["Glucose: 96, stable and optimal","Sleep and recovery support"],note:"TIMING: take at dinner or bedtime, at least 4 hours after morning Levothyroxine."},
+  {name:"D3 125mcg + K2 100mcg",brand:"Sports Research",dose:"1 gel/day",goal:"Bone and Joint",color:"#7dd3fc",effect:"D3 for immune, bone, and mood. K2 directs calcium into bones not arteries.",impact:["Vitamin D maintained at 68 ng/mL, optimal","K2 relevant given improving lipid picture"],note:"D3+K2 pairing is especially smart given your cardiovascular picture."},
+  {name:"Turmeric Glucosamine",brand:"Natures Nutrition",dose:"3 caps/day",goal:"Joint",color:"#fbbf24",effect:"Glucosamine rebuilds cartilage. Curcumin reduces inflammation.",impact:["hs-CRP near zero, curcumin contributing","Joint mobility supports exercise capacity"],note:"The hs-CRP near-zero result likely reflects the combined anti-inflammatory effect of this plus Omega-3s."},
+  {name:"Resveratrol 500mg",brand:"Vital Nutrients",dose:"1 cap/day",goal:"Longevity",color:"#c4b5fd",effect:"Activates sirtuin longevity proteins. Antioxidant and anti-inflammatory.",impact:["hs-CRP reduction, anti-inflammatory contribution","Synergistic with NMN"],note:"Pairs synergistically with NMN. Human longevity evidence still growing."},
+  {name:"Fast Dissolve NMN",brand:"Renue by Science",dose:"1 scoop/day",goal:"Longevity",color:"#c4b5fd",effect:"Raises NAD+ levels. Supports mitochondrial function, DNA repair, and energy.",impact:["Cellular energy support","Synergistic with Resveratrol"],note:"Sublingual delivery improves bioavailability significantly."}
 ];
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
-function getStatus(bm,val){
-  if(val==null)return"no-data";
-  const[lo,hi]=bm.optimal;
-  if(bm.hb){if(val>=lo)return"optimal";if(val>=bm.concern[0])return"concern";return"high";}
-  if(val>=lo&&val<=hi)return"optimal";
-  if(val>=bm.concern[0]&&val<=bm.concern[1])return"concern";
-  return"high";
+function gs(bm,val){
+  if(val==null)return"nd";
+  var lo=bm.optimal[0],hi=bm.optimal[1];
+  if(bm.hb){if(val>=lo)return"o";if(val>=bm.concern[0])return"c";return"h";}
+  if(val>=lo&&val<=hi)return"o";
+  if(val>=bm.concern[0]&&val<=bm.concern[1])return"c";
+  return"h";
 }
-function getLatest(bm){return[...bm.data].reverse().find(d=>d.v!=null);}
-function getStatusForKey(k){return getStatus(BM[k],getLatest(BM[k])?.v);}
-function getTrend(data){
-  const v=data.filter(d=>d.v!=null);
-  if(v.length<2)return"stable";
-  const p=((v[v.length-1].v-v[v.length-2].v)/v[v.length-2].v)*100;
-  return Math.abs(p)<3?"stable":p>0?"up":"down";
+function gl(bm){var a=bm.data.slice().reverse();for(var i=0;i<a.length;i++){if(a[i].v!=null)return a[i];}return null;}
+function gsk(k){return gs(BM[k],gl(BM[k])?.v);}
+function gt(data){
+  var v=data.filter(function(d){return d.v!=null;});
+  if(v.length<2)return"s";
+  var p=(v[v.length-1].v-v[v.length-2].v)/v[v.length-2].v*100;
+  return Math.abs(p)<3?"s":p>0?"u":"d";
 }
-function color(s){return s==="optimal"?"#22c55e":s==="concern"?"#f59e0b":s==="high"?"#ef4444":"#6b7280";}
-function dot(s,size){size=size||8;return'<span class="dot" style="width:'+size+'px;height:'+size+'px;background:'+color(s)+(s==="optimal"?';box-shadow:0 0 6px '+color(s)+'80':'')+';"></span>';}
-function arrow(trend,hb){
-  const good=(trend==="up"&&hb)||(trend==="down"&&!hb);
-  const c=trend==="stable"?"#6b7280":good?"#22c55e":"#ef4444";
-  return'<span style="color:'+c+';font-size:13px;font-weight:700">'+(trend==="up"?"↑":trend==="down"?"↓":"→")+'</span>';
+function gc(s){return s==="o"?"#4ade80":s==="c"?"#fbbf24":s==="h"?"#f87171":"#64748b";}
+function mkdot(s,sz){sz=sz||8;return'<span class="dot" style="width:'+sz+'px;height:'+sz+'px;background:'+gc(s)+(s==="o"?';box-shadow:0 0 7px '+gc(s)+'90':'')+';"></span>';}
+function mkarrow(tr,hb){
+  var good=(tr==="u"&&hb)||(tr==="d"&&!hb);
+  var c=tr==="s"?"#64748b":good?"#4ade80":"#f87171";
+  return'<span style="color:'+c+';font-size:12px;font-weight:700">'+(tr==="u"?"&#8593;":tr==="d"?"&#8595;":"&#8594;")+'</span>';
 }
-function optStr(bm){return bm.optimal[1]>900?"Above "+bm.optimal[0]:bm.optimal[0]+" - "+bm.optimal[1];}
-function computeScore(){
-  let t=0,c=0;
-  Object.keys(BM).forEach(k=>{const v=getLatest(BM[k])?.v;if(v==null)return;const s=getStatusForKey(k);t+=s==="optimal"?100:s==="concern"?55:10;c++;});
+function opts(bm){return bm.optimal[1]>900?"Above "+bm.optimal[0]:bm.optimal[0]+" - "+bm.optimal[1];}
+function score(){
+  var t=0,c=0;
+  Object.keys(BM).forEach(function(k){
+    var v=gl(BM[k])?.v;if(v==null)return;
+    var s=gsk(k);t+=s==="o"?100:s==="c"?55:10;c++;
+  });
   return Math.round(t/c);
 }
 
-// ── CHART (inline, animated) ─────────────────────────────────────────────────
-const chartInstances={};
-let openChartKey=null;
-
-function buildInlineChart(k){
-  const bm=BM[k];
-  const valid=bm.data.filter(d=>d.v!=null);
-  const pts=bm.data.map(d=>{
-    const s=getStatus(bm,d.v);
-    return'<div class="chart-pt" style="border-color:'+(d.v!=null?color(s)+'40':'#1a2235')+'">'+'<div class="chart-pt-date">'+d.d+'</div>'+(d.v!=null?'<div class="chart-pt-val" style="color:'+color(s)+'">'+d.v+'</div>':'<div style="font-size:11px;color:#2d3748">-</div>')+'</div>';
+var charts={},openKey=null;
+function buildChart(k){
+  var bm=BM[k];
+  var pts=bm.data.map(function(d){
+    var s=gs(bm,d.v);
+    return'<div class="chart-pt" style="border-color:'+(d.v!=null?gc(s)+'50':'#1e293b')+'">'
+      +'<div class="chart-pt-date">'+d.d+'</div>'
+      +(d.v!=null?'<div class="chart-pt-val" style="color:'+gc(s)+'">'+d.v+'</div>':'<div style="font-size:11px;color:#334155">-</div>')
+      +'</div>';
   }).join("");
-  return'<div class="inline-chart" id="ichart-'+k+'"><div class="inline-chart-inner">'
-    +'<canvas id="canvas-'+k+'" style="max-height:130px"></canvas>'
-    +'<div class="chart-optimal">Optimal: '+optStr(bm)+' '+bm.unit+'</div>'
+  return'<div class="inline-chart" id="ic-'+k+'">'
+    +'<div class="inline-chart-inner">'
+    +'<canvas id="cv-'+k+'" style="max-height:130px"></canvas>'
+    +'<div class="chart-optimal">&#9679; Optimal: '+opts(bm)+' '+bm.unit+'</div>'
     +'<div class="chart-points">'+pts+'</div>'
-    +'<div class="chart-close-row"><button class="chart-close-btn" onclick="closeInlineChart(\''+k+'\',event)">Close ↑</button></div>'
+    +'<div class="chart-close-row"><button class="chart-close-btn" onclick="closeCh(''+k+'',event)">Close &#8963;</button></div>'
     +'</div></div>';
 }
-
-function openInlineChart(k,e){
+function openCh(k,e){
   if(e)e.stopPropagation();
-  // Close any open chart
-  if(openChartKey&&openChartKey!==k){
-    closeInlineChart(openChartKey,null,true);
-  }
-  if(openChartKey===k){closeInlineChart(k,null);return;}
-
-  openChartKey=k;
-  const el=document.getElementById("ichart-"+k);
+  if(openKey&&openKey!==k)closeCh(openKey,null);
+  if(openKey===k){closeCh(k,null);return;}
+  openKey=k;
+  var el=document.getElementById("ic-"+k);
   if(!el)return;
   el.classList.add("open");
-
-  // Draw chart after transition starts
-  setTimeout(()=>{
-    const bm=BM[k];
-    const valid=bm.data.filter(d=>d.v!=null);
-    const ctx=document.getElementById("canvas-"+k);
-    if(!ctx)return;
-    if(chartInstances[k]){chartInstances[k].destroy();}
-    chartInstances[k]=new Chart(ctx.getContext("2d"),{
+  setTimeout(function(){
+    var bm=BM[k];
+    var vd=bm.data.filter(function(d){return d.v!=null;});
+    var cv=document.getElementById("cv-"+k);
+    if(!cv)return;
+    if(charts[k])charts[k].destroy();
+    charts[k]=new Chart(cv.getContext("2d"),{
       type:"line",
       data:{
-        labels:valid.map(d=>d.d),
-        datasets:[{data:valid.map(d=>d.v),borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,0.15)",borderWidth:2,pointBackgroundColor:valid.map(d=>color(getStatus(bm,d.v))),pointRadius:5,fill:true,tension:0.3}]
+        labels:vd.map(function(d){return d.d;}),
+        datasets:[{data:vd.map(function(d){return d.v;}),borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,0.12)",borderWidth:2.5,
+          pointBackgroundColor:vd.map(function(d){return gc(gs(bm,d.v));}),
+          pointBorderColor:vd.map(function(d){return gc(gs(bm,d.v));}),
+          pointRadius:5,fill:true,tension:0.35}]
       },
-      options:{responsive:true,maintainAspectRatio:true,animation:{duration:600,easing:"easeOutQuart"},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+" "+bm.unit}}},scales:{x:{ticks:{color:"#4a5568",font:{size:9}},grid:{color:"#1a2235"}},y:{ticks:{color:"#4a5568",font:{size:9}},grid:{color:"#1a2235"}}}}
+      options:{responsive:true,maintainAspectRatio:true,animation:{duration:500},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+" "+bm.unit;}}}},scales:{x:{ticks:{color:"#64748b",font:{size:9}},grid:{color:"#1e293b"}},y:{ticks:{color:"#64748b",font:{size:9}},grid:{color:"#1e293b"}}}}
     });
-  },50);
-
-  // Highlight card
-  const card=document.getElementById("bmcard-"+k);
+  },60);
+  var card=document.getElementById("bc-"+k);
   if(card)card.style.borderColor="#60a5fa60";
-
-  // Scroll card into view
-  setTimeout(()=>{
-    const card2=document.getElementById("bmcard-"+k);
-    if(card2)card2.scrollIntoView({behavior:"smooth",block:"nearest"});
-  },100);
+  setTimeout(function(){var c2=document.getElementById("bc-"+k);if(c2)c2.scrollIntoView({behavior:"smooth",block:"nearest"});},120);
 }
-
-function closeInlineChart(k,e,silent){
+function closeCh(k,e){
   if(e)e.stopPropagation();
-  const el=document.getElementById("ichart-"+k);
+  var el=document.getElementById("ic-"+k);
   if(el)el.classList.remove("open");
-  if(chartInstances[k]){chartInstances[k].destroy();delete chartInstances[k];}
-  if(openChartKey===k)openChartKey=null;
-  const card=document.getElementById("bmcard-"+k);
-  if(card){
-    const bm=BM[k];
-    const s=getStatusForKey(k);
-    card.style.borderColor=color(s)+"20";
-  }
+  if(charts[k]){charts[k].destroy();delete charts[k];}
+  if(openKey===k)openKey=null;
+  var card=document.getElementById("bc-"+k);
+  if(card)card.style.borderColor=gc(gsk(k))+"25";
 }
-
-// ── INFO MODAL ────────────────────────────────────────────────────────────────
 function openInfo(k,e){
   if(e)e.stopPropagation();
-  const bm=BM[k];
+  var bm=BM[k];
   document.getElementById("info-name").textContent=bm.label;
   document.getElementById("info-cat").textContent=bm.cat+" · "+(bm.unit||"ratio");
   document.getElementById("info-what").textContent=bm.what;
   document.getElementById("info-why").textContent=bm.why;
-  document.getElementById("info-range").textContent=optStr(bm)+" "+bm.unit;
+  document.getElementById("info-range").textContent=opts(bm)+" "+bm.unit;
   document.getElementById("info-modal").classList.add("open");
 }
 function closeInfo(){document.getElementById("info-modal").classList.remove("open");}
 
-// ── TABS ──────────────────────────────────────────────────────────────────────
-let currentTab="overview";
+var curTab="overview";
 function showTab(id){
-  currentTab=id;
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.querySelectorAll(".tabn").forEach(b=>b.classList.remove("active"));
+  curTab=id;
+  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+  document.querySelectorAll(".tabn").forEach(function(b){b.classList.remove("active");});
   document.getElementById("page-"+id).classList.add("active");
-  const ids=["overview","labs","insights","actions","care"];
-  document.querySelectorAll(".tabn")[ids.indexOf(id)]?.classList.add("active");
-  if(id==="labs")renderBmList();
+  var ids=["overview","labs","insights","actions"];
+  var idx=ids.indexOf(id);
+  if(idx>=0)document.querySelectorAll(".tabn")[idx].classList.add("active");
+  if(id==="labs")renderLabs();
+  window.scrollTo(0,0);
+}
+function goToCare(sec){
+  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+  document.querySelectorAll(".tabn").forEach(function(b){b.classList.remove("active");});
+  document.getElementById("page-care").classList.add("active");
+  showCare(sec);
   window.scrollTo(0,0);
 }
 
-// ── STATUS FILTER (pills → Labs) ─────────────────────────────────────────────
-let activeStatusFilter=null;
-function filterByStatus(status){
-  if(activeStatusFilter===status){
-    activeStatusFilter=null;
-    document.querySelectorAll(".stat-pill").forEach(p=>p.classList.remove("active-filter"));
+var activeSF=null;
+function filterByStatus(s){
+  var cols={optimal:"#4ade80",concern:"#fbbf24",high:"#f87171"};
+  if(activeSF===s){
+    activeSF=null;
+    document.getElementById("pill-optimal").style.borderColor="#22c55e25";
+    document.getElementById("pill-concern").style.borderColor="#f59e0b25";
+    document.getElementById("pill-high").style.borderColor="#ef444425";
   } else {
-    activeStatusFilter=status;
-    document.querySelectorAll(".stat-pill").forEach(p=>p.classList.remove("active-filter"));
-    document.getElementById("pill-"+status).classList.add("active-filter");
+    activeSF=s;
+    document.getElementById("pill-optimal").style.borderColor=s==="optimal"?"#4ade80":"#22c55e25";
+    document.getElementById("pill-concern").style.borderColor=s==="concern"?"#fbbf24":"#f59e0b25";
+    document.getElementById("pill-high").style.borderColor=s==="high"?"#f87171":"#ef444425";
   }
-  currentCat="All";
-  showTab("labs");
+  curCat="All";showTab("labs");
 }
 function clearStatusFilter(){
-  activeStatusFilter=null;
-  document.querySelectorAll(".stat-pill").forEach(p=>p.classList.remove("active-filter"));
-  renderBmList();
+  activeSF=null;
+  document.getElementById("pill-optimal").style.borderColor="#22c55e25";
+  document.getElementById("pill-concern").style.borderColor="#f59e0b25";
+  document.getElementById("pill-high").style.borderColor="#ef444425";
+  renderLabs();
 }
 
-// ── OVERVIEW ──────────────────────────────────────────────────────────────────
 function renderOverview(){
-  const score=computeScore();
-  const sc=score>=75?"#22c55e":score>=55?"#f59e0b":"#ef4444";
-  document.getElementById("score-ring").setAttribute("stroke-dasharray",(score/100)*188.5+" 188.5");
-  document.getElementById("score-ring").setAttribute("stroke",sc);
-  document.getElementById("score-text").textContent=score;
-  const counts={optimal:0,concern:0,high:0};
-  Object.keys(BM).forEach(k=>{const s=getStatusForKey(k);if(counts[s]!=null)counts[s]++;});
-  document.getElementById("cnt-optimal").textContent=counts.optimal;
-  document.getElementById("cnt-concern").textContent=counts.concern;
-  document.getElementById("cnt-high").textContent=counts.high;
-
-  const keyBms=[
-    {key:"ldl",note:"Down 40pts — real progress"},
-    {key:"tsh",note:"Ticked back up — dose review needed"},
-    {key:"hsCRP",note:"Near zero — major improvement"},
-    {key:"alt",note:"Back above range — monitor"},
-    {key:"egfr",note:"Stable — no further decline"},
-  ];
-  document.getElementById("key-bms").innerHTML=keyBms.map(({key,note})=>{
-    const bm=BM[key],latest=getLatest(bm),s=getStatus(bm,latest?.v),trend=getTrend(bm.data);
-    return'<div class="bm-card" style="border-color:'+color(s)+'25" onclick="showTab(\'labs\');activeStatusFilter=null;setTimeout(()=>{renderBmList();setTimeout(()=>openInlineChart(\''+key+'\'),100)},50)">'
-      +'<div class="bm-inner">'+dot(s,10)
-      +'<div style="flex:1"><div class="bm-label-row"><span class="bm-name">'+bm.label+'</span><button class="ibtn" onclick="openInfo(\''+key+'\',event)">i</button></div><div class="bm-note">'+note+'</div></div>'
-      +'<div><div class="bm-val" style="color:'+color(s)+'">'+(latest?.v||"-")+'</div><div class="bm-unit">'+bm.unit+' '+arrow(trend,bm.hb)+'</div></div>'
-      +'</div></div>';
+  var sc=score();
+  var ringColor=sc>=75?"#4ade80":sc>=55?"#fbbf24":"#f87171";
+  document.getElementById("score-ring").setAttribute("stroke-dasharray",(sc/100)*188.5+" 188.5");
+  document.getElementById("score-ring").setAttribute("stroke",ringColor);
+  document.getElementById("score-text").textContent=sc;
+  var counts={o:0,c:0,h:0};
+  Object.keys(BM).forEach(function(k){var s=gsk(k);if(counts[s]!=null)counts[s]++;});
+  document.getElementById("cnt-optimal").textContent=counts.o;
+  document.getElementById("cnt-concern").textContent=counts.c;
+  document.getElementById("cnt-high").textContent=counts.h;
+  var keys=[{k:"ldl",n:"Down 40pts, real progress"},{k:"tsh",n:"Ticked back up, dose review"},{k:"hsCRP",n:"Near zero, major improvement"},{k:"alt",n:"Back above range, monitor"},{k:"egfr",n:"Stable, no further decline"}];
+  document.getElementById("key-bms").innerHTML=keys.map(function(item){
+    var bm=BM[item.k],lat=gl(bm),s=gs(bm,lat?.v),tr=gt(bm.data);
+    return'<div class="bm-card" style="border-color:'+gc(s)+'25" onclick="showTab('labs');activeSF=null;clearPills();setTimeout(function(){renderLabs();setTimeout(function(){openCh(''+item.k+'');},120);},60);">'
+      +'<div class="bm-inner">'+mkdot(s,10)
+      +'<div style="flex:1"><div class="bm-label-row"><span class="bm-name">'+bm.label+'</span>'
+      +'<button class="ibtn" onclick="openInfo(''+item.k+'',event)">i</button></div>'
+      +'<div class="bm-note">'+item.n+'</div></div>'
+      +'<div><div class="bm-val" style="color:'+gc(s)+'">'+(lat?lat.v:"-")+'</div>'
+      +'<div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div></div></div></div>';
   }).join("");
-
-  document.getElementById("cat-grid").innerHTML=CATS.filter(c=>c!=="All").map(c=>{
-    const keys=Object.keys(BM).filter(k=>BM[k].cat===c);
-    const opt=keys.filter(k=>getStatusForKey(k)==="optimal").length,tot=keys.length;
-    const ws=keys.some(k=>getStatusForKey(k)==="high")?"high":keys.some(k=>getStatusForKey(k)==="concern")?"concern":"optimal";
-    return'<div class="cat-card" style="border-color:'+color(ws)+'25" onclick="currentCat=\''+c+'\';activeStatusFilter=null;showTab(\'labs\')">'
-      +'<div class="cat-top"><span style="font-size:16px">'+CAT_ICONS[c]+'</span>'+dot(ws,7)+'</div>'
+  document.getElementById("cat-grid").innerHTML=CATS.filter(function(c){return c!=="All";}).map(function(c){
+    var ks=Object.keys(BM).filter(function(k){return BM[k].cat===c;});
+    var opt=ks.filter(function(k){return gsk(k)==="o";}).length,tot=ks.length;
+    var ws=ks.some(function(k){return gsk(k)==="h";})?"h":ks.some(function(k){return gsk(k)==="c";})?"c":"o";
+    return'<div class="cat-card" style="border-color:'+gc(ws)+'25" onclick="curCat=''+c+'';activeSF=null;clearPills();showTab('labs');">'
+      +'<div class="cat-top"><span style="font-size:16px">'+CICONS[c]+'</span>'+mkdot(ws,7)+'</div>'
       +'<div class="cat-name">'+c+'</div><div class="cat-sub">'+opt+'/'+tot+' optimal</div>'
-      +'<div class="cat-bar-bg"><div class="cat-bar" style="width:'+((opt/tot)*100)+'%;background:'+color(ws)+'"></div></div>'
+      +'<div class="cat-bar-bg"><div class="cat-bar" style="width:'+Math.round(opt/tot*100)+'%;background:'+gc(ws)+'"></div></div>'
       +'</div>';
   }).join("");
 }
-
-// ── LABS ──────────────────────────────────────────────────────────────────────
-let currentCat="All";
-function renderCatFilter(){
-  document.getElementById("cat-filter-btns").innerHTML=CATS.map(c=>'<button class="cat-btn'+(c===currentCat?" active":"")+'" onclick="filterCat(\''+c+'\')">'+(c!=="All"?CAT_ICONS[c]+" ":"")+c+'</button>').join("");
-}
-function filterCat(c){
-  currentCat=c;
-  activeStatusFilter=null;
-  document.querySelectorAll(".stat-pill").forEach(p=>p.classList.remove("active-filter"));
-  if(openChartKey)closeInlineChart(openChartKey,null,true);
-  openChartKey=null;
-  renderBmList();
+function clearPills(){
+  document.getElementById("pill-optimal").style.borderColor="#22c55e25";
+  document.getElementById("pill-concern").style.borderColor="#f59e0b25";
+  document.getElementById("pill-high").style.borderColor="#ef444425";
 }
 
-function renderBmList(){
-  renderCatFilter();
-  let keys=Object.keys(BM).filter(k=>currentCat==="All"||BM[k].cat===currentCat);
-
-  // Apply status filter
-  const banner=document.getElementById("status-filter-banner");
-  const sfbLabel=document.getElementById("sfb-label");
-  if(activeStatusFilter){
-    keys=keys.filter(k=>getStatusForKey(k)===activeStatusFilter);
-    const labels={optimal:"Showing: Optimal biomarkers",concern:"Showing: Monitor biomarkers",high:"Showing: Action required biomarkers"};
-    sfbLabel.textContent=labels[activeStatusFilter];
-    sfbLabel.style.color=color(activeStatusFilter);
+var curCat="All";
+function renderCatBtns(){
+  document.getElementById("cat-filter-btns").innerHTML=CATS.map(function(c){
+    return'<button class="cat-btn'+(c===curCat?" active":"")+'" onclick="filterCat(''+c+'')">'+(c!=="All"?CICONS[c]+" ":"")+c+'</button>';
+  }).join("");
+}
+function filterCat(c){curCat=c;activeSF=null;clearPills();if(openKey)closeCh(openKey,null);renderLabs();}
+function renderLabs(){
+  renderCatBtns();
+  var keys=Object.keys(BM).filter(function(k){return curCat==="All"||BM[k].cat===curCat;});
+  var banner=document.getElementById("status-filter-banner");
+  if(activeSF){
+    keys=keys.filter(function(k){return gsk(k)===activeSF[0];});
+    var lbls={optimal:"Showing: Optimal biomarkers",concern:"Showing: Monitor biomarkers",high:"Showing: Action required biomarkers"};
+    document.getElementById("sfb-label").textContent=lbls[activeSF];
+    document.getElementById("sfb-label").style.color=gc(activeSF[0]);
     banner.classList.add("visible");
   } else {
     banner.classList.remove("visible");
   }
-
-  document.getElementById("bm-list").innerHTML=keys.map(k=>{
-    const bm=BM[k],vd=bm.data.filter(d=>d.v!=null),latest=vd[vd.length-1],prev=vd[vd.length-2],s=getStatus(bm,latest?.v),trend=getTrend(bm.data);
-    return'<div class="bm-card" id="bmcard-'+k+'" style="border-color:'+color(s)+'20" onclick="openInlineChart(\''+k+'\')">'
-      +'<div class="bm-inner">'+dot(s,8)
+  document.getElementById("bm-list").innerHTML=keys.map(function(k){
+    var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),lat=vd[vd.length-1],prev=vd[vd.length-2],s=gs(bm,lat?.v),tr=gt(bm.data);
+    return'<div class="bm-card" id="bc-'+k+'" style="border-color:'+gc(s)+'20" onclick="openCh(''+k+'')">'
+      +'<div class="bm-inner">'+mkdot(s,8)
       +'<div style="flex:1;min-width:0">'
-      +'<div class="bm-label-row"><span class="bm-name" style="font-size:12px">'+bm.label+'</span><button class="ibtn" onclick="openInfo(\''+k+'\',event)">i</button></div>'
-      +(prev?'<div style="font-size:10px;color:#4a5568;margin-top:1px">Prev: '+prev.v+' '+bm.unit+' ('+prev.d+')</div>':"")
+      +'<div class="bm-label-row"><span class="bm-name" style="font-size:12px">'+bm.label+'</span>'
+      +'<button class="ibtn" onclick="openInfo(''+k+'',event)">i</button></div>'
+      +(prev?'<div class="bm-prev">Prev: '+prev.v+' '+bm.unit+' ('+prev.d+')</div>':"")
       +'</div>'
       +'<div style="text-align:right;flex-shrink:0">'
-      +(latest?'<div class="bm-val" style="color:'+color(s)+';font-size:16px">'+latest.v+'</div><div class="bm-unit">'+bm.unit+' '+arrow(trend,bm.hb)+'</div>':'<div style="font-size:11px;color:#2d3748">No data</div>')
-      +'</div></div>'
-      +buildInlineChart(k)
-      +'</div>';
+      +(lat?'<div class="bm-val" style="color:'+gc(s)+';font-size:16px">'+lat.v+'</div><div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div>':'<div style="font-size:11px;color:#334155">No data</div>')
+      +'</div></div>'+buildChart(k)+'</div>';
   }).join("");
 }
 
-// ── INSIGHTS ──────────────────────────────────────────────────────────────────
-const ITC={turning:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"↗"},stabilized:{color:"#a78bfa",bg:"#130f2a",border:"#a78bfa30",icon:"◈"},alert:{color:"#ef4444",bg:"#1a0808",border:"#ef444430",icon:"🚨"},warning:{color:"#f59e0b",bg:"#1a1208",border:"#f59e0b30",icon:"⚠️"},positive:{color:"#22c55e",bg:"#081a0f",border:"#22c55e30",icon:"✅"},rx:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"💊"}};
-const IFC=[{id:"all",label:"All"},{id:"alert",label:"Alerts"},{id:"warning",label:"Warnings"},{id:"turning",label:"Turning"},{id:"stabilized",label:"Stabilized"},{id:"positive",label:"Wins"},{id:"rx",label:"Rx"}];
-let currentInsFilter="all";
-function renderInsights(filter){
-  currentInsFilter=filter;
-  document.getElementById("ins-filter-btns").innerHTML=IFC.map(f=>'<button class="ins-btn'+(f.id===filter?" active":"")+'" onclick="renderInsights(\''+f.id+'\')">'+f.label+'</button>').join("");
-  const filtered=filter==="all"?INSIGHTS:INSIGHTS.filter(i=>i.type===filter);
-  document.getElementById("ins-list").innerHTML=filtered.map(ins=>{
-    const cfg=ITC[ins.type]||ITC.positive;
+var ITC={turning:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"&#8599;"},stabilized:{color:"#c4b5fd",bg:"#130f2a",border:"#a78bfa30",icon:"&#9672;"},alert:{color:"#f87171",bg:"#1a0808",border:"#ef444430",icon:"&#9888;"},warning:{color:"#fbbf24",bg:"#1a1208",border:"#f59e0b30",icon:"&#9888;"},positive:{color:"#4ade80",bg:"#051a0f",border:"#22c55e30",icon:"&#10003;"},rx:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"&#128138;"}};
+var IFC=[{id:"all",lb:"All"},{id:"alert",lb:"Alerts"},{id:"warning",lb:"Warnings"},{id:"turning",lb:"Turning"},{id:"stabilized",lb:"Stabilized"},{id:"positive",lb:"Wins"},{id:"rx",lb:"Rx"}];
+var curIF="all";
+function renderInsights(f){
+  curIF=f;
+  document.getElementById("ins-filter-btns").innerHTML=IFC.map(function(x){return'<button class="ins-btn'+(x.id===f?" active":"")+'" onclick="renderInsights(''+x.id+'')">'+x.lb+'</button>';}).join("");
+  var list=f==="all"?INSIGHTS:INSIGHTS.filter(function(i){return i.type===f;});
+  document.getElementById("ins-list").innerHTML=list.map(function(ins){
+    var cfg=ITC[ins.type]||ITC.positive;
     return'<div class="ins-card" style="background:'+cfg.bg+';border-color:'+cfg.border+'"><div class="ins-row"><span class="ins-icon">'+cfg.icon+'</span><div><div class="ins-title" style="color:'+cfg.color+'">'+ins.title+'</div><div class="ins-body">'+ins.body+'</div></div></div></div>';
   }).join("");
 }
-
-// ── ACTIONS ──────────────────────────────────────────────────────────────────
 function renderActions(){
-  const UC={high:{color:"#ef4444",bg:"#1a0808",label:"HIGH"},medium:{color:"#f59e0b",bg:"#1a1208",label:"MEDIUM"},low:{color:"#22c55e",bg:"#081a0f",label:"LOW"}};
-  document.getElementById("actions-list").innerHTML=ACTIONS.map(a=>{
-    const uc=UC[a.urgency];
-    return'<div class="action-card" style="border-color:'+uc.color+'25"><div class="action-num" style="background:'+uc.bg+';border-color:'+uc.color+'50;color:'+uc.color+'">'+a.priority+'</div><div style="flex:1"><div class="action-badges"><span class="urgency-badge" style="color:'+uc.color+';background:'+uc.bg+'">'+uc.label+'</span>'+(a.doctor?'<span class="doctor-badge">→ '+a.doctor+'</span>':"")+'</div><div class="action-title">'+a.action+'</div><div class="action-why">'+a.why+'</div></div></div>';
+  var UC={high:{color:"#f87171",bg:"#1a0808",lb:"HIGH"},medium:{color:"#fbbf24",bg:"#1a1208",lb:"MEDIUM"},low:{color:"#4ade80",bg:"#051a0f",lb:"LOW"}};
+  document.getElementById("actions-list").innerHTML=ACTIONS.map(function(a){
+    var uc=UC[a.urgency];
+    return'<div class="action-card" style="border-color:'+uc.color+'25">'
+      +'<div class="action-num" style="background:'+uc.bg+';border-color:'+uc.color+'60;color:'+uc.color+'">'+a.priority+'</div>'
+      +'<div style="flex:1"><div class="action-badges"><span class="urgency-badge" style="color:'+uc.color+';background:'+uc.bg+'">'+uc.lb+'</span>'
+      +(a.doctor?'<span class="doctor-badge">&#8594; '+a.doctor+'</span>':"")+'</div>'
+      +'<div class="action-title">'+a.action+'</div>'
+      +'<div class="action-why">'+a.why+'</div></div></div>';
   }).join("");
-  document.getElementById("next-panel-list").innerHTML=NEXT_PANEL.map((t,i)=>'<div class="panel-item" style="border-bottom:'+(i<NEXT_PANEL.length-1?"1px solid #111827":"none")+'"><div class="panel-dot"></div><div class="panel-text">'+t+'</div></div>').join("");
+  document.getElementById("next-panel-list").innerHTML=NEXT_PANEL.map(function(t,i){
+    return'<div class="panel-item" style="border-bottom:'+(i<NEXT_PANEL.length-1?"1px solid #1e293b":"none")+'"><div class="panel-dot"></div><div class="panel-text">'+t+'</div></div>';
+  }).join("");
 }
 
-// ── CARE ──────────────────────────────────────────────────────────────────────
-let currentCare="doctors";
+var curCare="contacts";
 function showCare(sec){
-  currentCare=sec;
-  document.querySelectorAll(".care-btn").forEach((b,i)=>b.classList.toggle("active",["doctors","rx","supplements"][i]===sec));
-  ["care-doctors","care-rx","care-supplements"].forEach(id=>document.getElementById(id).classList.toggle("hidden",!id.includes(sec)));
+  curCare=sec;
+  ["contacts","rx","supplements"].forEach(function(s){
+    var btn=document.getElementById("cbtn-"+s);
+    var div=document.getElementById("care-"+s);
+    if(btn)btn.classList.toggle("active",s===sec);
+    if(div)div.classList.toggle("hidden",s!==sec);
+  });
 }
-function renderCare(){
-  document.getElementById("care-doctors").innerHTML=DOCTORS.map(doc=>'<div class="doc-card"><div class="doc-header" onclick="toggleDoc(\''+doc.id+'\')"><div class="doc-avatar">'+doc.icon+'</div><div style="flex:1;min-width:0"><div class="doc-name">'+doc.name+'</div><div class="doc-role">'+doc.role+'</div><div class="doc-practice">'+doc.practice+'</div></div><span class="doc-chevron" id="dchev-'+doc.id+'">v</span></div><div class="doc-body" id="doc-body-'+doc.id+'">'+(doc.phone?'<a class="doc-link" href="tel:'+doc.phone+'"><div class="doc-link-icon">📞</div><div><div class="doc-link-label">Phone</div><div class="doc-link-val">'+doc.phone+'</div></div></a>':'')+(doc.email?'<a class="doc-link" href="mailto:'+doc.email+'"><div class="doc-link-icon">✉️</div><div><div class="doc-link-label">Email</div><div class="doc-link-val">'+doc.email+'</div></div></a>':'')+(doc.address?'<a class="doc-link" href="https://maps.apple.com/?q='+encodeURIComponent(doc.address)+'" target="_blank"><div class="doc-link-icon">📍</div><div><div class="doc-link-label">Address</div><div class="doc-link-val">'+doc.address+'</div></div></a>':'')+'<div class="doc-bm-box"><div class="doc-bm-label">Relevant Biomarkers</div><div class="doc-bm-tags">'+doc.bms.map(b=>'<span class="bm-tag">'+b+'</span>').join("")+'</div></div></div></div>').join("");
-  document.getElementById("care-rx").innerHTML=MEDS.map(med=>'<div class="med-card" style="background:#0d1421;border-color:'+med.color+'30"><div class="med-header"><div class="med-icon" style="background:#0a1628;border-color:'+med.color+'40">💊</div><div><div class="med-name">'+med.name+'</div><div class="med-dose" style="color:'+med.color+'">'+med.dose+' · '+med.freq+'</div><div class="med-rx">Rx by '+med.rx+'</div></div></div><div class="med-section"><div class="med-sec-label">Purpose</div><div class="med-sec-text">'+med.purpose+'</div></div><div class="med-section"><div class="med-sec-label">How it works</div><div class="med-sec-text">'+med.how+'</div></div><div class="med-section"><div class="med-sec-label">Biomarker Impact</div>'+med.impact.map(i=>'<div class="med-impact-item">✓ '+i+'</div>').join("")+'</div><div class="med-note" style="background:#0a1628;border-color:'+med.color+'25"><div class="med-note-label" style="color:'+med.color+'">Clinical Note</div><div class="med-note-text">'+med.note+'</div></div></div>').join("");
-  document.getElementById("care-supplements").innerHTML='<div class="supp-header-banner"><span style="font-size:16px">🌿</span><div><div class="supp-score">SuppCo Stack · 15 products · Score: 89/100</div><div class="supp-sub">Tap each to see biomarker impact</div></div></div>'+SUPPS.map((s,i)=>'<div class="supp-card" style="border-color:'+s.color+'25;background:#0d1421"><div class="supp-row" onclick="toggleSupp('+i+')"><div class="supp-dot" style="background:'+s.color+'"></div><div style="flex:1;min-width:0"><div class="supp-name">'+s.name+'</div><div class="supp-brand">'+s.brand+' · '+s.dose+'</div></div><div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><span class="supp-goal-tag" style="color:'+s.color+';background:'+s.color+'15">'+s.goal+'</span><span class="supp-chev" id="supp-chev-'+i+'">v</span></div></div><div class="supp-body" id="supp-body-'+i+'" style="border-top-color:'+s.color+'20"><div class="supp-sec"><div class="supp-sec-label">Effect</div><div class="supp-sec-text">'+s.effect+'</div></div><div class="supp-sec"><div class="supp-sec-label">Your Biomarkers</div>'+s.impact.map(im=>'<div class="supp-impact">→ '+im+'</div>').join("")+'</div><div class="supp-note-box" style="background:#0a1628;border-color:'+s.color+'25"><div class="supp-note-label" style="color:'+s.color+'">Note</div><div class="supp-note-text">'+s.note+'</div></div></div></div>').join("");
-}
-
 function toggleDoc(id){
-  const body=document.getElementById("doc-body-"+id);
-  const chev=document.getElementById("dchev-"+id);
-  const isOpen=body.classList.contains("open");
-  document.querySelectorAll(".doc-body").forEach(b=>b.classList.remove("open"));
-  document.querySelectorAll("[id^='dchev-']").forEach(c=>c.textContent="v");
-  if(!isOpen){body.classList.add("open");chev.textContent="^";}
+  var body=document.getElementById("db-"+id),chev=document.getElementById("dc-"+id);
+  var open=body.classList.contains("open");
+  document.querySelectorAll(".doc-body").forEach(function(b){b.classList.remove("open");});
+  document.querySelectorAll("[id^='dc-']").forEach(function(c){c.innerHTML="&#8964;";});
+  if(!open){body.classList.add("open");chev.innerHTML="&#8963;";}
 }
 function toggleSupp(i){
-  const body=document.getElementById("supp-body-"+i);
-  const chev=document.getElementById("supp-chev-"+i);
-  const isOpen=body.classList.contains("open");
-  body.classList.toggle("open",!isOpen);
-  chev.textContent=isOpen?"v":"^";
+  var body=document.getElementById("sb-"+i),chev=document.getElementById("sc-"+i);
+  var open=body.classList.contains("open");
+  body.classList.toggle("open",!open);
+  chev.innerHTML=open?"&#8964;":"&#8963;";
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+var walgSVG='<svg viewBox="0 0 80 40" width="40" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="40" fill="#e31837" rx="3"/><text x="40" y="14" text-anchor="middle" fill="white" font-size="8" font-weight="900" font-family="Arial">WALGREENS</text><line x1="6" y1="20" x2="74" y2="20" stroke="white" stroke-width="1.5"/><text x="40" y="32" text-anchor="middle" fill="white" font-size="10" font-weight="700" font-family="Arial">Pharmacy</text></svg>';
+var stethSVG='<span style="font-size:20px">&#129657;</span>';
+var heartSVG='<span style="font-size:20px">&#129728;</span>';
+
+function renderCare(){
+  // CONTACTS
+  document.getElementById("care-contacts").innerHTML=CONTACTS.map(function(c){
+    var av;
+    if(c.icon==="walg") av='<div class="doc-avatar" style="background:#e31837;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0">'+walgSVG+'</div>';
+    else if(c.icon==="heart") av='<div class="doc-avatar">&#129728;</div>';
+    else av='<div class="doc-avatar">&#129657;</div>';
+    var links="";
+    if(c.mapsUrl) links+='<a class="doc-link" href="'+c.mapsUrl+'" target="_blank"><div class="doc-link-icon">&#128205;</div><div><div class="doc-link-label">Find Location</div><div class="doc-link-val">Open in Maps</div></div></a>';
+    if(c.phone) links+='<a class="doc-link" href="tel:'+c.phone+'"><div class="doc-link-icon">&#128222;</div><div><div class="doc-link-label">Phone</div><div class="doc-link-val">'+c.phone+'</div></div></a>';
+    if(c.email) links+='<a class="doc-link" href="mailto:'+c.email+'"><div class="doc-link-icon">&#9993;</div><div><div class="doc-link-label">Email</div><div class="doc-link-val">'+c.email+'</div></div></a>';
+    if(c.address) links+='<a class="doc-link" href="https://maps.apple.com/?q='+encodeURIComponent(c.address)+'" target="_blank"><div class="doc-link-icon">&#128205;</div><div><div class="doc-link-label">Address</div><div class="doc-link-val">'+c.address+'</div></div></a>';
+    return'<div class="doc-card"><div class="doc-header" onclick="toggleDoc(''+c.id+'')">'+av
+      +'<div style="flex:1;min-width:0"><div class="doc-name">'+c.name+'</div><div class="doc-role">'+c.role+'</div><div class="doc-practice">'+c.practice+'</div></div>'
+      +'<span class="doc-chevron" id="dc-'+c.id+'">&#8964;</span></div>'
+      +'<div class="doc-body" id="db-'+c.id+'">'+links
+      +'<div class="doc-bm-box"><div class="doc-bm-label">'+(c.icon==="walg"?"Services":"Biomarkers")+'</div>'
+      +'<div class="doc-bm-tags">'+c.tags.map(function(t){return'<span class="bm-tag">'+t+'</span>';}).join("")+'</div></div>'
+      +'</div></div>';
+  }).join("");
+
+  // MEDS
+  document.getElementById("care-rx").innerHTML=MEDS.map(function(m){
+    return'<div class="med-card" style="background:#0d1421;border-color:'+m.color+'35">'
+      +'<div class="med-header"><div class="med-icon" style="background:#0a1628;border-color:'+m.color+'50;font-size:22px">&#128138;</div>'
+      +'<div><div class="med-name">'+m.name+'</div><div class="med-dose" style="color:'+m.color+'">'+m.dose+' &middot; '+m.freq+'</div><div class="med-rx">Rx by '+m.rx+'</div></div></div>'
+      +'<div class="med-section"><div class="med-sec-label">Purpose</div><div class="med-sec-text">'+m.purpose+'</div></div>'
+      +'<div class="med-section"><div class="med-sec-label">How it works</div><div class="med-sec-text">'+m.how+'</div></div>'
+      +'<div class="med-section"><div class="med-sec-label">Biomarker Impact</div>'+m.impact.map(function(x){return'<div class="med-impact-item">&#10003; '+x+'</div>';}).join("")+'</div>'
+      +'<div class="med-note" style="background:#0a1628;border-color:'+m.color+'30"><div class="med-note-label" style="color:'+m.color+'">Clinical Note</div><div class="med-note-text">'+m.note+'</div></div>'
+      +'</div>';
+  }).join("");
+
+  // SUPPS
+  document.getElementById("care-supplements").innerHTML=
+    '<div class="supp-header-banner"><span style="font-size:16px">&#127807;</span><div><div class="supp-score">SuppCo Stack &middot; Score: 89/100</div><div class="supp-sub">Tap each to see biomarker impact</div></div></div>'
+    +SUPPS.map(function(s,i){
+      return'<div class="supp-card" style="border-color:'+s.color+'30;background:#0d1421">'
+        +'<div class="supp-row" onclick="toggleSupp('+i+')">'
+        +'<div class="supp-dot" style="background:'+s.color+'"></div>'
+        +'<div style="flex:1;min-width:0"><div class="supp-name">'+s.name+'</div><div class="supp-brand">'+s.brand+' &middot; '+s.dose+'</div></div>'
+        +'<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">'
+        +'<span class="supp-goal-tag" style="color:'+s.color+';background:'+s.color+'18">'+s.goal+'</span>'
+        +'<span class="supp-chev" id="sc-'+i+'">&#8964;</span></div></div>'
+        +'<div class="supp-body" id="sb-'+i+'" style="border-top-color:'+s.color+'25">'
+        +'<div class="supp-sec"><div class="supp-sec-label">Effect</div><div class="supp-sec-text">'+s.effect+'</div></div>'
+        +'<div class="supp-sec"><div class="supp-sec-label">Your Biomarkers</div>'+s.impact.map(function(x){return'<div class="supp-impact">&#8594; '+x+'</div>';}).join("")+'</div>'
+        +'<div class="supp-note-box" style="background:#0a1628;border-color:'+s.color+'30"><div class="supp-note-label" style="color:'+s.color+'">Note</div><div class="supp-note-text">'+s.note+'</div></div>'
+        +'</div></div>';
+    }).join("");
+}
+
 renderOverview();
-renderCatFilter();
-renderBmList();
+renderCatBtns();
+renderLabs();
 renderInsights("all");
 renderActions();
 renderCare();
