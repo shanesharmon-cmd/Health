@@ -434,7 +434,7 @@ function buildChart(k){
     +'<canvas id="cv-'+k+'" style="max-height:130px"></canvas>'
     +'<div class="chart-optimal">&#9679; Optimal: '+opts(bm)+' '+bm.unit+'</div>'
     +'<div class="chart-points">'+pts+'</div>'
-    +'<div class="chart-close-row"><button class="chart-close-btn" onclick="closeCh(''+k+'',event)">Close &#8963;</button></div>'
+    +'<div class="chart-close-row"><button class="chart-close-btn closechartbtn" data-key="'+k+'">Close &#8963;</button></div>'
     +'</div></div>';
 }
 function openCh(k,e){
@@ -546,10 +546,10 @@ function renderOverview(){
   var keys=[{k:"ldl",n:"Down 40pts, real progress"},{k:"tsh",n:"Ticked back up, dose review"},{k:"hsCRP",n:"Near zero, major improvement"},{k:"alt",n:"Back above range, monitor"},{k:"egfr",n:"Stable, no further decline"}];
   document.getElementById("key-bms").innerHTML=keys.map(function(item){
     var bm=BM[item.k],lat=gl(bm),s=gs(bm,lat?.v),tr=gt(bm.data);
-    return'<div class="bm-card" style="border-color:'+gc(s)+'25" onclick="showTab('labs');activeSF=null;clearPills();setTimeout(function(){renderLabs();setTimeout(function(){openCh(''+item.k+'');},120);},60);">'
+    return'<div class="bm-card keybm" data-key="'+item.k+'" style="border-color:'+gc(s)+'25">'
       +'<div class="bm-inner">'+mkdot(s,10)
       +'<div style="flex:1"><div class="bm-label-row"><span class="bm-name">'+bm.label+'</span>'
-      +'<button class="ibtn" onclick="openInfo(''+item.k+'',event)">i</button></div>'
+      +'<button class="ibtn infobtn" data-key="'+item.k+'">i</button></div>'
       +'<div class="bm-note">'+item.n+'</div></div>'
       +'<div><div class="bm-val" style="color:'+gc(s)+'">'+(lat?lat.v:"-")+'</div>'
       +'<div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div></div></div></div>';
@@ -558,7 +558,7 @@ function renderOverview(){
     var ks=Object.keys(BM).filter(function(k){return BM[k].cat===c;});
     var opt=ks.filter(function(k){return gsk(k)==="o";}).length,tot=ks.length;
     var ws=ks.some(function(k){return gsk(k)==="h";})?"h":ks.some(function(k){return gsk(k)==="c";})?"c":"o";
-    return'<div class="cat-card" style="border-color:'+gc(ws)+'25" onclick="curCat=''+c+'';activeSF=null;clearPills();showTab('labs');">'
+    return'<div class="cat-card catcard" data-cat="'+c+'" style="border-color:'+gc(ws)+'25">'
       +'<div class="cat-top"><span style="font-size:16px">'+CICONS[c]+'</span>'+mkdot(ws,7)+'</div>'
       +'<div class="cat-name">'+c+'</div><div class="cat-sub">'+opt+'/'+tot+' optimal</div>'
       +'<div class="cat-bar-bg"><div class="cat-bar" style="width:'+Math.round(opt/tot*100)+'%;background:'+gc(ws)+'"></div></div>'
@@ -574,7 +574,7 @@ function clearPills(){
 var curCat="All";
 function renderCatBtns(){
   document.getElementById("cat-filter-btns").innerHTML=CATS.map(function(c){
-    return'<button class="cat-btn'+(c===curCat?" active":"")+'" onclick="filterCat(''+c+'')">'+(c!=="All"?CICONS[c]+" ":"")+c+'</button>';
+    return'<button class="cat-btn catfilterbtn'+(c===curCat?" active":"")+'" data-cat="'+c+'">'+(c!=="All"?CICONS[c]+" ":"")+c+'</button>';
   }).join("");
 }
 function filterCat(c){curCat=c;activeSF=null;clearPills();if(openKey)closeCh(openKey,null);renderLabs();}
@@ -593,11 +593,11 @@ function renderLabs(){
   }
   document.getElementById("bm-list").innerHTML=keys.map(function(k){
     var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),lat=vd[vd.length-1],prev=vd[vd.length-2],s=gs(bm,lat?.v),tr=gt(bm.data);
-    return'<div class="bm-card" id="bc-'+k+'" style="border-color:'+gc(s)+'20" onclick="openCh(''+k+'')">'
+    return'<div class="bm-card labbm" id="bc-'+k+'" data-key="'+k+'" style="border-color:'+gc(s)+'20">'
       +'<div class="bm-inner">'+mkdot(s,8)
       +'<div style="flex:1;min-width:0">'
       +'<div class="bm-label-row"><span class="bm-name" style="font-size:12px">'+bm.label+'</span>'
-      +'<button class="ibtn" onclick="openInfo(''+k+'',event)">i</button></div>'
+      +'<button class="ibtn infobtn" data-key="'+k+'">i</button></div>'
       +(prev?'<div class="bm-prev">Prev: '+prev.v+' '+bm.unit+' ('+prev.d+')</div>':"")
       +'</div>'
       +'<div style="text-align:right;flex-shrink:0">'
@@ -611,7 +611,7 @@ var IFC=[{id:"all",lb:"All"},{id:"alert",lb:"Alerts"},{id:"warning",lb:"Warnings
 var curIF="all";
 function renderInsights(f){
   curIF=f;
-  document.getElementById("ins-filter-btns").innerHTML=IFC.map(function(x){return'<button class="ins-btn'+(x.id===f?" active":"")+'" onclick="renderInsights(''+x.id+'')">'+x.lb+'</button>';}).join("");
+  document.getElementById("ins-filter-btns").innerHTML=IFC.map(function(x){return'<button class="ins-btn insfilterbtn'+(x.id===f?" active":"")+'" data-filter="'+x.id+'">'+x.lb+'</button>';}).join("");
   var list=f==="all"?INSIGHTS:INSIGHTS.filter(function(i){return i.type===f;});
   document.getElementById("ins-list").innerHTML=list.map(function(ins){
     var cfg=ITC[ins.type]||ITC.positive;
@@ -674,7 +674,7 @@ function renderCare(){
     if(c.phone) links+='<a class="doc-link" href="tel:'+c.phone+'"><div class="doc-link-icon">&#128222;</div><div><div class="doc-link-label">Phone</div><div class="doc-link-val">'+c.phone+'</div></div></a>';
     if(c.email) links+='<a class="doc-link" href="mailto:'+c.email+'"><div class="doc-link-icon">&#9993;</div><div><div class="doc-link-label">Email</div><div class="doc-link-val">'+c.email+'</div></div></a>';
     if(c.address) links+='<a class="doc-link" href="https://maps.apple.com/?q='+encodeURIComponent(c.address)+'" target="_blank"><div class="doc-link-icon">&#128205;</div><div><div class="doc-link-label">Address</div><div class="doc-link-val">'+c.address+'</div></div></a>';
-    return'<div class="doc-card"><div class="doc-header" onclick="toggleDoc(''+c.id+'')">'+av
+    return'<div class="doc-card"><div class="doc-header docheader" data-id="'+c.id+'">'+av
       +'<div style="flex:1;min-width:0"><div class="doc-name">'+c.name+'</div><div class="doc-role">'+c.role+'</div><div class="doc-practice">'+c.practice+'</div></div>'
       +'<span class="doc-chevron" id="dc-'+c.id+'">&#8964;</span></div>'
       +'<div class="doc-body" id="db-'+c.id+'">'+links
@@ -700,7 +700,7 @@ function renderCare(){
     '<div class="supp-header-banner"><span style="font-size:16px">&#127807;</span><div><div class="supp-score">SuppCo Stack &middot; Score: 89/100</div><div class="supp-sub">Tap each to see biomarker impact</div></div></div>'
     +SUPPS.map(function(s,i){
       return'<div class="supp-card" style="border-color:'+s.color+'30;background:#0d1421">'
-        +'<div class="supp-row" onclick="toggleSupp('+i+')">'
+        +'<div class="supp-row" data-suppidx="'+i+'">'
         +'<div class="supp-dot" style="background:'+s.color+'"></div>'
         +'<div style="flex:1;min-width:0"><div class="supp-name">'+s.name+'</div><div class="supp-brand">'+s.brand+' &middot; '+s.dose+'</div></div>'
         +'<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">'
@@ -714,6 +714,55 @@ function renderCare(){
     }).join("");
 }
 
+// ===== EVENT DELEGATION (handles all clicks) =====
+document.addEventListener("click",function(e){
+  var t=e.target;
+
+  // Info button (i) - check first since it's inside cards
+  var infoBtn=t.closest(".infobtn");
+  if(infoBtn){e.stopPropagation();openInfo(infoBtn.getAttribute("data-key"));return;}
+
+  // Chart close button
+  var closeBtn=t.closest(".closechartbtn");
+  if(closeBtn){e.stopPropagation();closeCh(closeBtn.getAttribute("data-key"));return;}
+
+  // Key biomarker card (overview) -> go to labs and open chart
+  var keyCard=t.closest(".keybm");
+  if(keyCard){
+    var kk=keyCard.getAttribute("data-key");
+    activeSF=null;clearPills();showTab("labs");
+    setTimeout(function(){renderLabs();setTimeout(function(){openCh(kk);},150);},60);
+    return;
+  }
+
+  // Category card (overview) -> go to labs filtered
+  var catCard=t.closest(".catcard");
+  if(catCard){
+    curCat=catCard.getAttribute("data-cat");activeSF=null;clearPills();showTab("labs");return;
+  }
+
+  // Category filter button (labs)
+  var catFilter=t.closest(".catfilterbtn");
+  if(catFilter){filterCat(catFilter.getAttribute("data-cat"));return;}
+
+  // Lab biomarker card -> toggle chart
+  var labCard=t.closest(".labbm");
+  if(labCard){openCh(labCard.getAttribute("data-key"));return;}
+
+  // Insights filter button
+  var insFilter=t.closest(".insfilterbtn");
+  if(insFilter){renderInsights(insFilter.getAttribute("data-filter"));return;}
+
+  // Contact/doctor header -> toggle
+  var docHead=t.closest(".docheader");
+  if(docHead){toggleDoc(docHead.getAttribute("data-id"));return;}
+
+  // Supplement row -> toggle
+  var suppRow=t.closest("[data-suppidx]");
+  if(suppRow){toggleSupp(parseInt(suppRow.getAttribute("data-suppidx")));return;}
+});
+
+// ===== INIT =====
 renderOverview();
 renderCatBtns();
 renderLabs();
