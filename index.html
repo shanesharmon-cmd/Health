@@ -14,36 +14,91 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Ne
 button{font-family:inherit;cursor:pointer;-webkit-appearance:none}
 a{text-decoration:none}
 .hidden{display:none!important}
-#header{padding:52px 20px 20px;background:linear-gradient(180deg,#0d1421 0%,#080b12 100%)}
+
+/* HEADER */
+#header{padding:52px 20px 16px;background:linear-gradient(180deg,#0d1421 0%,#080b12 100%)}
 .header-row{display:flex;justify-content:space-between;align-items:flex-start}
 .header-label{font-size:10px;letter-spacing:3px;color:#7dd3fc;text-transform:uppercase;margin-bottom:6px;text-shadow:0 0 12px #38bdf880}
 .header-name{font-size:24px;font-weight:800;letter-spacing:-0.5px;color:#f1f5f9}
 .header-sub{font-size:12px;color:#94a3b8;margin-top:4px}
-.stat-row{display:flex;gap:8px;margin-top:16px}
+.stat-row{display:flex;gap:8px;margin-top:14px}
 .stat-pill{flex:1;border-radius:10px;padding:8px 4px;text-align:center;border-width:2px;border-style:solid;cursor:pointer;transition:all 0.2s}
 .stat-pill:active{transform:scale(0.96)}
 .stat-num{font-size:20px;font-weight:800}
 .stat-lbl{font-size:10px;color:#94a3b8;letter-spacing:1px;margin-top:2px}
+
+/* TABS */
 #tabnav{display:flex;border-bottom:1px solid #1e293b;position:sticky;top:0;background:#080b12;z-index:50;padding-top:4px}
-.tabn{flex:1;background:none;border:none;color:#64748b;font-size:11px;font-weight:500;padding:10px 4px 9px;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:0.2px}
+.tabn{flex:1;background:none;border:none;color:#64748b;font-size:11px;font-weight:500;padding:10px 4px 9px;border-bottom:2px solid transparent;transition:all .2s}
 .tabn.active{color:#60a5fa;font-weight:700;border-bottom-color:#60a5fa}
 .badge{display:inline-block;background:#ef4444;color:#fff;border-radius:99px;font-size:7px;padding:1px 4px;margin-left:3px;font-weight:800;vertical-align:middle}
-.page{padding:16px 20px 0;display:none}
+
+/* PAGES */
+.page{padding:14px 20px 0;display:none}
 .page.active{display:block}
-.sec-label{font-size:10px;letter-spacing:2px;color:#7dd3fc;text-transform:uppercase;margin-bottom:12px;margin-top:4px;text-shadow:0 0 10px #38bdf850}
-.timeline{display:flex;align-items:center;margin-bottom:20px}
-.tl-node{text-align:center}
-.tl-dot{width:10px;height:10px;border-radius:50%;border:2px solid #60a5fa;margin:0 auto 6px}
-.tl-dot.active{background:#60a5fa;box-shadow:0 0 8px #60a5fa80}
-.tl-dot.past{background:#1e293b}
-.tl-label{font-size:10px;white-space:nowrap;color:#94a3b8}
-.tl-label.current{color:#60a5fa}
-.tl-line{flex:1;height:1px;background:#1e293b;margin:0 8px 14px}
-.pill-row{display:flex;gap:6px;margin-bottom:16px}
-.pill-banner{flex:1;border-radius:11px;padding:8px 9px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;transition:opacity 0.15s}
-.pill-banner:active{opacity:0.8}
-.pill-title{font-size:10px;font-weight:700}
-.pill-sub{font-size:9px;color:#94a3b8;margin-top:1px}
+.sec-label{font-size:10px;letter-spacing:2px;color:#7dd3fc;text-transform:uppercase;margin-bottom:12px;margin-top:2px;text-shadow:0 0 10px #38bdf850}
+
+/* PILL BANNERS */
+.pill-row{display:flex;gap:6px;margin-bottom:0}
+.pill-btn{flex:1;border-radius:12px;padding:9px 8px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;transition:all 0.2s;-webkit-appearance:none;background:none;text-align:left;min-width:0}
+.pill-btn.open{border-radius:12px 12px 0 0}
+.pill-btn:active{opacity:0.85}
+.pill-emoji{font-size:15px;flex-shrink:0}
+.pill-title{font-size:10px;font-weight:700;white-space:nowrap}
+.pill-sub{font-size:9px;color:#94a3b8;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* PILL DRAWERS */
+.pill-col{flex:1;display:flex;flex-direction:column;min-width:0}
+.pill-drawer{overflow:hidden;max-height:0;opacity:0;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1),opacity 0.35s ease}
+.pill-drawer.open{max-height:2000px;opacity:1}
+.drawer-body{border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 14px 14px;background:#0a1421;padding:14px 14px 16px}
+
+/* DRAWER CONTACT STYLES */
+.dr-contact{padding:12px 0;border-bottom:1px solid #1e293b}
+.dr-contact:last-child{border-bottom:none;padding-bottom:0}
+.dr-contact-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.dr-avatar{width:38px;height:38px;border-radius:10px;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.dr-name{font-size:13px;font-weight:700;color:#e2e8f0}
+.dr-role{font-size:11px;color:#7dd3fc;margin-top:1px}
+.dr-practice{font-size:10px;color:#94a3b8;margin-top:1px}
+.dr-link{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.dr-link-icon{width:30px;height:30px;border-radius:8px;background:#0d1e35;border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.dr-link-label{font-size:9px;color:#64748b}
+.dr-link-val{font-size:12px;color:#60a5fa;font-weight:600;line-height:1.4}
+.dr-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.dr-tag{background:#1e293b;color:#7dd3fc;font-size:10px;padding:3px 8px;border-radius:99px}
+
+/* DRAWER MED STYLES */
+.dr-med-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.dr-med-name{font-size:15px;font-weight:800;color:#e2e8f0}
+.dr-med-dose{font-size:12px;margin-top:2px}
+.dr-med-rx{font-size:10px;color:#64748b;margin-top:1px}
+.dr-section{background:#080b12;border-radius:8px;padding:9px 11px;margin-bottom:7px}
+.dr-sec-lbl{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.dr-sec-txt{font-size:12px;color:#cbd5e1;line-height:1.6}
+.dr-impact{font-size:12px;color:#4ade80;margin-top:3px}
+.dr-note{background:#0a1e35;border-radius:8px;padding:9px 11px;border-width:1px;border-style:solid}
+.dr-note-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.dr-note-txt{font-size:12px;color:#cbd5e1;line-height:1.6}
+
+/* DRAWER SUPP STYLES */
+.dr-supp-header{background:#0a1e35;border:1px solid #1e3a5f;border-radius:10px;padding:10px 12px;margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.dr-supp-score{font-size:11px;font-weight:600;color:#7dd3fc}
+.dr-supp-sub{font-size:10px;color:#94a3b8;margin-top:1px}
+.dr-supp-item{border-radius:12px;margin-bottom:8px;overflow:hidden;border-width:1px;border-style:solid;background:#0d1421}
+.dr-supp-row{padding:11px 12px;display:flex;gap:9px;align-items:center;cursor:pointer}
+.dr-supp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dr-supp-name{font-size:12px;font-weight:700;color:#e2e8f0}
+.dr-supp-brand{font-size:10px;color:#94a3b8;margin-top:1px}
+.dr-supp-goal{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600;flex-shrink:0}
+.dr-supp-chev{color:#64748b;font-size:13px;flex-shrink:0}
+.dr-supp-detail{max-height:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.25s;opacity:0;padding:0 12px}
+.dr-supp-detail.open{max-height:400px;opacity:1;padding:0 12px 10px}
+.dr-supp-effect{font-size:11px;color:#cbd5e1;line-height:1.55;margin-bottom:6px;padding-top:8px;border-top:1px solid #1e293b}
+.dr-supp-impact{font-size:10px;color:#4ade80;margin-bottom:2px}
+.dr-supp-note{font-size:10px;color:#94a3b8;margin-top:6px;line-height:1.5;padding-top:6px;border-top:1px solid #1e293b}
+
+/* BM CARDS */
 .bm-card{background:#0d1421;border-radius:14px;padding:13px 15px;margin-bottom:9px;cursor:pointer;border-width:1px;border-style:solid;transition:border-color 0.2s}
 .bm-inner{display:flex;align-items:center;gap:12px;width:100%}
 .bm-label-row{display:flex;align-items:center;gap:7px;margin-bottom:3px}
@@ -54,6 +109,8 @@ a{text-decoration:none}
 .bm-prev{font-size:10px;color:#94a3b8;margin-top:2px}
 .ibtn{background:none;border:1px solid #334155;color:#7dd3fc;border-radius:50%;width:19px;height:19px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
 .dot{display:inline-block;border-radius:50%;flex-shrink:0}
+
+/* INLINE CHART */
 .inline-chart{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1),opacity 0.3s ease;opacity:0}
 .inline-chart.open{max-height:420px;opacity:1}
 .inline-chart-inner{padding-top:14px;border-top:1px solid #1e3a5f;margin-top:14px}
@@ -64,6 +121,8 @@ a{text-decoration:none}
 .chart-pt-val{font-size:13px;font-weight:700}
 .chart-close-row{display:flex;justify-content:flex-end;margin-top:10px}
 .chart-close-btn{background:#1e293b;border:none;color:#94a3b8;border-radius:99px;padding:5px 14px;font-size:11px;font-family:inherit}
+
+/* CAT GRID */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .cat-card{background:#0d1421;border-radius:12px;padding:12px 14px;cursor:pointer;border-width:1px;border-style:solid;transition:transform 0.15s}
 .cat-card:active{transform:scale(0.97)}
@@ -81,6 +140,8 @@ a{text-decoration:none}
 #status-filter-banner.visible{display:flex}
 .sfb-label{font-size:11px;font-weight:600}
 .sfb-clear{background:none;border:none;font-size:11px;color:#60a5fa;font-family:inherit}
+
+/* INSIGHTS */
 .ins-card{border-radius:14px;padding:14px 16px;margin-bottom:10px;border-width:1px;border-style:solid}
 .ins-row{display:flex;gap:10px;align-items:flex-start}
 .ins-icon{font-size:15px;flex-shrink:0;min-width:20px;text-align:center}
@@ -91,6 +152,8 @@ a{text-decoration:none}
 .ins-filter-inner{display:flex;gap:6px;width:max-content}
 .ins-btn{border-radius:99px;font-size:10px;padding:5px 11px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1e293b;color:#94a3b8}
 .ins-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
+
+/* ACTIONS */
 .action-card{background:#0d1421;border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;border-width:1px;border-style:solid}
 .action-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;border-width:1px;border-style:solid}
 .action-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
@@ -102,58 +165,8 @@ a{text-decoration:none}
 .panel-item{display:flex;align-items:center;gap:8px;padding:7px 0}
 .panel-dot{width:5px;height:5px;border-radius:50%;background:#7dd3fc;flex-shrink:0}
 .panel-text{font-size:12px;color:#cbd5e1}
-.care-toggle{display:flex;gap:6px;margin-bottom:16px}
-.care-btn{flex:1;border-radius:10px;font-size:10px;padding:8px 4px;border-width:1px;border-style:solid;background:#0d1421;border-color:#1e293b;color:#94a3b8;transition:all 0.2s}
-.care-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
-.doc-card{background:#0d1421;border:1px solid #1e3a5f;border-radius:14px;margin-bottom:12px;overflow:hidden}
-.doc-header{padding:14px 16px;cursor:pointer;display:flex;gap:12px;align-items:center}
-.doc-avatar{width:40px;height:40px;border-radius:12px;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden}
-.doc-name{font-size:13px;font-weight:700;color:#e2e8f0}
-.doc-role{font-size:11px;color:#7dd3fc;margin-top:2px}
-.doc-practice{font-size:10px;color:#94a3b8;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.doc-chevron{color:#64748b;font-size:16px;flex-shrink:0;margin-left:auto}
-.doc-body{border-top:1px solid #1e293b;padding:14px 16px;display:none;flex-direction:column;gap:10px}
-.doc-body.open{display:flex}
-.doc-link{display:flex;align-items:center;gap:10px}
-.doc-link-icon{width:36px;height:36px;border-radius:10px;background:#0a1e35;border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.doc-link-label{font-size:10px;color:#94a3b8}
-.doc-link-val{font-size:13px;color:#60a5fa;font-weight:600;line-height:1.4}
-.doc-bm-box{background:#080b12;border-radius:10px;padding:10px 12px}
-.doc-bm-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-.doc-bm-tags{display:flex;flex-wrap:wrap;gap:5px}
-.bm-tag{background:#1e293b;color:#7dd3fc;font-size:10px;padding:3px 8px;border-radius:99px}
-.med-card{border-radius:14px;padding:16px;margin-bottom:12px;border-width:1px;border-style:solid}
-.med-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
-.med-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border-width:1px;border-style:solid}
-.med-name{font-size:15px;font-weight:800;color:#e2e8f0}
-.med-dose{font-size:12px;margin-top:2px}
-.med-rx{font-size:10px;color:#94a3b8;margin-top:1px}
-.med-section{background:#080b12;border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.med-sec-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.med-sec-text{font-size:12px;color:#cbd5e1;line-height:1.6}
-.med-impact-item{font-size:12px;color:#4ade80;margin-top:3px}
-.med-note{border-radius:10px;padding:10px 12px;border-width:1px;border-style:solid}
-.med-note-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.med-note-text{font-size:12px;color:#cbd5e1;line-height:1.6}
-.supp-header-banner{background:#0a1e35;border:1px solid #1e3a5f;border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;gap:8px;align-items:center}
-.supp-score{font-size:11px;font-weight:600;color:#7dd3fc}
-.supp-sub{font-size:10px;color:#94a3b8;margin-top:1px}
-.supp-card{border-radius:14px;margin-bottom:10px;overflow:hidden;border-width:1px;border-style:solid}
-.supp-row{padding:12px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
-.supp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.supp-name{font-size:12px;font-weight:700;color:#e2e8f0}
-.supp-brand{font-size:10px;color:#94a3b8;margin-top:1px}
-.supp-goal-tag{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600}
-.supp-chev{color:#64748b;font-size:14px}
-.supp-body{border-top-width:1px;border-top-style:solid;padding:12px 14px;display:none;flex-direction:column;gap:8px}
-.supp-body.open{display:flex}
-.supp-sec{background:#080b12;border-radius:10px;padding:10px 12px}
-.supp-sec-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.supp-sec-text{font-size:12px;color:#cbd5e1;line-height:1.6}
-.supp-impact{font-size:11px;color:#4ade80;margin-top:3px}
-.supp-note-box{border-radius:10px;padding:10px 12px;border-width:1px;border-style:solid}
-.supp-note-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.supp-note-text{font-size:12px;color:#cbd5e1;line-height:1.6}
+
+/* INFO MODAL */
 #info-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
 #info-modal.open{display:flex}
 .info-sheet{background:#0d1421;border-radius:20px 20px 0 0;border:1px solid #1e3a5f;border-bottom:none;padding:20px 20px 44px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto}
@@ -169,6 +182,25 @@ a{text-decoration:none}
 .info-range{background:#0a1e35;border-radius:12px;padding:10px 14px;border:1px solid #22c55e30}
 .info-range-label{font-size:9px;color:#4ade80;letter-spacing:1px;margin-bottom:3px}
 .info-range-val{font-size:13px;color:#cbd5e1}
+
+/* CONTACTS PAGE (Care) */
+.care-page-contact{background:#0d1421;border:1px solid #1e3a5f;border-radius:14px;margin-bottom:12px;overflow:hidden}
+.care-contact-header{padding:14px 16px;cursor:pointer;display:flex;gap:12px;align-items:center}
+.care-avatar{width:40px;height:40px;border-radius:12px;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.care-name{font-size:13px;font-weight:700;color:#e2e8f0}
+.care-role{font-size:11px;color:#7dd3fc;margin-top:2px}
+.care-practice{font-size:10px;color:#94a3b8;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.care-chev{color:#64748b;font-size:16px;flex-shrink:0;margin-left:auto}
+.care-contact-body{border-top:1px solid #1e293b;padding:14px 16px;display:none;flex-direction:column;gap:10px}
+.care-contact-body.open{display:flex}
+.care-link{display:flex;align-items:center;gap:10px}
+.care-link-icon{width:36px;height:36px;border-radius:10px;background:#0a1e35;border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.care-link-label{font-size:10px;color:#94a3b8}
+.care-link-val{font-size:13px;color:#60a5fa;font-weight:600;line-height:1.4}
+.care-bm-box{background:#080b12;border-radius:10px;padding:10px 12px}
+.care-bm-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.care-bm-tags{display:flex;flex-wrap:wrap;gap:5px}
+.care-bm-tag{background:#1e293b;color:#7dd3fc;font-size:10px;padding:3px 8px;border-radius:99px}
 </style>
 </head>
 <body>
@@ -189,16 +221,13 @@ a{text-decoration:none}
   </div>
   <div class="stat-row">
     <div class="stat-pill" id="pill-optimal" style="background:#0f2818;border-color:#22c55e25" onclick="filterByStatus('optimal')">
-      <div class="stat-num" style="color:#4ade80" id="cnt-optimal">--</div>
-      <div class="stat-lbl">OPTIMAL</div>
+      <div class="stat-num" style="color:#4ade80" id="cnt-optimal">--</div><div class="stat-lbl">OPTIMAL</div>
     </div>
     <div class="stat-pill" id="pill-concern" style="background:#1c1505;border-color:#f59e0b25" onclick="filterByStatus('concern')">
-      <div class="stat-num" style="color:#fbbf24" id="cnt-concern">--</div>
-      <div class="stat-lbl">MONITOR</div>
+      <div class="stat-num" style="color:#fbbf24" id="cnt-concern">--</div><div class="stat-lbl">MONITOR</div>
     </div>
     <div class="stat-pill" id="pill-high" style="background:#1a0808;border-color:#ef444425" onclick="filterByStatus('high')">
-      <div class="stat-num" style="color:#f87171" id="cnt-high">--</div>
-      <div class="stat-lbl">ACTION</div>
+      <div class="stat-num" style="color:#f87171" id="cnt-high">--</div><div class="stat-lbl">ACTION</div>
     </div>
   </div>
 </div>
@@ -210,39 +239,49 @@ a{text-decoration:none}
   <button class="tabn" onclick="showTab('actions')">Actions<span class="badge">5</span></button>
 </div>
 
+<!-- OVERVIEW -->
 <div id="page-overview" class="page active">
-  <div style="margin-bottom:20px">
-    <div class="sec-label">Lab History</div>
-    <div class="timeline">
-      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label">Oct 2018</div></div>
-      <div class="tl-line"></div>
-      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label">Jan 2025</div></div>
-      <div class="tl-line"></div>
-      <div class="tl-node"><div class="tl-dot past"></div><div class="tl-label">Mar 2026</div></div>
-      <div class="tl-line"></div>
-      <div class="tl-node"><div class="tl-dot active"></div><div class="tl-label current">Jun 2026</div></div>
+
+  <!-- M/S/C PILLS + DRAWERS -->
+  <div style="margin-bottom:14px">
+    <div class="pill-row">
+      <div class="pill-col">
+        <button class="pill-btn" id="pb-rx" data-drawer="rx" style="background:#0a1628;border-color:#3b82f640">
+          <span class="pill-emoji">&#128138;</span>
+          <div style="min-width:0"><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine 50mcg</div></div>
+        </button>
+        <div class="pill-drawer" id="pd-rx">
+          <div class="drawer-body" id="pd-rx-body" style="border-color:#3b82f640"></div>
+        </div>
+      </div>
+      <div class="pill-col">
+        <button class="pill-btn" id="pb-supplements" data-drawer="supplements" style="background:#0a0e1e;border-color:#a78bfa40">
+          <span class="pill-emoji">&#127807;</span>
+          <div style="min-width:0"><div class="pill-title" style="color:#c4b5fd">Supplements</div><div class="pill-sub">SuppCo score: 89</div></div>
+        </button>
+        <div class="pill-drawer" id="pd-supplements">
+          <div class="drawer-body" id="pd-supplements-body" style="border-color:#a78bfa40"></div>
+        </div>
+      </div>
+      <div class="pill-col">
+        <button class="pill-btn" id="pb-contacts" data-drawer="contacts" style="background:#051a12;border-color:#34d39940">
+          <span class="pill-emoji">&#128241;</span>
+          <div style="min-width:0"><div class="pill-title" style="color:#34d399">Contacts</div><div class="pill-sub">Doctors &amp; Pharmacy</div></div>
+        </button>
+        <div class="pill-drawer" id="pd-contacts">
+          <div class="drawer-body" id="pd-contacts-body" style="border-color:#34d39940"></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="pill-row">
-    <div class="pill-banner" style="background:#0a1628;border-color:#3b82f640" onclick="goToCare('rx')">
-      <span style="font-size:15px">&#128138;</span>
-      <div><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine 50mcg</div></div>
-    </div>
-    <div class="pill-banner" style="background:#0a0e1e;border-color:#a78bfa40" onclick="goToCare('supplements')">
-      <span style="font-size:15px">&#127807;</span>
-      <div><div class="pill-title" style="color:#c4b5fd">Supplements</div><div class="pill-sub">SuppCo score: 89</div></div>
-    </div>
-    <div class="pill-banner" style="background:#051a12;border-color:#34d39940" onclick="goToCare('contacts')">
-      <span style="font-size:15px">&#128241;</span>
-      <div><div class="pill-title" style="color:#34d399">Contacts</div><div class="pill-sub">Doctors &amp; Pharmacy</div></div>
-    </div>
-  </div>
+
   <div class="sec-label">Key Biomarkers</div>
   <div id="key-bms"></div>
-  <div class="sec-label" style="margin-top:20px">By Category</div>
+  <div class="sec-label" style="margin-top:18px">By Category</div>
   <div class="cat-grid" id="cat-grid"></div>
 </div>
 
+<!-- LABS -->
 <div id="page-labs" class="page">
   <div class="cat-scroll"><div class="cat-scroll-inner" id="cat-filter-btns"></div></div>
   <div id="status-filter-banner">
@@ -252,11 +291,13 @@ a{text-decoration:none}
   <div id="bm-list"></div>
 </div>
 
+<!-- INSIGHTS -->
 <div id="page-insights" class="page">
   <div class="ins-filter"><div class="ins-filter-inner" id="ins-filter-btns"></div></div>
   <div id="ins-list"></div>
 </div>
 
+<!-- ACTIONS -->
 <div id="page-actions" class="page">
   <div class="sec-label">Priority Action Plan</div>
   <div id="actions-list"></div>
@@ -266,26 +307,12 @@ a{text-decoration:none}
   </div>
 </div>
 
-<div id="page-care" class="page">
-  <div class="care-toggle">
-    <button class="care-btn active" id="cbtn-contacts" onclick="showCare('contacts')">Contacts</button>
-    <button class="care-btn" id="cbtn-rx" onclick="showCare('rx')">Meds</button>
-    <button class="care-btn" id="cbtn-supplements" onclick="showCare('supplements')">Supplements</button>
-  </div>
-  <div id="care-contacts"></div>
-  <div id="care-rx" class="hidden"></div>
-  <div id="care-supplements" class="hidden"></div>
-</div>
-
+<!-- INFO MODAL -->
 <div id="info-modal" onclick="closeInfo()">
   <div class="info-sheet" onclick="event.stopPropagation()">
     <div class="info-handle"></div>
     <div class="info-header">
-      <div>
-        <div class="info-bm-label">Biomarker</div>
-        <div class="info-bm-name" id="info-name"></div>
-        <div class="info-bm-cat" id="info-cat"></div>
-      </div>
+      <div><div class="info-bm-label">Biomarker</div><div class="info-bm-name" id="info-name"></div><div class="info-bm-cat" id="info-cat"></div></div>
       <button class="info-close" onclick="closeInfo()">&#10005;</button>
     </div>
     <div class="info-sec"><div class="info-sec-label">What is it?</div><div class="info-sec-text" id="info-what"></div></div>
@@ -331,10 +358,8 @@ var BM = {
   folate:{label:"Folate",unit:"ng/mL",cat:"Vitamins",optimal:[5.4,99],concern:[3.4,5.3],high:[0,3.3],data:[{d:"Jan 2025",v:16.5}],hb:true,what:"Vitamin B9. Helps build DNA and make new cells especially red blood cells.",why:"Not retested. Was 16.5 ng/mL, optimal."},
   psa:{label:"PSA Total",unit:"ng/mL",cat:"Prostate",optimal:[0,2.5],concern:[2.5,4.0],high:[4.0,99],data:[{d:"Jan 2025",v:0.26}],what:"A protein made by prostate cells. Small amounts normally enter the blood.",why:"Not retested. Was 0.26 ng/mL, optimal."}
 };
-
 var CATS=["All","Cardiovascular","Metabolic","Thyroid","Hormones","Blood","Vitamins","Prostate"];
 var CICONS={Cardiovascular:"&#9829;",Metabolic:"&#9889;",Thyroid:"&#9672;",Hormones:"&#9711;",Blood:"&#9670;",Vitamins:"&#10022;",Prostate:"&#9676;"};
-
 var INSIGHTS=[
   {type:"positive",title:"LDL: Real Progress Down 40 Points",body:"LDL dropped from 153 to 113 mg/dL, the first meaningful decline after three consecutive rises. ApoB fell 129 to 99, LDL particle # dropped from 2,097 to 1,387, and LDL Small nearly halved. Your Omega-3s, Berberine, and Psyllium stack appears to be working."},
   {type:"positive",title:"hs-CRP: Dramatic Improvement",body:"hs-CRP went from 1.4 mg/L down to under 0.2 mg/L, essentially undetectable. This is a major win for vascular inflammation. Lp-PLA2 also dropped from 179 to 155. The anti-inflammatory combination in your stack is clearly having an effect."},
@@ -347,7 +372,6 @@ var INSIGHTS=[
   {type:"positive",title:"Metabolic Health Remains Excellent",body:"Glucose at 96, BUN improved to 19, and prior HbA1c of 4.5% reflects excellent blood sugar control. Your metabolic foundation is strong."},
   {type:"rx",title:"Levothyroxine Timing Still Critical",body:"TSH rising despite good T4 may reflect timing or absorption issues. Ensure Levothyroxine is taken fasted 30 to 60 minutes before food, and at least 4 hours before Magnesium, Psyllium, and the O.N.E. Multivitamin."}
 ];
-
 var ACTIONS=[
   {priority:1,action:"Discuss TSH rising to 5.36 with Brian Barragan, Levothyroxine dose review",why:"TSH went backward 4.67 to 5.36 despite good Free T4. Dose adjustment may be needed.",urgency:"high",doctor:"Brian Barragan, PA"},
   {priority:2,action:"Discuss ALT elevation of 54 with Brian Barragan",why:"Back above range after normalizing last draw. Cause needs to be identified.",urgency:"high",doctor:"Brian Barragan, PA"},
@@ -355,19 +379,15 @@ var ACTIONS=[
   {priority:4,action:"Get endocrinology referral for free testosterone evaluation",why:"Still unaddressed from last panel, 39.8 pg/mL below optimal, SHBG elevated.",urgency:"medium",doctor:"Brian Barragan, PA"},
   {priority:5,action:"Retest LDL particle #, ApoB, and Lp-PLA2 in 3 to 4 months",why:"Lipid picture improving but still needs to reach optimal. Track the momentum.",urgency:"low",doctor:"Brian Barragan, PA"}
 ];
-
 var NEXT_PANEL=["TSH + Free T4 (Levothyroxine dose review)","ALT + AST + GGT (liver enzyme follow-up)","Free testosterone + SHBG + LH/FSH","Repeat ApoB + LDL-P (track improvement)","Lp-PLA2 + hs-CRP (confirm inflammation trend)","HbA1c + fasting glucose (metabolic check)"];
-
 var CONTACTS=[
-  {id:"pcp",icon:"steth",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",tags:["TSH","Free T4","ALT","AST","eGFR"]},
-  {id:"cardio",icon:"heart",role:"Cardiologist",name:"Huy Nguyen, MD, FACC",practice:"Coastal Cardiology of Orange County",address:"333 Corporate Drive Ste 102, Ladera Ranch, CA 92694",phone:"949-276-2446",email:"",tags:["LDL","ApoB","Lp-PLA2","hs-CRP","LDL Particle #"]},
-  {id:"walgreens",icon:"walg",role:"Pharmacy",name:"Walgreens",practice:"Prescription Refills and Supplements",phone:"",email:"",mapsUrl:"https://maps.apple.com/place?auid=3C2.0GEwVVMd3",tags:["Levothyroxine refills","Supplement orders"]}
+  {id:"pcp",icon:"🦺",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",tags:["TSH","Free T4","ALT","AST","eGFR"]},
+  {id:"cardio",icon:"🫀",role:"Cardiologist",name:"Huy Nguyen, MD, FACC",practice:"Coastal Cardiology of Orange County",address:"333 Corporate Drive Ste 102, Ladera Ranch, CA 92694",phone:"949-276-2446",email:"",tags:["LDL","ApoB","Lp-PLA2","hs-CRP","LDL Particle #"]},
+  {id:"walgreens",icon:"👩🏻‍⚕️",role:"Pharmacy",name:"Walgreens",practice:"Prescription Refills",phone:"949-448-0082",email:"",address:"26531 Aliso Creek Rd, Aliso Viejo, CA 92656",tags:["Levothyroxine refills"]}
 ];
-
 var MEDS=[
   {name:"Levothyroxine",dose:"50 mcg",freq:"Daily, morning fasted",rx:"Brian Barragan, PA",purpose:"Thyroid hormone replacement for hypothyroidism.",how:"Replaces T4 your thyroid does not produce enough of. Body converts it to active T3, driving metabolism and energy.",impact:["Free T4 improved to 1.4, best reading yet","Free T3 stable at 3.1, optimal","TSH ticked back up to 5.36, dose review needed"],note:"TSH rose from 4.67 to 5.36 despite improving Free T4. Discuss urgently with Brian Barragan. Ensure strict separation from Mg, psyllium, and multivitamin by 4+ hours.",color:"#60a5fa"}
 ];
-
 var SUPPS=[
   {name:"Ultimate Omega",brand:"Nordic Naturals",dose:"2 caps/day",goal:"Cardiovascular",color:"#f87171",effect:"Reduces triglycerides and vascular inflammation via EPA and DHA.",impact:["hs-CRP: 1.4 to 0.2, dramatic improvement","Triglycerides: 103 to 71, excellent","Lp-PLA2: 179 to 155, improving"],note:"This is doing exactly what it should. hs-CRP is near zero and triglycerides have dropped significantly."},
   {name:"Berberine",brand:"Thorne",dose:"1 cap/day",goal:"Cardiovascular",color:"#fbbf24",effect:"Activates AMPK, improves insulin sensitivity, lowers LDL and blood sugar.",impact:["LDL: 153 to 113, down 40 points","Triglycerides: 103 to 71","Glucose: 96, still optimal"],note:"LDL drop is consistent with berberine mechanism. Separate from Levothyroxine by 2+ hours."},
@@ -386,6 +406,7 @@ var SUPPS=[
   {name:"Fast Dissolve NMN",brand:"Renue by Science",dose:"1 scoop/day",goal:"Longevity",color:"#c4b5fd",effect:"Raises NAD+ levels. Supports mitochondrial function, DNA repair, and energy.",impact:["Cellular energy support","Synergistic with Resveratrol"],note:"Sublingual delivery improves bioavailability significantly."}
 ];
 
+// ── HELPERS ──────────────────────────────────────────────────────────────────
 function gs(bm,val){
   if(val==null)return"nd";
   var lo=bm.optimal[0],hi=bm.optimal[1];
@@ -412,13 +433,93 @@ function mkarrow(tr,hb){
 function opts(bm){return bm.optimal[1]>900?"Above "+bm.optimal[0]:bm.optimal[0]+" - "+bm.optimal[1];}
 function score(){
   var t=0,c=0;
-  Object.keys(BM).forEach(function(k){
-    var v=gl(BM[k])?.v;if(v==null)return;
-    var s=gsk(k);t+=s==="o"?100:s==="c"?55:10;c++;
-  });
+  Object.keys(BM).forEach(function(k){var v=gl(BM[k])?.v;if(v==null)return;var s=gsk(k);t+=s==="o"?100:s==="c"?55:10;c++;});
   return Math.round(t/c);
 }
 
+// ── PILL DRAWERS ─────────────────────────────────────────────────────────────
+var openDrawer=null;
+
+function buildContactsHTML(){
+  return CONTACTS.map(function(c){
+    var links="";
+    if(c.phone) links+='<div class="dr-link"><a class="dr-link" href="tel:'+c.phone+'"><div class="dr-link-icon">&#128222;</div><div><div class="dr-link-label">Phone</div><div class="dr-link-val">'+c.phone+'</div></div></a></div>';
+    if(c.email) links+='<div class="dr-link"><a class="dr-link" href="mailto:'+c.email+'"><div class="dr-link-icon">&#9993;</div><div><div class="dr-link-label">Email</div><div class="dr-link-val">'+c.email+'</div></div></a></div>';
+    if(c.address) links+='<div class="dr-link"><a class="dr-link" href="https://maps.apple.com/?q='+encodeURIComponent(c.address)+'" target="_blank"><div class="dr-link-icon">&#128205;</div><div><div class="dr-link-label">Address</div><div class="dr-link-val">'+c.address+'</div></div></a></div>';
+    return '<div class="dr-contact">'
+      +'<div class="dr-contact-head"><div class="dr-avatar">'+c.icon+'</div>'
+      +'<div><div class="dr-name">'+c.name+'</div><div class="dr-role">'+c.role+'</div><div class="dr-practice">'+c.practice+'</div></div></div>'
+      +links
+      +'<div class="dr-tags">'+c.tags.map(function(t){return'<span class="dr-tag">'+t+'</span>';}).join("")+'</div>'
+      +'</div>';
+  }).join("");
+}
+
+function buildMedsHTML(){
+  return MEDS.map(function(m){
+    return '<div class="dr-med-head"><span style="font-size:22px">&#128138;</span>'
+      +'<div><div class="dr-med-name">'+m.name+'</div>'
+      +'<div class="dr-med-dose" style="color:'+m.color+'">'+m.dose+' &middot; '+m.freq+'</div>'
+      +'<div class="dr-med-rx">Rx: '+m.rx+'</div></div></div>'
+      +'<div class="dr-section"><div class="dr-sec-lbl">Purpose</div><div class="dr-sec-txt">'+m.purpose+'</div></div>'
+      +'<div class="dr-section"><div class="dr-sec-lbl">How it works</div><div class="dr-sec-txt">'+m.how+'</div></div>'
+      +'<div class="dr-section"><div class="dr-sec-lbl">Biomarker Impact</div>'+m.impact.map(function(x){return'<div class="dr-impact">&#10003; '+x+'</div>';}).join("")+'</div>'
+      +'<div class="dr-note" style="border-color:'+m.color+'30"><div class="dr-note-lbl" style="color:'+m.color+'">Clinical Note</div><div class="dr-note-txt">'+m.note+'</div></div>';
+  }).join("");
+}
+
+function buildSuppsHTML(){
+  return '<div class="dr-supp-header"><span style="font-size:16px">&#127807;</span><div><div class="dr-supp-score">SuppCo Stack &middot; Score: 89/100</div><div class="dr-supp-sub">Tap each to see biomarker impact</div></div></div>'
+    +SUPPS.map(function(s,i){
+      return '<div class="dr-supp-item" style="border-color:'+s.color+'25">'
+        +'<div class="dr-supp-row" data-suppidx="'+i+'">'
+        +'<div class="dr-supp-dot" style="background:'+s.color+'"></div>'
+        +'<div style="flex:1;min-width:0"><div class="dr-supp-name">'+s.name+'</div><div class="dr-supp-brand">'+s.brand+' &middot; '+s.dose+'</div></div>'
+        +'<span class="dr-supp-goal" style="color:'+s.color+';background:'+s.color+'18">'+s.goal+'</span>'
+        +'<span class="dr-supp-chev" id="dsc-'+i+'">&#8964;</span>'
+        +'</div>'
+        +'<div class="dr-supp-detail" id="dsd-'+i+'">'
+        +'<div class="dr-supp-effect">'+s.effect+'</div>'
+        +s.impact.map(function(x){return'<div class="dr-supp-impact">&#8594; '+x+'</div>';}).join("")
+        +'<div class="dr-supp-note">'+s.note+'</div>'
+        +'</div></div>';
+    }).join("");
+}
+
+function togglePillDrawer(id){
+  var pill=document.getElementById("pb-"+id);
+  var drawer=document.getElementById("pd-"+id);
+  var body=document.getElementById("pd-"+id+"-body");
+  var isOpen=drawer.classList.contains("open");
+
+  // Close currently open drawer
+  if(openDrawer&&openDrawer!==id){
+    var op=document.getElementById("pb-"+openDrawer);
+    var od=document.getElementById("pd-"+openDrawer);
+    if(op){op.classList.remove("open");op.style.borderRadius="12px";}
+    if(od)od.classList.remove("open");
+  }
+
+  if(isOpen){
+    pill.classList.remove("open");
+    pill.style.borderRadius="12px";
+    drawer.classList.remove("open");
+    openDrawer=null;
+  } else {
+    // Build content
+    if(id==="contacts") body.innerHTML=buildContactsHTML();
+    else if(id==="rx") body.innerHTML=buildMedsHTML();
+    else if(id==="supplements") body.innerHTML=buildSuppsHTML();
+    pill.classList.add("open");
+    pill.style.borderRadius="12px 12px 0 0";
+    drawer.classList.add("open");
+    openDrawer=id;
+    // Smooth scroll into view
+    setTimeout(function(){pill.scrollIntoView({behavior:"smooth",block:"nearest"});},60);
+  }
+}
+
+// ── CHARTS ───────────────────────────────────────────────────────────────────
 var charts={},openKey=null;
 function buildChart(k){
   var bm=BM[k];
@@ -429,46 +530,35 @@ function buildChart(k){
       +(d.v!=null?'<div class="chart-pt-val" style="color:'+gc(s)+'">'+d.v+'</div>':'<div style="font-size:11px;color:#334155">-</div>')
       +'</div>';
   }).join("");
-  return'<div class="inline-chart" id="ic-'+k+'">'
-    +'<div class="inline-chart-inner">'
+  return'<div class="inline-chart" id="ic-'+k+'"><div class="inline-chart-inner">'
     +'<canvas id="cv-'+k+'" style="max-height:130px"></canvas>'
     +'<div class="chart-optimal">&#9679; Optimal: '+opts(bm)+' '+bm.unit+'</div>'
     +'<div class="chart-points">'+pts+'</div>'
     +'<div class="chart-close-row"><button class="chart-close-btn closechartbtn" data-key="'+k+'">Close &#8963;</button></div>'
     +'</div></div>';
 }
-function openCh(k,e){
-  if(e)e.stopPropagation();
-  if(openKey&&openKey!==k)closeCh(openKey,null);
-  if(openKey===k){closeCh(k,null);return;}
+function openCh(k){
+  if(openKey&&openKey!==k)closeCh(openKey);
+  if(openKey===k){closeCh(k);return;}
   openKey=k;
   var el=document.getElementById("ic-"+k);
   if(!el)return;
   el.classList.add("open");
   setTimeout(function(){
-    var bm=BM[k];
-    var vd=bm.data.filter(function(d){return d.v!=null;});
-    var cv=document.getElementById("cv-"+k);
+    var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),cv=document.getElementById("cv-"+k);
     if(!cv)return;
     if(charts[k])charts[k].destroy();
     charts[k]=new Chart(cv.getContext("2d"),{
       type:"line",
-      data:{
-        labels:vd.map(function(d){return d.d;}),
-        datasets:[{data:vd.map(function(d){return d.v;}),borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,0.12)",borderWidth:2.5,
-          pointBackgroundColor:vd.map(function(d){return gc(gs(bm,d.v));}),
-          pointBorderColor:vd.map(function(d){return gc(gs(bm,d.v));}),
-          pointRadius:5,fill:true,tension:0.35}]
-      },
+      data:{labels:vd.map(function(d){return d.d;}),datasets:[{data:vd.map(function(d){return d.v;}),borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,0.12)",borderWidth:2.5,pointBackgroundColor:vd.map(function(d){return gc(gs(bm,d.v));}),pointRadius:5,fill:true,tension:0.35}]},
       options:{responsive:true,maintainAspectRatio:true,animation:{duration:500},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+" "+bm.unit;}}}},scales:{x:{ticks:{color:"#64748b",font:{size:9}},grid:{color:"#1e293b"}},y:{ticks:{color:"#64748b",font:{size:9}},grid:{color:"#1e293b"}}}}
     });
   },60);
   var card=document.getElementById("bc-"+k);
-  if(card)card.style.borderColor="#60a5fa60";
+  if(card)card.style.borderColor="#60a5fa50";
   setTimeout(function(){var c2=document.getElementById("bc-"+k);if(c2)c2.scrollIntoView({behavior:"smooth",block:"nearest"});},120);
 }
-function closeCh(k,e){
-  if(e)e.stopPropagation();
+function closeCh(k){
   var el=document.getElementById("ic-"+k);
   if(el)el.classList.remove("open");
   if(charts[k]){charts[k].destroy();delete charts[k];}
@@ -476,8 +566,9 @@ function closeCh(k,e){
   var card=document.getElementById("bc-"+k);
   if(card)card.style.borderColor=gc(gsk(k))+"25";
 }
-function openInfo(k,e){
-  if(e)e.stopPropagation();
+
+// ── INFO MODAL ────────────────────────────────────────────────────────────────
+function openInfo(k){
   var bm=BM[k];
   document.getElementById("info-name").textContent=bm.label;
   document.getElementById("info-cat").textContent=bm.cat+" · "+(bm.unit||"ratio");
@@ -488,6 +579,7 @@ function openInfo(k,e){
 }
 function closeInfo(){document.getElementById("info-modal").classList.remove("open");}
 
+// ── TABS ──────────────────────────────────────────────────────────────────────
 var curTab="overview";
 function showTab(id){
   curTab=id;
@@ -500,23 +592,12 @@ function showTab(id){
   if(id==="labs")renderLabs();
   window.scrollTo(0,0);
 }
-function goToCare(sec){
-  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
-  document.querySelectorAll(".tabn").forEach(function(b){b.classList.remove("active");});
-  document.getElementById("page-care").classList.add("active");
-  showCare(sec);
-  window.scrollTo(0,0);
-}
 
+// ── STATUS FILTER ─────────────────────────────────────────────────────────────
 var activeSF=null;
 function filterByStatus(s){
-  var cols={optimal:"#4ade80",concern:"#fbbf24",high:"#f87171"};
-  if(activeSF===s){
-    activeSF=null;
-    document.getElementById("pill-optimal").style.borderColor="#22c55e25";
-    document.getElementById("pill-concern").style.borderColor="#f59e0b25";
-    document.getElementById("pill-high").style.borderColor="#ef444425";
-  } else {
+  if(activeSF===s){activeSF=null;clearPills();}
+  else{
     activeSF=s;
     document.getElementById("pill-optimal").style.borderColor=s==="optimal"?"#4ade80":"#22c55e25";
     document.getElementById("pill-concern").style.borderColor=s==="concern"?"#fbbf24":"#f59e0b25";
@@ -524,14 +605,14 @@ function filterByStatus(s){
   }
   curCat="All";showTab("labs");
 }
-function clearStatusFilter(){
-  activeSF=null;
+function clearPills(){
   document.getElementById("pill-optimal").style.borderColor="#22c55e25";
   document.getElementById("pill-concern").style.borderColor="#f59e0b25";
   document.getElementById("pill-high").style.borderColor="#ef444425";
-  renderLabs();
 }
+function clearStatusFilter(){activeSF=null;clearPills();renderLabs();}
 
+// ── OVERVIEW ──────────────────────────────────────────────────────────────────
 function renderOverview(){
   var sc=score();
   var ringColor=sc>=75?"#4ade80":sc>=55?"#fbbf24":"#f87171";
@@ -543,6 +624,7 @@ function renderOverview(){
   document.getElementById("cnt-optimal").textContent=counts.o;
   document.getElementById("cnt-concern").textContent=counts.c;
   document.getElementById("cnt-high").textContent=counts.h;
+
   var keys=[{k:"ldl",n:"Down 40pts, real progress"},{k:"tsh",n:"Ticked back up, dose review"},{k:"hsCRP",n:"Near zero, major improvement"},{k:"alt",n:"Back above range, monitor"},{k:"egfr",n:"Stable, no further decline"}];
   document.getElementById("key-bms").innerHTML=keys.map(function(item){
     var bm=BM[item.k],lat=gl(bm),s=gs(bm,lat?.v),tr=gt(bm.data);
@@ -554,6 +636,7 @@ function renderOverview(){
       +'<div><div class="bm-val" style="color:'+gc(s)+'">'+(lat?lat.v:"-")+'</div>'
       +'<div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div></div></div></div>';
   }).join("");
+
   document.getElementById("cat-grid").innerHTML=CATS.filter(function(c){return c!=="All";}).map(function(c){
     var ks=Object.keys(BM).filter(function(k){return BM[k].cat===c;});
     var opt=ks.filter(function(k){return gsk(k)==="o";}).length,tot=ks.length;
@@ -565,47 +648,39 @@ function renderOverview(){
       +'</div>';
   }).join("");
 }
-function clearPills(){
-  document.getElementById("pill-optimal").style.borderColor="#22c55e25";
-  document.getElementById("pill-concern").style.borderColor="#f59e0b25";
-  document.getElementById("pill-high").style.borderColor="#ef444425";
-}
 
+// ── LABS ──────────────────────────────────────────────────────────────────────
 var curCat="All";
 function renderCatBtns(){
   document.getElementById("cat-filter-btns").innerHTML=CATS.map(function(c){
     return'<button class="cat-btn catfilterbtn'+(c===curCat?" active":"")+'" data-cat="'+c+'">'+(c!=="All"?CICONS[c]+" ":"")+c+'</button>';
   }).join("");
 }
-function filterCat(c){curCat=c;activeSF=null;clearPills();if(openKey)closeCh(openKey,null);renderLabs();}
+function filterCat(c){curCat=c;activeSF=null;clearPills();if(openKey)closeCh(openKey);renderLabs();}
 function renderLabs(){
   renderCatBtns();
   var keys=Object.keys(BM).filter(function(k){return curCat==="All"||BM[k].cat===curCat;});
   var banner=document.getElementById("status-filter-banner");
   if(activeSF){
     keys=keys.filter(function(k){return gsk(k)===activeSF[0];});
-    var lbls={optimal:"Showing: Optimal biomarkers",concern:"Showing: Monitor biomarkers",high:"Showing: Action required biomarkers"};
+    var lbls={optimal:"Showing: Optimal",concern:"Showing: Monitor",high:"Showing: Action required"};
     document.getElementById("sfb-label").textContent=lbls[activeSF];
     document.getElementById("sfb-label").style.color=gc(activeSF[0]);
     banner.classList.add("visible");
-  } else {
-    banner.classList.remove("visible");
-  }
+  } else {banner.classList.remove("visible");}
   document.getElementById("bm-list").innerHTML=keys.map(function(k){
     var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),lat=vd[vd.length-1],prev=vd[vd.length-2],s=gs(bm,lat?.v),tr=gt(bm.data);
     return'<div class="bm-card labbm" id="bc-'+k+'" data-key="'+k+'" style="border-color:'+gc(s)+'20">'
       +'<div class="bm-inner">'+mkdot(s,8)
-      +'<div style="flex:1;min-width:0">'
-      +'<div class="bm-label-row"><span class="bm-name" style="font-size:12px">'+bm.label+'</span>'
+      +'<div style="flex:1;min-width:0"><div class="bm-label-row"><span class="bm-name" style="font-size:12px">'+bm.label+'</span>'
       +'<button class="ibtn infobtn" data-key="'+k+'">i</button></div>'
-      +(prev?'<div class="bm-prev">Prev: '+prev.v+' '+bm.unit+' ('+prev.d+')</div>':"")
-      +'</div>'
-      +'<div style="text-align:right;flex-shrink:0">'
-      +(lat?'<div class="bm-val" style="color:'+gc(s)+';font-size:16px">'+lat.v+'</div><div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div>':'<div style="font-size:11px;color:#334155">No data</div>')
-      +'</div></div>'+buildChart(k)+'</div>';
+      +(prev?'<div class="bm-prev">Prev: '+prev.v+' '+bm.unit+' ('+prev.d+')</div>':"")+'</div>'
+      +'<div style="text-align:right;flex-shrink:0">'+(lat?'<div class="bm-val" style="color:'+gc(s)+';font-size:16px">'+lat.v+'</div><div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div>':'<div style="font-size:11px;color:#334155">No data</div>')+'</div>'
+      +'</div>'+buildChart(k)+'</div>';
   }).join("");
 }
 
+// ── INSIGHTS ─────────────────────────────────────────────────────────────────
 var ITC={turning:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"&#8599;"},stabilized:{color:"#c4b5fd",bg:"#130f2a",border:"#a78bfa30",icon:"&#9672;"},alert:{color:"#f87171",bg:"#1a0808",border:"#ef444430",icon:"&#9888;"},warning:{color:"#fbbf24",bg:"#1a1208",border:"#f59e0b30",icon:"&#9888;"},positive:{color:"#4ade80",bg:"#051a0f",border:"#22c55e30",icon:"&#10003;"},rx:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"&#128138;"}};
 var IFC=[{id:"all",lb:"All"},{id:"alert",lb:"Alerts"},{id:"warning",lb:"Warnings"},{id:"turning",lb:"Turning"},{id:"stabilized",lb:"Stabilized"},{id:"positive",lb:"Wins"},{id:"rx",lb:"Rx"}];
 var curIF="all";
@@ -618,6 +693,8 @@ function renderInsights(f){
     return'<div class="ins-card" style="background:'+cfg.bg+';border-color:'+cfg.border+'"><div class="ins-row"><span class="ins-icon">'+cfg.icon+'</span><div><div class="ins-title" style="color:'+cfg.color+'">'+ins.title+'</div><div class="ins-body">'+ins.body+'</div></div></div></div>';
   }).join("");
 }
+
+// ── ACTIONS ───────────────────────────────────────────────────────────────────
 function renderActions(){
   var UC={high:{color:"#f87171",bg:"#1a0808",lb:"HIGH"},medium:{color:"#fbbf24",bg:"#1a1208",lb:"MEDIUM"},low:{color:"#4ade80",bg:"#051a0f",lb:"LOW"}};
   document.getElementById("actions-list").innerHTML=ACTIONS.map(function(a){
@@ -626,107 +703,43 @@ function renderActions(){
       +'<div class="action-num" style="background:'+uc.bg+';border-color:'+uc.color+'60;color:'+uc.color+'">'+a.priority+'</div>'
       +'<div style="flex:1"><div class="action-badges"><span class="urgency-badge" style="color:'+uc.color+';background:'+uc.bg+'">'+uc.lb+'</span>'
       +(a.doctor?'<span class="doctor-badge">&#8594; '+a.doctor+'</span>':"")+'</div>'
-      +'<div class="action-title">'+a.action+'</div>'
-      +'<div class="action-why">'+a.why+'</div></div></div>';
+      +'<div class="action-title">'+a.action+'</div><div class="action-why">'+a.why+'</div></div></div>';
   }).join("");
   document.getElementById("next-panel-list").innerHTML=NEXT_PANEL.map(function(t,i){
     return'<div class="panel-item" style="border-bottom:'+(i<NEXT_PANEL.length-1?"1px solid #1e293b":"none")+'"><div class="panel-dot"></div><div class="panel-text">'+t+'</div></div>';
   }).join("");
 }
 
-var curCare="contacts";
-function showCare(sec){
-  curCare=sec;
-  ["contacts","rx","supplements"].forEach(function(s){
-    var btn=document.getElementById("cbtn-"+s);
-    var div=document.getElementById("care-"+s);
-    if(btn)btn.classList.toggle("active",s===sec);
-    if(div)div.classList.toggle("hidden",s!==sec);
-  });
-}
-function toggleDoc(id){
-  var body=document.getElementById("db-"+id),chev=document.getElementById("dc-"+id);
-  var open=body.classList.contains("open");
-  document.querySelectorAll(".doc-body").forEach(function(b){b.classList.remove("open");});
-  document.querySelectorAll("[id^='dc-']").forEach(function(c){c.innerHTML="&#8964;";});
-  if(!open){body.classList.add("open");chev.innerHTML="&#8963;";}
-}
-function toggleSupp(i){
-  var body=document.getElementById("sb-"+i),chev=document.getElementById("sc-"+i);
-  var open=body.classList.contains("open");
-  body.classList.toggle("open",!open);
-  chev.innerHTML=open?"&#8964;":"&#8963;";
-}
-
-var walgSVG='<svg viewBox="0 0 80 40" width="40" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="40" fill="#e31837" rx="3"/><text x="40" y="14" text-anchor="middle" fill="white" font-size="8" font-weight="900" font-family="Arial">WALGREENS</text><line x1="6" y1="20" x2="74" y2="20" stroke="white" stroke-width="1.5"/><text x="40" y="32" text-anchor="middle" fill="white" font-size="10" font-weight="700" font-family="Arial">Pharmacy</text></svg>';
-var stethSVG='<span style="font-size:20px">&#129657;</span>';
-var heartSVG='<span style="font-size:20px">&#129728;</span>';
-
-function renderCare(){
-  // CONTACTS
-  document.getElementById("care-contacts").innerHTML=CONTACTS.map(function(c){
-    var av;
-    if(c.icon==="walg") av='<div class="doc-avatar" style="background:#e31837;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0">'+walgSVG+'</div>';
-    else if(c.icon==="heart") av='<div class="doc-avatar">&#129728;</div>';
-    else av='<div class="doc-avatar">&#129657;</div>';
-    var links="";
-    if(c.mapsUrl) links+='<a class="doc-link" href="'+c.mapsUrl+'" target="_blank"><div class="doc-link-icon">&#128205;</div><div><div class="doc-link-label">Find Location</div><div class="doc-link-val">Open in Maps</div></div></a>';
-    if(c.phone) links+='<a class="doc-link" href="tel:'+c.phone+'"><div class="doc-link-icon">&#128222;</div><div><div class="doc-link-label">Phone</div><div class="doc-link-val">'+c.phone+'</div></div></a>';
-    if(c.email) links+='<a class="doc-link" href="mailto:'+c.email+'"><div class="doc-link-icon">&#9993;</div><div><div class="doc-link-label">Email</div><div class="doc-link-val">'+c.email+'</div></div></a>';
-    if(c.address) links+='<a class="doc-link" href="https://maps.apple.com/?q='+encodeURIComponent(c.address)+'" target="_blank"><div class="doc-link-icon">&#128205;</div><div><div class="doc-link-label">Address</div><div class="doc-link-val">'+c.address+'</div></div></a>';
-    return'<div class="doc-card"><div class="doc-header docheader" data-id="'+c.id+'">'+av
-      +'<div style="flex:1;min-width:0"><div class="doc-name">'+c.name+'</div><div class="doc-role">'+c.role+'</div><div class="doc-practice">'+c.practice+'</div></div>'
-      +'<span class="doc-chevron" id="dc-'+c.id+'">&#8964;</span></div>'
-      +'<div class="doc-body" id="db-'+c.id+'">'+links
-      +'<div class="doc-bm-box"><div class="doc-bm-label">'+(c.icon==="walg"?"Services":"Biomarkers")+'</div>'
-      +'<div class="doc-bm-tags">'+c.tags.map(function(t){return'<span class="bm-tag">'+t+'</span>';}).join("")+'</div></div>'
-      +'</div></div>';
-  }).join("");
-
-  // MEDS
-  document.getElementById("care-rx").innerHTML=MEDS.map(function(m){
-    return'<div class="med-card" style="background:#0d1421;border-color:'+m.color+'35">'
-      +'<div class="med-header"><div class="med-icon" style="background:#0a1628;border-color:'+m.color+'50;font-size:22px">&#128138;</div>'
-      +'<div><div class="med-name">'+m.name+'</div><div class="med-dose" style="color:'+m.color+'">'+m.dose+' &middot; '+m.freq+'</div><div class="med-rx">Rx by '+m.rx+'</div></div></div>'
-      +'<div class="med-section"><div class="med-sec-label">Purpose</div><div class="med-sec-text">'+m.purpose+'</div></div>'
-      +'<div class="med-section"><div class="med-sec-label">How it works</div><div class="med-sec-text">'+m.how+'</div></div>'
-      +'<div class="med-section"><div class="med-sec-label">Biomarker Impact</div>'+m.impact.map(function(x){return'<div class="med-impact-item">&#10003; '+x+'</div>';}).join("")+'</div>'
-      +'<div class="med-note" style="background:#0a1628;border-color:'+m.color+'30"><div class="med-note-label" style="color:'+m.color+'">Clinical Note</div><div class="med-note-text">'+m.note+'</div></div>'
-      +'</div>';
-  }).join("");
-
-  // SUPPS
-  document.getElementById("care-supplements").innerHTML=
-    '<div class="supp-header-banner"><span style="font-size:16px">&#127807;</span><div><div class="supp-score">SuppCo Stack &middot; Score: 89/100</div><div class="supp-sub">Tap each to see biomarker impact</div></div></div>'
-    +SUPPS.map(function(s,i){
-      return'<div class="supp-card" style="border-color:'+s.color+'30;background:#0d1421">'
-        +'<div class="supp-row" data-suppidx="'+i+'">'
-        +'<div class="supp-dot" style="background:'+s.color+'"></div>'
-        +'<div style="flex:1;min-width:0"><div class="supp-name">'+s.name+'</div><div class="supp-brand">'+s.brand+' &middot; '+s.dose+'</div></div>'
-        +'<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">'
-        +'<span class="supp-goal-tag" style="color:'+s.color+';background:'+s.color+'18">'+s.goal+'</span>'
-        +'<span class="supp-chev" id="sc-'+i+'">&#8964;</span></div></div>'
-        +'<div class="supp-body" id="sb-'+i+'" style="border-top-color:'+s.color+'25">'
-        +'<div class="supp-sec"><div class="supp-sec-label">Effect</div><div class="supp-sec-text">'+s.effect+'</div></div>'
-        +'<div class="supp-sec"><div class="supp-sec-label">Your Biomarkers</div>'+s.impact.map(function(x){return'<div class="supp-impact">&#8594; '+x+'</div>';}).join("")+'</div>'
-        +'<div class="supp-note-box" style="background:#0a1628;border-color:'+s.color+'30"><div class="supp-note-label" style="color:'+s.color+'">Note</div><div class="supp-note-text">'+s.note+'</div></div>'
-        +'</div></div>';
-    }).join("");
-}
-
-// ===== EVENT DELEGATION (handles all clicks) =====
+// ── EVENT DELEGATION ─────────────────────────────────────────────────────────
 document.addEventListener("click",function(e){
   var t=e.target;
 
-  // Info button (i) - check first since it's inside cards
+  // Pill drawer buttons
+  var pillBtn=t.closest(".pill-btn[data-drawer]");
+  if(pillBtn){togglePillDrawer(pillBtn.getAttribute("data-drawer"));return;}
+
+  // Supplement toggle inside drawer
+  var suppRow=t.closest("[data-suppidx]");
+  if(suppRow){
+    var idx=suppRow.getAttribute("data-suppidx");
+    var det=document.getElementById("dsd-"+idx);
+    var chev=document.getElementById("dsc-"+idx);
+    if(!det)return;
+    var isOpen=det.classList.contains("open");
+    det.classList.toggle("open",!isOpen);
+    if(chev)chev.innerHTML=isOpen?"&#8964;":"&#8963;";
+    return;
+  }
+
+  // Info button
   var infoBtn=t.closest(".infobtn");
   if(infoBtn){e.stopPropagation();openInfo(infoBtn.getAttribute("data-key"));return;}
 
-  // Chart close button
+  // Close chart button
   var closeBtn=t.closest(".closechartbtn");
   if(closeBtn){e.stopPropagation();closeCh(closeBtn.getAttribute("data-key"));return;}
 
-  // Key biomarker card (overview) -> go to labs and open chart
+  // Key biomarker card
   var keyCard=t.closest(".keybm");
   if(keyCard){
     var kk=keyCard.getAttribute("data-key");
@@ -735,40 +748,29 @@ document.addEventListener("click",function(e){
     return;
   }
 
-  // Category card (overview) -> go to labs filtered
+  // Category card
   var catCard=t.closest(".catcard");
-  if(catCard){
-    curCat=catCard.getAttribute("data-cat");activeSF=null;clearPills();showTab("labs");return;
-  }
+  if(catCard){curCat=catCard.getAttribute("data-cat");activeSF=null;clearPills();showTab("labs");return;}
 
-  // Category filter button (labs)
-  var catFilter=t.closest(".catfilterbtn");
-  if(catFilter){filterCat(catFilter.getAttribute("data-cat"));return;}
+  // Category filter button
+  var catBtn=t.closest(".catfilterbtn");
+  if(catBtn){filterCat(catBtn.getAttribute("data-cat"));return;}
 
-  // Lab biomarker card -> toggle chart
+  // Lab biomarker card
   var labCard=t.closest(".labbm");
   if(labCard){openCh(labCard.getAttribute("data-key"));return;}
 
   // Insights filter button
-  var insFilter=t.closest(".insfilterbtn");
-  if(insFilter){renderInsights(insFilter.getAttribute("data-filter"));return;}
-
-  // Contact/doctor header -> toggle
-  var docHead=t.closest(".docheader");
-  if(docHead){toggleDoc(docHead.getAttribute("data-id"));return;}
-
-  // Supplement row -> toggle
-  var suppRow=t.closest("[data-suppidx]");
-  if(suppRow){toggleSupp(parseInt(suppRow.getAttribute("data-suppidx")));return;}
+  var insBtn=t.closest(".insfilterbtn");
+  if(insBtn){renderInsights(insBtn.getAttribute("data-filter"));return;}
 });
 
-// ===== INIT =====
+// ── INIT ─────────────────────────────────────────────────────────────────────
 renderOverview();
 renderCatBtns();
 renderLabs();
 renderInsights("all");
 renderActions();
-renderCare();
 </script>
 </body>
 </html>
