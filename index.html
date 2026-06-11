@@ -40,8 +40,7 @@ a{text-decoration:none}
 
 /* PILL BANNERS */
 .pill-row{display:flex;gap:6px;margin-bottom:0}
-.pill-btn{flex:1;border-radius:12px;padding:9px 8px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;transition:all 0.2s;-webkit-appearance:none;background:none;text-align:left;min-width:0}
-.pill-btn.open{border-radius:12px 12px 0 0}
+.pill-btn{flex:1;border-radius:12px;padding:9px 8px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;transition:all 0.2s;-webkit-appearance:none;background:none;text-align:left;min-width:0;font-family:inherit}
 .pill-btn:active{opacity:0.85}
 .pill-emoji{font-size:15px;flex-shrink:0}
 .pill-title{font-size:10px;font-weight:700;white-space:nowrap}
@@ -243,41 +242,34 @@ a{text-decoration:none}
 <div id="page-overview" class="page active">
 
   <!-- M/S/C PILLS + DRAWERS -->
-  <div style="margin-bottom:14px">
-    <div class="pill-row">
-      <div class="pill-col">
-        <button class="pill-btn" id="pb-rx" data-drawer="rx" style="background:#0a1628;border-color:#3b82f640">
-          <span class="pill-emoji">&#128138;</span>
-          <div style="min-width:0"><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine 50mcg</div></div>
-        </button>
-        <div class="pill-drawer" id="pd-rx">
-          <div class="drawer-body" id="pd-rx-body" style="border-color:#3b82f640"></div>
-        </div>
-      </div>
-      <div class="pill-col">
-        <button class="pill-btn" id="pb-supplements" data-drawer="supplements" style="background:#0a0e1e;border-color:#a78bfa40">
-          <span class="pill-emoji">&#127807;</span>
-          <div style="min-width:0"><div class="pill-title" style="color:#c4b5fd">Supplements</div><div class="pill-sub">SuppCo score: 89</div></div>
-        </button>
-        <div class="pill-drawer" id="pd-supplements">
-          <div class="drawer-body" id="pd-supplements-body" style="border-color:#a78bfa40"></div>
-        </div>
-      </div>
-      <div class="pill-col">
-        <button class="pill-btn" id="pb-contacts" data-drawer="contacts" style="background:#051a12;border-color:#34d39940">
-          <span class="pill-emoji">&#128241;</span>
-          <div style="min-width:0"><div class="pill-title" style="color:#34d399">Contacts</div><div class="pill-sub">Doctors &amp; Pharmacy</div></div>
-        </button>
-        <div class="pill-drawer" id="pd-contacts">
-          <div class="drawer-body" id="pd-contacts-body" style="border-color:#34d39940"></div>
-        </div>
-      </div>
+  <div style="margin-bottom:14px" id="pill-area">
+    <!-- Collapsed: all 3 pills visible -->
+    <div class="pill-row" id="pills-collapsed">
+      <button class="pill-btn" data-drawer="rx" style="background:#0a1628;border-color:#3b82f640">
+        <span class="pill-emoji">&#128138;</span>
+        <div style="min-width:0"><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine 50mcg</div></div>
+      </button>
+      <button class="pill-btn" data-drawer="supplements" style="background:#0a0e1e;border-color:#a78bfa40">
+        <span class="pill-emoji">&#127807;</span>
+        <div style="min-width:0"><div class="pill-title" style="color:#c4b5fd">Supplements</div><div class="pill-sub">SuppCo score: 89</div></div>
+      </button>
+      <button class="pill-btn" data-drawer="contacts" style="background:#051a12;border-color:#34d39940">
+        <span class="pill-emoji">&#128241;</span>
+        <div style="min-width:0"><div class="pill-title" style="color:#34d399">Contacts</div><div class="pill-sub">Doctors &amp; Pharmacy</div></div>
+      </button>
+    </div>
+    <!-- Expanded: single full-width pill + drawer -->
+    <div id="pill-expanded" style="display:none">
+      <button class="pill-btn" id="pb-active" style="width:100%;border-radius:12px 12px 0 0" onclick="closePillDrawer()">
+        <span class="pill-emoji" id="pb-active-emoji"></span>
+        <div style="flex:1;min-width:0"><div class="pill-title" id="pb-active-title"></div><div class="pill-sub" id="pb-active-sub"></div></div>
+        <span style="color:#94a3b8;font-size:13px;flex-shrink:0">&#8963; Close</span>
+      </button>
+      <div class="drawer-body" id="pill-drawer-body" style="border-color:transparent"></div>
     </div>
   </div>
 
-  <div class="sec-label">Key Biomarkers</div>
-  <div id="key-bms"></div>
-  <div class="sec-label" style="margin-top:18px">By Category</div>
+  <div class="sec-label">By Category</div>
   <div class="cat-grid" id="cat-grid"></div>
 </div>
 
@@ -381,7 +373,7 @@ var ACTIONS=[
 ];
 var NEXT_PANEL=["TSH + Free T4 (Levothyroxine dose review)","ALT + AST + GGT (liver enzyme follow-up)","Free testosterone + SHBG + LH/FSH","Repeat ApoB + LDL-P (track improvement)","Lp-PLA2 + hs-CRP (confirm inflammation trend)","HbA1c + fasting glucose (metabolic check)"];
 var CONTACTS=[
-  {id:"pcp",icon:"🦺",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",tags:["TSH","Free T4","ALT","AST","eGFR"]},
+  {id:"pcp",icon:"🩺",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",tags:["TSH","Free T4","ALT","AST","eGFR"]},
   {id:"cardio",icon:"🫀",role:"Cardiologist",name:"Huy Nguyen, MD, FACC",practice:"Coastal Cardiology of Orange County",address:"333 Corporate Drive Ste 102, Ladera Ranch, CA 92694",phone:"949-276-2446",email:"",tags:["LDL","ApoB","Lp-PLA2","hs-CRP","LDL Particle #"]},
   {id:"walgreens",icon:"👩🏻‍⚕️",role:"Pharmacy",name:"Walgreens",practice:"Prescription Refills",phone:"949-448-0082",email:"",address:"26531 Aliso Creek Rd, Aliso Viejo, CA 92656",tags:["Levothyroxine refills"]}
 ];
@@ -486,37 +478,40 @@ function buildSuppsHTML(){
     }).join("");
 }
 
+var PILL_CONFIG={
+  rx:{emoji:"&#128138;",title:"Medications",sub:"Levothyroxine 50mcg",bg:"#0a1628",border:"#3b82f640",titleColor:"#60a5fa"},
+  supplements:{emoji:"&#127807;",title:"Supplements",sub:"SuppCo score: 89",bg:"#0a0e1e",border:"#a78bfa40",titleColor:"#c4b5fd"},
+  contacts:{emoji:"&#128241;",title:"Contacts",sub:"Doctors & Pharmacy",bg:"#051a12",border:"#34d39940",titleColor:"#34d399"}
+};
+
 function togglePillDrawer(id){
-  var pill=document.getElementById("pb-"+id);
-  var drawer=document.getElementById("pd-"+id);
-  var body=document.getElementById("pd-"+id+"-body");
-  var isOpen=drawer.classList.contains("open");
+  if(openDrawer===id){closePillDrawer();return;}
+  openDrawer=id;
+  var cfg=PILL_CONFIG[id];
+  // Build content
+  var body=document.getElementById("pill-drawer-body");
+  if(id==="contacts") body.innerHTML=buildContactsHTML();
+  else if(id==="rx") body.innerHTML=buildMedsHTML();
+  else if(id==="supplements") body.innerHTML=buildSuppsHTML();
+  body.style.borderColor=cfg.border;
+  // Set active pill appearance
+  var pb=document.getElementById("pb-active");
+  pb.style.background=cfg.bg;
+  pb.style.borderColor=cfg.border;
+  document.getElementById("pb-active-emoji").innerHTML=cfg.emoji;
+  document.getElementById("pb-active-title").textContent=cfg.title;
+  document.getElementById("pb-active-title").style.color=cfg.titleColor;
+  document.getElementById("pb-active-sub").textContent=cfg.sub;
+  // Animate: hide collapsed pills, show expanded
+  document.getElementById("pills-collapsed").style.display="none";
+  document.getElementById("pill-expanded").style.display="block";
+  setTimeout(function(){document.getElementById("pill-area").scrollIntoView({behavior:"smooth",block:"nearest"});},60);
+}
 
-  // Close currently open drawer
-  if(openDrawer&&openDrawer!==id){
-    var op=document.getElementById("pb-"+openDrawer);
-    var od=document.getElementById("pd-"+openDrawer);
-    if(op){op.classList.remove("open");op.style.borderRadius="12px";}
-    if(od)od.classList.remove("open");
-  }
-
-  if(isOpen){
-    pill.classList.remove("open");
-    pill.style.borderRadius="12px";
-    drawer.classList.remove("open");
-    openDrawer=null;
-  } else {
-    // Build content
-    if(id==="contacts") body.innerHTML=buildContactsHTML();
-    else if(id==="rx") body.innerHTML=buildMedsHTML();
-    else if(id==="supplements") body.innerHTML=buildSuppsHTML();
-    pill.classList.add("open");
-    pill.style.borderRadius="12px 12px 0 0";
-    drawer.classList.add("open");
-    openDrawer=id;
-    // Smooth scroll into view
-    setTimeout(function(){pill.scrollIntoView({behavior:"smooth",block:"nearest"});},60);
-  }
+function closePillDrawer(){
+  openDrawer=null;
+  document.getElementById("pill-expanded").style.display="none";
+  document.getElementById("pills-collapsed").style.display="flex";
 }
 
 // ── CHARTS ───────────────────────────────────────────────────────────────────
@@ -625,18 +620,6 @@ function renderOverview(){
   document.getElementById("cnt-concern").textContent=counts.c;
   document.getElementById("cnt-high").textContent=counts.h;
 
-  var keys=[{k:"ldl",n:"Down 40pts, real progress"},{k:"tsh",n:"Ticked back up, dose review"},{k:"hsCRP",n:"Near zero, major improvement"},{k:"alt",n:"Back above range, monitor"},{k:"egfr",n:"Stable, no further decline"}];
-  document.getElementById("key-bms").innerHTML=keys.map(function(item){
-    var bm=BM[item.k],lat=gl(bm),s=gs(bm,lat?.v),tr=gt(bm.data);
-    return'<div class="bm-card keybm" data-key="'+item.k+'" style="border-color:'+gc(s)+'25">'
-      +'<div class="bm-inner">'+mkdot(s,10)
-      +'<div style="flex:1"><div class="bm-label-row"><span class="bm-name">'+bm.label+'</span>'
-      +'<button class="ibtn infobtn" data-key="'+item.k+'">i</button></div>'
-      +'<div class="bm-note">'+item.n+'</div></div>'
-      +'<div><div class="bm-val" style="color:'+gc(s)+'">'+(lat?lat.v:"-")+'</div>'
-      +'<div class="bm-unit">'+bm.unit+' '+mkarrow(tr,bm.hb)+'</div></div></div></div>';
-  }).join("");
-
   document.getElementById("cat-grid").innerHTML=CATS.filter(function(c){return c!=="All";}).map(function(c){
     var ks=Object.keys(BM).filter(function(k){return BM[k].cat===c;});
     var opt=ks.filter(function(k){return gsk(k)==="o";}).length,tot=ks.length;
@@ -738,15 +721,6 @@ document.addEventListener("click",function(e){
   // Close chart button
   var closeBtn=t.closest(".closechartbtn");
   if(closeBtn){e.stopPropagation();closeCh(closeBtn.getAttribute("data-key"));return;}
-
-  // Key biomarker card
-  var keyCard=t.closest(".keybm");
-  if(keyCard){
-    var kk=keyCard.getAttribute("data-key");
-    activeSF=null;clearPills();showTab("labs");
-    setTimeout(function(){renderLabs();setTimeout(function(){openCh(kk);},150);},60);
-    return;
-  }
 
   // Category card
   var catCard=t.closest(".catcard");
