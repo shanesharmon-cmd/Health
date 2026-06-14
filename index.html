@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Health IQ">
-<title>Health IQ - Shane Harmon</title>
+<meta name="apple-mobile-web-app-title" content="nanoCTRL">
+<title>nanoCTRL - Shane Harmon</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -14,6 +14,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Ne
 button{font-family:inherit;cursor:pointer;-webkit-appearance:none}
 a{text-decoration:none}
 .hidden{display:none!important}
+/* F7 — honor reduced motion globally (score ring area, drawers, chart expand, supplement rows, cards, tabs) */
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:0.001ms !important;animation-duration:0.001ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important}}
+/* F3 — visible keyboard focus */
+button:focus-visible,[role="button"]:focus-visible,a:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}
+[role="button"]{cursor:pointer}
+/* F1 — chart fallback (Chart.js unavailable) */
+.chart-fallback{font-size:12px;color:#fbbf24;background:#1a1208;border:1px solid #f59e0b30;border-radius:10px;padding:14px;text-align:center;line-height:1.5;margin-top:14px}
+/* F2 — empty states */
+.empty-state{text-align:center;padding:40px 20px}
+.empty-emoji{font-size:32px;margin-bottom:10px;opacity:0.85}
+.empty-title{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+.empty-sub{font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:16px}
+.empty-clear{background:#1e3a5f;border:1px solid #60a5fa;color:#60a5fa;border-radius:99px;padding:8px 18px;font-size:12px;font-weight:600;font-family:inherit}
 
 /* HEADER */
 #header{padding:52px 20px 16px;background:linear-gradient(180deg,#0d1421 0%,#080b12 100%)}
@@ -29,7 +42,7 @@ a{text-decoration:none}
 
 /* TABS */
 #tabnav{display:flex;border-bottom:1px solid #1e293b;position:sticky;top:0;background:#080b12;z-index:50;padding-top:4px}
-.tabn{flex:1;background:none;border:none;color:#64748b;font-size:11px;font-weight:500;padding:10px 4px 9px;border-bottom:2px solid transparent;transition:all .2s}
+.tabn{flex:1;background:none;border:none;color:#7a8699;font-size:11px;font-weight:500;padding:10px 4px 9px;border-bottom:2px solid transparent;transition:all .2s}
 .tabn.active{color:#60a5fa;font-weight:700;border-bottom-color:#60a5fa}
 .badge{display:inline-block;background:#ef4444;color:#fff;border-radius:99px;font-size:7px;padding:1px 4px;margin-left:3px;font-weight:800;vertical-align:middle}
 
@@ -40,16 +53,15 @@ a{text-decoration:none}
 
 /* PILL BANNERS */
 .pill-row{display:flex;gap:6px;margin-bottom:0}
-.pill-btn{flex:1;border-radius:12px;padding:10px 8px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;transition:all 0.2s;-webkit-appearance:none;background:none;text-align:left;min-width:0;font-family:inherit}
-.pill-btn:active{opacity:0.85}
+.pill-btn{flex:1;border-radius:12px;padding:10px 8px;cursor:pointer;display:flex;align-items:center;gap:7px;border-width:1px;border-style:solid;-webkit-appearance:none;background:none;text-align:left;min-width:0;font-family:inherit;transition:background 0.2s ease,border-color 0.2s ease,transform 0.1s ease}
+.pill-btn:active{opacity:0.85;transform:scale(0.98)}
 .pill-emoji{font-size:16px;flex-shrink:0}
 .pill-title{font-size:10px;font-weight:700;white-space:nowrap;line-height:1.3}
 .pill-sub{font-size:9px;color:#94a3b8;margin-top:2px;white-space:normal;line-height:1.3;word-break:break-word}
+@media (prefers-reduced-motion: reduce){.pill-btn{transition:none}}
 
 /* PILL DRAWERS */
 .pill-col{flex:1;display:flex;flex-direction:column;min-width:0}
-.pill-drawer{overflow:hidden;max-height:0;opacity:0;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1),opacity 0.35s ease}
-.pill-drawer.open{max-height:2000px;opacity:1}
 .drawer-body{border-width:0 1px 1px 1px;border-style:solid;border-radius:0 0 14px 14px;background:#0a1421;padding:14px 14px 16px}
 
 /* DRAWER CONTACT STYLES */
@@ -62,7 +74,7 @@ a{text-decoration:none}
 .dr-practice{font-size:10px;color:#94a3b8;margin-top:1px}
 .dr-link{display:flex;align-items:center;gap:9px;margin-bottom:7px}
 .dr-link-icon{width:30px;height:30px;border-radius:8px;background:#0d1e35;border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.dr-link-label{font-size:9px;color:#64748b}
+.dr-link-label{font-size:9px;color:#7a8699}
 .dr-link-val{font-size:12px;color:#60a5fa;font-weight:600;line-height:1.4}
 .dr-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
 .dr-tag{background:#1e293b;color:#7dd3fc;font-size:10px;padding:3px 8px;border-radius:99px}
@@ -71,7 +83,7 @@ a{text-decoration:none}
 .dr-med-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .dr-med-name{font-size:15px;font-weight:800;color:#e2e8f0}
 .dr-med-dose{font-size:12px;margin-top:2px}
-.dr-med-rx{font-size:10px;color:#64748b;margin-top:1px}
+.dr-med-rx{font-size:10px;color:#7a8699;margin-top:1px}
 .dr-section{background:#080b12;border-radius:8px;padding:9px 11px;margin-bottom:7px}
 .dr-sec-lbl{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
 .dr-sec-txt{font-size:12px;color:#cbd5e1;line-height:1.6}
@@ -90,7 +102,7 @@ a{text-decoration:none}
 .dr-supp-name{font-size:12px;font-weight:700;color:#e2e8f0}
 .dr-supp-brand{font-size:10px;color:#94a3b8;margin-top:1px}
 .dr-supp-goal{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600;flex-shrink:0}
-.dr-supp-chev{color:#64748b;font-size:13px;flex-shrink:0}
+.dr-supp-chev{color:#7a8699;font-size:13px;flex-shrink:0}
 .dr-supp-detail{max-height:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.25s;opacity:0;padding:0 12px}
 .dr-supp-detail.open{max-height:400px;opacity:1;padding:0 12px 10px}
 .dr-supp-effect{font-size:11px;color:#cbd5e1;line-height:1.55;margin-bottom:6px;padding-top:8px;border-top:1px solid #1e293b}
@@ -134,7 +146,7 @@ a{text-decoration:none}
 .cat-scroll::-webkit-scrollbar{display:none}
 .cat-scroll-inner{display:flex;gap:6px;width:max-content}
 .cat-btn{border-radius:99px;font-size:11px;padding:6px 12px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1e293b;color:#94a3b8;transition:all 0.2s}
-.cat-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
+.cat-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa}
 #status-filter-banner{display:none;background:#1e293b;border-radius:10px;padding:8px 12px;margin-bottom:12px;flex-direction:row;align-items:center;justify-content:space-between}
 #status-filter-banner.visible{display:flex}
 .sfb-label{font-size:11px;font-weight:600}
@@ -150,7 +162,7 @@ a{text-decoration:none}
 .ins-filter::-webkit-scrollbar{display:none}
 .ins-filter-inner{display:flex;gap:6px;width:max-content}
 .ins-btn{border-radius:99px;font-size:10px;padding:5px 11px;border-width:1px;border-style:solid;white-space:nowrap;background:#0d1421;border-color:#1e293b;color:#94a3b8}
-.ins-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;font-weight:700}
+.ins-btn.active{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa}
 
 /* ACTIONS */
 .action-card{background:#0d1421;border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;border-width:1px;border-style:solid}
@@ -166,9 +178,11 @@ a{text-decoration:none}
 .panel-text{font-size:12px;color:#cbd5e1}
 
 /* INFO MODAL */
-#info-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
-#info-modal.open{display:flex}
-.info-sheet{background:#0d1421;border-radius:20px 20px 0 0;border:1px solid #1e3a5f;border-bottom:none;padding:20px 20px 44px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto}
+#info-modal,#pill-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0);backdrop-filter:blur(0px);display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;pointer-events:none;transition:background 0.3s ease,backdrop-filter 0.3s ease,opacity 0.3s ease,visibility 0s linear 0.34s}
+#info-modal.open,#pill-modal.open{background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);opacity:1;visibility:visible;pointer-events:auto;transition:background 0.3s ease,backdrop-filter 0.3s ease,opacity 0.3s ease,visibility 0s}
+.info-sheet{background:#0d1421;border-radius:20px 20px 0 0;border:1px solid #1e3a5f;border-bottom:none;padding:20px 20px 44px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.34s cubic-bezier(0.32,0.72,0,1)}
+#info-modal.open .info-sheet,#pill-modal.open .info-sheet{transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){#info-modal,#info-modal.open,#pill-modal,#pill-modal.open,.info-sheet,#info-modal.open .info-sheet,#pill-modal.open .info-sheet{transition:none}}
 .info-handle{width:36px;height:4px;background:#1e3a5f;border-radius:99px;margin:0 auto 18px}
 .info-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .info-bm-label{font-size:9px;letter-spacing:2px;color:#7dd3fc;text-transform:uppercase;margin-bottom:4px}
@@ -182,24 +196,6 @@ a{text-decoration:none}
 .info-range-label{font-size:9px;color:#4ade80;letter-spacing:1px;margin-bottom:3px}
 .info-range-val{font-size:13px;color:#cbd5e1}
 
-/* CONTACTS PAGE (Care) */
-.care-page-contact{background:#0d1421;border:1px solid #1e3a5f;border-radius:14px;margin-bottom:12px;overflow:hidden}
-.care-contact-header{padding:14px 16px;cursor:pointer;display:flex;gap:12px;align-items:center}
-.care-avatar{width:40px;height:40px;border-radius:12px;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.care-name{font-size:13px;font-weight:700;color:#e2e8f0}
-.care-role{font-size:11px;color:#7dd3fc;margin-top:2px}
-.care-practice{font-size:10px;color:#94a3b8;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.care-chev{color:#64748b;font-size:16px;flex-shrink:0;margin-left:auto}
-.care-contact-body{border-top:1px solid #1e293b;padding:14px 16px;display:none;flex-direction:column;gap:10px}
-.care-contact-body.open{display:flex}
-.care-link{display:flex;align-items:center;gap:10px}
-.care-link-icon{width:36px;height:36px;border-radius:10px;background:#0a1e35;border:1px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.care-link-label{font-size:10px;color:#94a3b8}
-.care-link-val{font-size:13px;color:#60a5fa;font-weight:600;line-height:1.4}
-.care-bm-box{background:#080b12;border-radius:10px;padding:10px 12px}
-.care-bm-label{font-size:9px;color:#7dd3fc;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-.care-bm-tags{display:flex;flex-wrap:wrap;gap:5px}
-.care-bm-tag{background:#1e293b;color:#7dd3fc;font-size:10px;padding:3px 8px;border-radius:99px}
 </style>
 </head>
 <body>
@@ -207,7 +203,7 @@ a{text-decoration:none}
 <div id="header">
   <div class="header-row">
     <div>
-      <div class="header-label">Health Intelligence</div>
+      <div class="header-label" style="text-transform:none;letter-spacing:0.5px">nanoCTRL</div>
       <div class="header-name">Shane Harmon</div>
       <div class="header-sub">Last updated: Jun 2026 &middot; Age 46</div>
     </div>
@@ -215,17 +211,17 @@ a{text-decoration:none}
       <circle cx="35" cy="35" r="30" fill="none" stroke="#1e293b" stroke-width="5"/>
       <circle id="score-ring" cx="35" cy="35" r="30" fill="none" stroke="#22c55e" stroke-width="5" stroke-dasharray="0 188.5" stroke-linecap="round" transform="rotate(-90 35 35)"/>
       <text id="score-text" x="35" y="33" text-anchor="middle" fill="#f1f5f9" font-size="18" font-weight="800">--</text>
-      <text x="35" y="46" text-anchor="middle" fill="#64748b" font-size="8">SCORE</text>
+      <text x="35" y="46" text-anchor="middle" fill="#7a8699" font-size="8">SCORE</text>
     </svg>
   </div>
   <div class="stat-row">
-    <div class="stat-pill" id="pill-optimal" style="background:#0f2818;border-color:#22c55e25" onclick="filterByStatus('optimal')">
+    <div class="stat-pill" id="pill-optimal" role="button" tabindex="0" aria-label="Filter labs: Optimal" style="background:#0f2818;border-color:#22c55e25" onclick="filterByStatus('optimal')">
       <div class="stat-num" style="color:#4ade80" id="cnt-optimal">--</div><div class="stat-lbl">OPTIMAL</div>
     </div>
-    <div class="stat-pill" id="pill-concern" style="background:#1c1505;border-color:#f59e0b25" onclick="filterByStatus('concern')">
+    <div class="stat-pill" id="pill-concern" role="button" tabindex="0" aria-label="Filter labs: Monitor" style="background:#1c1505;border-color:#f59e0b25" onclick="filterByStatus('concern')">
       <div class="stat-num" style="color:#fbbf24" id="cnt-concern">--</div><div class="stat-lbl">MONITOR</div>
     </div>
-    <div class="stat-pill" id="pill-high" style="background:#1a0808;border-color:#ef444425" onclick="filterByStatus('high')">
+    <div class="stat-pill" id="pill-high" role="button" tabindex="0" aria-label="Filter labs: Action required" style="background:#1a0808;border-color:#ef444425" onclick="filterByStatus('high')">
       <div class="stat-num" style="color:#f87171" id="cnt-high">--</div><div class="stat-lbl">ACTION</div>
     </div>
   </div>
@@ -235,7 +231,7 @@ a{text-decoration:none}
   <button class="tabn active" onclick="showTab('overview')">Overview</button>
   <button class="tabn" onclick="showTab('labs')">Labs</button>
   <button class="tabn" onclick="showTab('insights')">Insights</button>
-  <button class="tabn" onclick="showTab('actions')">Actions<span class="badge">5</span></button>
+  <button class="tabn" onclick="showTab('actions')">Actions<span class="badge">4</span></button>
 </div>
 
 <!-- OVERVIEW -->
@@ -243,11 +239,10 @@ a{text-decoration:none}
 
   <!-- M/S/C PILLS + DRAWERS -->
   <div style="margin-bottom:14px" id="pill-area">
-    <!-- Collapsed: all 3 pills visible -->
-    <div class="pill-row" id="pills-collapsed">
+    <div class="pill-row">
       <button class="pill-btn" data-drawer="rx" style="background:#0a1628;border-color:#3b82f640">
         <span class="pill-emoji">&#128138;</span>
-        <div style="min-width:0"><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine<br>50mcg daily</div></div>
+        <div style="min-width:0"><div class="pill-title" style="color:#60a5fa">Medications</div><div class="pill-sub">Levothyroxine<br>75mcg daily</div></div>
       </button>
       <button class="pill-btn" data-drawer="supplements" style="background:#0a0e1e;border-color:#a78bfa40">
         <span class="pill-emoji">&#127807;</span>
@@ -257,15 +252,6 @@ a{text-decoration:none}
         <span class="pill-emoji">&#128241;</span>
         <div style="min-width:0"><div class="pill-title" style="color:#34d399">Contacts</div><div class="pill-sub">Doctors &amp;<br>Pharmacy</div></div>
       </button>
-    </div>
-    <!-- Expanded: single full-width pill + drawer -->
-    <div id="pill-expanded" style="display:none">
-      <button class="pill-btn" id="pb-active" style="width:100%;border-radius:12px 12px 0 0" onclick="closePillDrawer()">
-        <span class="pill-emoji" id="pb-active-emoji"></span>
-        <div style="flex:1;min-width:0"><div class="pill-title" id="pb-active-title"></div><div class="pill-sub" id="pb-active-sub"></div></div>
-        <span style="color:#94a3b8;font-size:13px;flex-shrink:0">&#8963; Close</span>
-      </button>
-      <div class="drawer-body" id="pill-drawer-body" style="border-color:transparent"></div>
     </div>
   </div>
 
@@ -294,7 +280,7 @@ a{text-decoration:none}
   <div class="sec-label">Priority Action Plan</div>
   <div id="actions-list"></div>
   <div class="next-panel">
-    <div class="sec-label">Suggested Next Panel</div>
+    <div class="sec-label">Next Panel &middot; September 2026</div>
     <div id="next-panel-list"></div>
   </div>
 </div>
@@ -309,48 +295,60 @@ a{text-decoration:none}
     </div>
     <div class="info-sec"><div class="info-sec-label">What is it?</div><div class="info-sec-text" id="info-what"></div></div>
     <div class="info-sec"><div class="info-sec-label">Why it matters</div><div class="info-sec-text" id="info-why"></div></div>
-    <div class="info-sec" style="border-color:#22c55e20;background:#051a0f"><div class="info-sec-label" style="color:#4ade80">How to improve / maintain</div><div class="info-sec-text" id="info-how"></div></div>
+    <div class="info-sec" style="border-color:#22c55e20;background:#051a0f"><div class="info-sec-label" style="color:#4ade80">How to improve / maintain</div><div class="info-sec-text" id="info-how"></div><div id="info-food-block"><div class="info-sec-label" style="color:#4ade80;margin-top:12px">From food</div><div class="info-sec-text" id="info-food"></div></div></div>
     <div class="info-sec" style="border-color:#60a5fa20;background:#0a1628"><div class="info-sec-label" style="color:#7dd3fc">Related to / affected by</div><div class="info-sec-text" id="info-related"></div></div>
     <div class="info-range"><div class="info-range-label">Optimal Range</div><div class="info-range-val" id="info-range"></div></div>
   </div>
 </div>
 
+<!-- M/S/C MODAL -->
+<div id="pill-modal" onclick="if(event.target===this)closePillModal()">
+  <div class="info-sheet">
+    <div class="info-handle"></div>
+    <div class="info-header">
+      <div><div class="info-bm-name" id="pill-modal-name"></div></div>
+      <button class="info-close" onclick="closePillModal()">&#10005;</button>
+    </div>
+    <div id="pill-modal-body"></div>
+  </div>
+</div>
+
 <script>
 var BM = {
-  totalCholesterol:{label:"Total Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,200],concern:[200,239],high:[240,999],data:[{d:"Oct 2018",v:164},{d:"Jan 2025",v:203},{d:"Mar 2026",v:224},{d:"Jun 2026",v:187}],what:"A waxy fat in your blood. Total adds up all types.",why:"Too much clogs arteries over time, raising heart attack and stroke risk.",how:"Reduce saturated fat from red meat, butter, and full-fat dairy. Increase soluble fiber from oats, beans, and psyllium, which physically binds cholesterol in your gut. Regular aerobic exercise raises HDL and modestly lowers total cholesterol. Berberine, plant sterols, and omega-3s all have evidence behind them.",related:"Total cholesterol is the sum of LDL, HDL, and other particles. A high total driven by high HDL is much less concerning than one driven by high LDL. Triglycerides contribute to it. ApoB and LDL particle number give a more precise picture of actual risk than total cholesterol alone."},
-  ldl:{label:"LDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,100],concern:[100,129],high:[130,999],data:[{d:"Oct 2018",v:97},{d:"Jan 2025",v:127},{d:"Mar 2026",v:153},{d:"Jun 2026",v:113}],what:"The bad cholesterol. When too high it sticks to artery walls and builds plaque.",why:"One of the biggest drivers of heart disease. Still above optimal but heading in the right direction.",how:"Soluble fiber (psyllium, oats, beans) binds LDL in the gut. Berberine can lower LDL 15 to 25 mg/dL. Reduce saturated fat intake and increase plant-based meals. Omega-3s improve the overall lipid picture. If lifestyle and supplements are insufficient, Dr. Nguyen may discuss statin therapy or alternatives like ezetimibe.",related:"LDL is directly reflected in ApoB (one ApoB per LDL particle), LDL particle number, and LDL small. Non-HDL cholesterol includes LDL plus other harmful particles. Triglycerides affect LDL particle size. HDL works in opposition to LDL, clearing it from circulation."},
-  hdl:{label:"HDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[60,999],concern:[40,59],high:[0,39],data:[{d:"Oct 2018",v:50},{d:"Jan 2025",v:55},{d:"Mar 2026",v:49},{d:"Jun 2026",v:52}],hb:true,what:"The good cholesterol. Acts like a cleanup crew returning excess cholesterol to your liver.",why:"Higher HDL means better protection. Low HDL leaves harmful cholesterol in your arteries.",how:"Aerobic exercise is the single most effective HDL-raiser. Reducing refined carbs and trans fats helps. Omega-3s support HDL quality. Losing visceral fat also raises HDL. Target at least 150 minutes of moderate-intensity cardio per week.",related:"HDL is the counterbalance to LDL in the chol/HDL ratio. Low HDL magnifies the risk of elevated LDL and total cholesterol. HDL large particle size is the most protective subfraction. When HDL is higher, vascular inflammation as measured by hs-CRP and Lp-PLA2 tends to be lower."},
-  triglycerides:{label:"Triglycerides",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,150],concern:[150,199],high:[200,999],data:[{d:"Oct 2018",v:79},{d:"Jan 2025",v:107},{d:"Mar 2026",v:103},{d:"Jun 2026",v:71}],what:"Blood fats from sugar, alcohol, and refined carbs.",why:"High levels thicken blood and make LDL particles smaller and more dangerous.",how:"Cut back on added sugars, refined carbohydrates, fruit juice, and alcohol. Increase omega-3 fatty acids. Regular exercise burns triglycerides directly. Losing even modest body fat can drop triglycerides significantly. Berberine and psyllium also contribute.",related:"Triglycerides directly influence LDL particle size and pattern. High triglycerides drive Pattern B, which you have. They are also used to calculate LDL. Closely linked to fasting glucose and HbA1c since metabolic health and triglyceride levels move together."},
-  nonHdl:{label:"Non-HDL Cholesterol",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,130],concern:[130,159],high:[160,999],data:[{d:"Oct 2018",v:114},{d:"Jan 2025",v:148},{d:"Mar 2026",v:165},{d:"Jun 2026",v:129}],what:"All harmful cholesterol combined, everything except your protective HDL.",why:"A more complete heart risk picture than LDL alone.",how:"Everything that lowers LDL and triglycerides also lowers non-HDL. Soluble fiber, omega-3s, reducing saturated fat and refined carbs, exercise, and berberine all help. Raising HDL also improves the ratio.",related:"Non-HDL is downstream of both LDL and triglycerides. It is more predictive of cardiovascular events than LDL alone in people with high triglycerides. ApoB tracks the particle count within the non-HDL pool and provides an even more precise risk measure."},
-  cholHdlRatio:{label:"Chol/HDL Ratio",unit:"",cat:"Cardiovascular",optimal:[0,3.5],concern:[3.5,5.0],high:[5,99],data:[{d:"Oct 2018",v:3.3},{d:"Jan 2025",v:3.7},{d:"Mar 2026",v:4.4},{d:"Jun 2026",v:3.5}],what:"Total cholesterol divided by HDL. The ratio of bad to good.",why:"High ratio means more junk than cleanup capacity. Lower is better.",how:"Raise HDL through exercise and omega-3s. Lower total cholesterol through diet and supplements. The most powerful lever is HDL. Losing visceral fat improves both sides of the ratio simultaneously.",related:"Directly calculated from total cholesterol and HDL. Triglycerides indirectly affect it by raising total cholesterol and suppressing HDL. LDL reduction improves it. The ratio contextualizes LDL since someone with high HDL and moderate LDL may have a better ratio than the reverse."},
-  apoB:{label:"ApoB",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,90],concern:[90,129],high:[130,999],data:[{d:"Mar 2026",v:129},{d:"Jun 2026",v:99}],what:"Counts the actual number of harmful cholesterol particles. Every LDL has exactly one ApoB.",why:"Even if LDL looks okay you may have many small dangerous particles. ApoB catches that.",how:"Everything that lowers LDL also lowers ApoB. Berberine, psyllium, omega-3s, reduced saturated fat, and exercise all apply. Reducing refined carbohydrates lowers VLDL particles which also carry ApoB. The target for your risk profile is ideally below 80 mg/dL.",related:"ApoB is the particle-level version of LDL. Every LDL particle has exactly one ApoB so they are closely aligned. ApoB is also elevated by high triglycerides via VLDL particles. It provides context that LDL alone cannot since your ApoB of 99 with LDL of 113 suggests moderately elevated particle count."},
-  lpa:{label:"Lipoprotein(a)",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,75],concern:[75,125],high:[125,999],data:[{d:"Mar 2026",v:13},{d:"Jun 2026",v:10}],what:"A cholesterol particle almost entirely determined by genes.",why:"High Lp(a) makes blood more likely to clot. Yours is low and stable, a genuine win.",how:"Because Lp(a) is genetically fixed there is limited modifiable intervention. Niacin modestly lowers it but has side effects. New RNA therapies targeting Lp(a) are in development. Your low level means no urgent action is needed.",related:"Lp(a) operates independently of LDL and does not meaningfully affect other standard lipid values. However it compounds risk when LDL is also elevated. Low Lp(a) is a genuine protective factor worth noting on any cardiovascular risk calculator you share with Dr. Nguyen."},
-  ldlParticle:{label:"LDL Particle #",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,1138],concern:[1138,1409],high:[1409,9999],data:[{d:"Mar 2026",v:2097},{d:"Jun 2026",v:1387}],what:"Counts the actual number of LDL particles rather than how much cholesterol they carry.",why:"More particles means more chances to invade artery walls. Down dramatically but still elevated.",how:"Same interventions that lower LDL lower particle number. Soluble fiber, berberine, omega-3s, reduced saturated fat all help. Reducing refined carbs shifts particles from small-dense to large-buoyant. Exercise reduces particle number independently. The goal is below 1138.",related:"LDL particle number and ApoB tell a similar story from different angles. Small LDL is the most dangerous subset of total LDL particles. Pattern B on your Cardio IQ reflects predominantly small dense particles. Triglycerides drive particle number up by promoting VLDL and IDL production."},
-  ldlSmall:{label:"LDL Small",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,142],concern:[142,219],high:[219,9999],data:[{d:"Mar 2026",v:596},{d:"Jun 2026",v:321}],what:"Small dense LDL, the most dangerous type, slipping through artery walls most easily.",why:"High small LDL dramatically increases plaque buildup. Yours dropped 46 percent, real progress.",how:"Reducing refined carbohydrates and sugar is the most powerful way to shift particles from small to large. Omega-3s directly shift LDL particle size toward large buoyant. Exercise has a similar effect. Your triglyceride improvement is directly connected to this improvement.",related:"Small LDL is driven primarily by high triglycerides through the triglyceride-LDL exchange mechanism. This is why your triglyceride improvement and small LDL improvement happened together. LDL pattern B means predominantly small dense LDL. ApoB and particle number reflect total count while small LDL reflects the dangerous subtype."},
-  hsCRP:{label:"hs-CRP",unit:"mg/L",cat:"Cardiovascular",optimal:[0,1.0],concern:[1.0,3.0],high:[3.0,999],data:[{d:"Mar 2026",v:1.4},{d:"Jun 2026",v:0.2}],what:"A protein your liver makes when your body is inflamed.",why:"Went from 1.4 to under 0.2, a dramatic improvement in vascular inflammation.",how:"Your current stack of omega-3s, turmeric, sulforaphane, and probiotic is exactly the right approach. Beyond supplements: prioritize sleep (poor sleep spikes CRP), manage stress, maintain a healthy weight, and avoid ultra-processed foods.",related:"hs-CRP reflects systemic inflammation worsened by high LDL, high blood sugar, visceral fat, and poor sleep. It is downstream of lifestyle quality and upstream of atherosclerosis progression. Lp-PLA2 is more specific to vascular inflammation than hs-CRP which responds to any inflammation in the body."},
-  lpPla2:{label:"Lp-PLA2 Activity",unit:"nmol/min/mL",cat:"Cardiovascular",optimal:[0,123],concern:[0,123],high:[123,999],data:[{d:"Mar 2026",v:179},{d:"Jun 2026",v:155}],what:"An enzyme active specifically inside artery walls when cholesterol is building up there.",why:"Still elevated but dropped 24 points. Heading in the right direction.",how:"Omega-3 fatty acids have the strongest evidence for lowering Lp-PLA2. Anti-inflammatory diet, curcumin, and statin therapy all lower it. Reducing small dense LDL is closely linked to lowering Lp-PLA2 activity.",related:"Lp-PLA2 is directly activated by oxidized LDL inside artery walls, so lowering LDL directly reduces Lp-PLA2 activity. It works alongside hs-CRP to tell the vascular inflammation story. Your hs-CRP reaching near zero while Lp-PLA2 remains elevated suggests localized vascular inflammation even when systemic inflammation is controlled."},
-  glucose:{label:"Fasting Glucose",unit:"mg/dL",cat:"Metabolic",optimal:[65,99],concern:[100,125],high:[126,999],data:[{d:"Oct 2018",v:80},{d:"Jan 2025",v:90},{d:"Mar 2026",v:88},{d:"Jun 2026",v:96}],what:"The amount of sugar in your blood after not eating. Your bodys main fuel.",why:"Ticked up slightly to 96 but still comfortably within the optimal range.",how:"Your current approach is working well. Continue limiting refined carbohydrates and added sugars, prioritize fiber, and maintain regular exercise. Both Zone 2 cardio and strength training improve insulin sensitivity. Berberine has evidence comparable to metformin for blood sugar control.",related:"Fasting glucose and HbA1c tell the same story over different time horizons. Insulin resistance is reflected indirectly by glucose and triglycerides moving up together. High glucose over time damages blood vessels and worsens LDL, hs-CRP, and eGFR."},
-  hba1c:{label:"HbA1c",unit:"%",cat:"Metabolic",optimal:[0,5.7],concern:[5.7,6.4],high:[6.5,99],data:[{d:"Jan 2025",v:4.6},{d:"Mar 2026",v:4.5}],what:"Shows your average blood sugar over 2 to 3 months.",why:"Not tested this round but was 4.5 percent last draw, excellent metabolic control.",how:"You are maintaining this well. The key drivers are consistent: limiting refined carbs, regular exercise, adequate sleep, and managing stress. Berberine helps. As long as fasting glucose stays below 100 this number should remain excellent.",related:"HbA1c is the long-term version of fasting glucose. Triglycerides and HbA1c tend to move together, both influenced by carbohydrate intake and insulin sensitivity. High HbA1c over time damages kidneys reflected in eGFR and is connected to testosterone through insulin resistance."},
-  creatinine:{label:"Creatinine",unit:"mg/dL",cat:"Metabolic",optimal:[0.6,1.29],concern:[1.29,1.7],high:[1.7,99],data:[{d:"Oct 2018",v:0.97},{d:"Jan 2025",v:1.16},{d:"Mar 2026",v:1.26},{d:"Jun 2026",v:1.26}],what:"A waste product from muscle use. Kidneys filter it out of your blood.",why:"Stable at 1.26. Creatine supplements affect this number.",how:"Stay well hydrated. Avoid regular NSAID use as they reduce kidney blood flow. For supplement-related elevation, discontinuing creatine temporarily before a lab draw can clarify the true picture. Tell Brian Barragan about your creatine use.",related:"Creatinine is used to calculate eGFR so they move in opposite directions. BUN also reflects kidney function and together the BUN/creatinine ratio helps distinguish causes. Creatinine is artificially elevated by creatine supplements, intense exercise before a blood draw, and high meat intake."},
-  egfr:{label:"eGFR",unit:"mL/min",cat:"Metabolic",optimal:[90,999],concern:[60,89],high:[0,59],data:[{d:"Oct 2018",v:98},{d:"Jan 2025",v:79},{d:"Mar 2026",v:71},{d:"Jun 2026",v:71}],hb:true,what:"Estimates how well your kidneys filter your blood per minute.",why:"Stable at 71 with no further decline. The plateauing is a positive sign.",how:"Stay very well hydrated. Avoid regular NSAID use. Control blood pressure and keep blood sugar optimal. Discuss with Brian Barragan whether a cystatin C test would give a clearer picture of your true kidney function independent of creatine effects.",related:"eGFR is calculated from creatinine so creatine supplementation artificially lowers eGFR by raising creatinine. BUN is a parallel kidney marker. High blood pressure and high blood sugar are the two leading causes of kidney function decline and are reflected elsewhere in your panel."},
-  alt:{label:"ALT",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:48},{d:"Jan 2025",v:34},{d:"Mar 2026",v:39},{d:"Jun 2026",v:54}],what:"An enzyme inside liver cells. Leaks into blood when liver cells are stressed or damaged.",why:"Back above range at 54 after normalizing last draw. Worth discussing with Brian Barragan.",how:"Reduce alcohol if applicable. Review your supplement stack with your doctor. Sulforaphane and NAC support liver detoxification. Maintain a healthy weight to reduce fatty liver risk. Consider a supplement holiday of 2 weeks before your next test to establish a clean baseline.",related:"ALT is interpreted alongside AST. An ALT rise without AST elevation points more specifically to liver rather than muscle injury. Elevated ALT can be downstream of high triglycerides from fatty liver and insulin resistance. A heavy supplement load can also contribute."},
-  ast:{label:"AST",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:31},{d:"Jan 2025",v:22},{d:"Mar 2026",v:24},{d:"Jun 2026",v:31}],what:"An enzyme in liver heart and muscle cells. Rises when any of those tissues are stressed.",why:"Back to 31, within normal range. Together with ALT gives a fuller liver picture.",how:"Avoid intense exercise 48 hours before a blood draw as it can temporarily raise AST from muscle breakdown. Stay well hydrated. Adding a GGT test to your next panel would help clarify whether ALT elevation is truly liver-specific.",related:"The AST/ALT ratio provides diagnostic clues. A ratio above 2 to 1 can suggest alcohol-related liver disease while below 1 to 1 is more typical of non-alcoholic causes. AST also rises with intense exercise due to muscle breakdown which can confuse interpretation."},
-  albumin:{label:"Albumin",unit:"g/dL",cat:"Metabolic",optimal:[3.6,5.1],concern:[3.0,3.6],high:[0,2.9],data:[{d:"Oct 2018",v:5.1},{d:"Jan 2025",v:4.8},{d:"Mar 2026",v:5.0},{d:"Jun 2026",v:5.2}],hb:true,what:"The most abundant blood protein, made by your liver. Carries hormones and vitamins.",why:"At 5.2 the lab flagged it high but this is barely over the upper limit and not clinically concerning.",how:"Your protein intake appears excellent given consistently high albumin. Maintain it with your current whey protein supplementation. Adequate hydration matters. No action needed given your consistently excellent levels.",related:"Albumin is made by the liver so liver health affects its production. Kidney disease causes albumin to leak into urine so low albumin can be a downstream consequence of declining eGFR. Albumin also carries sex hormones and subtly affects free testosterone availability."},
-  bun:{label:"BUN",unit:"mg/dL",cat:"Metabolic",optimal:[7,25],concern:[25,35],high:[35,999],data:[{d:"Oct 2018",v:22},{d:"Jan 2025",v:29},{d:"Mar 2026",v:25},{d:"Jun 2026",v:19}],what:"A waste product from protein breakdown. Kidneys filter it out.",why:"Dropped back into optimal range at 19. A good sign for kidney function.",how:"Stay well hydrated especially on days leading up to a blood draw. Avoid very high protein intake in the 24 hours before testing for the most accurate reading. Your current level of 19 is well within range.",related:"BUN and creatinine are both kidney filtration markers interpreted together as the BUN/creatinine ratio. When BUN rises alone without creatinine changing, dehydration or high protein intake is the more likely cause. Albumin and BUN together tell the protein metabolism story."},
-  tsh:{label:"TSH",unit:"mIU/L",cat:"Thyroid",optimal:[0.4,2.5],concern:[2.5,4.5],high:[4.5,99],data:[{d:"Oct 2018",v:8.52},{d:"Jan 2025",v:8.09},{d:"Mar 2026",v:4.67},{d:"Jun 2026",v:5.36}],what:"The signal your brain sends to your thyroid to make more hormone, like a thermostat reading.",why:"Ticked back up from 4.67 to 5.36 after years of improvement. Levothyroxine dose review needed.",how:"The primary intervention is medication management with Dr. Barragan. Ensure strict Levothyroxine timing: fasted 30 to 60 minutes before food, separated from Magnesium, Psyllium, and multivitamin by at least 4 hours, and from Berberine by 2 hours. Selenium supports T4 to T3 conversion.",related:"TSH is the master regulator upstream of Free T4 and Free T3. When TSH rises it signals inadequate thyroid hormone. TSH affects metabolism, energy, weight, and heart rate. Low thyroid function is linked to elevated cholesterol, triglycerides, worsened insulin sensitivity, and can suppress testosterone."},
-  freeT4:{label:"Free T4",unit:"ng/dL",cat:"Thyroid",optimal:[0.8,1.8],concern:[0.5,0.79],high:[0,0.49],data:[{d:"Oct 2018",v:1.1},{d:"Jan 2025",v:1.0},{d:"Mar 2026",v:1.2},{d:"Jun 2026",v:1.4}],what:"Your thyroids main hormone. Free means the portion your cells can actually use.",why:"Improved to 1.4, best reading yet. The medication is converting well.",how:"Levothyroxine is the direct source of T4. Dose, timing, and absorption are everything. Selenium, zinc, and iodine are cofactors for thyroid hormone. Avoid iron, calcium, and magnesium within 4 hours of your medication as they bind to it and block absorption.",related:"Free T4 is produced in response to TSH and converted to Free T3 in peripheral tissues. It is upstream of T3. Free T4 and TSH should move in opposite directions in a healthy system. Your combination of rising TSH with rising T4 is a pattern worth investigating with Dr. Barragan."},
-  freeT3:{label:"Free T3",unit:"pg/mL",cat:"Thyroid",optimal:[2.3,4.2],concern:[1.8,2.29],high:[0,1.79],data:[{d:"Oct 2018",v:3.2},{d:"Mar 2026",v:3.1},{d:"Jun 2026",v:3.1}],what:"The active thyroid hormone your cells actually use, the gas pedal for metabolism.",why:"Stable at 3.1, solidly in the optimal range.",how:"Selenium is the key cofactor for T4-to-T3 conversion. Zinc and iron are also needed. Chronic calorie restriction suppresses T3 conversion. Optimizing your TSH and T4 through medication management is the primary lever.",related:"Free T3 is the endpoint of the TSH to T4 to T3 cascade. If TSH is high but T3 is normal the body is compensating. T3 affects cholesterol metabolism since low T3 is associated with elevated LDL and triglycerides. It also influences testosterone production through its effects on metabolism."},
-  totalTesto:{label:"Total Testosterone",unit:"ng/dL",cat:"Hormones",optimal:[400,1100],concern:[250,399],high:[0,249],data:[{d:"Jan 2025",v:632},{d:"Mar 2026",v:526}],hb:true,what:"All testosterone in your blood, both bound to proteins and freely available.",why:"Not tested this round. Last reading of 526 was in optimal range but declining.",how:"Resistance training is the most evidence-backed natural testosterone booster. Prioritize sleep as testosterone is produced during deep sleep. Zinc and vitamin D are cofactors for testosterone production, both in your stack. An endocrinology evaluation is the right next step.",related:"Total testosterone is directly suppressed by high SHBG. Thyroid dysfunction can suppress testosterone production. LH and FSH from the brain drive testosterone production upstream. Adding LH and FSH to your next panel would reveal whether the issue is in the brain signal or testicular response."},
-  freeTesto:{label:"Free Testosterone",unit:"pg/mL",cat:"Hormones",optimal:[46,224],concern:[30,45],high:[0,29],data:[{d:"Jan 2025",v:58.9},{d:"Mar 2026",v:39.8}],hb:true,what:"The portion of testosterone not bound to proteins, what your body can actually use right now.",why:"Not tested this round. Was below optimal at 39.8. Endocrinology consult still warranted.",how:"Addressing SHBG is the key. Strength training and vitamin D help. Some evidence supports boron supplementation for reducing SHBG. If lifestyle measures are insufficient, testosterone replacement therapy may be appropriate but needs evaluation with both Dr. Barragan and Dr. Nguyen.",related:"Free testosterone is directly suppressed by SHBG which is currently your main issue. Total testosterone, LH, FSH, estradiol, and prolactin are all part of the same hormonal network. Thyroid hormone affects SHBG levels and elevated TSH can raise SHBG, further reducing free testosterone."},
-  shbg:{label:"SHBG",unit:"nmol/L",cat:"Hormones",optimal:[10,50],concern:[50,70],high:[70,999],data:[{d:"Jan 2025",v:52},{d:"Mar 2026",v:62}],what:"A protein that binds testosterone in blood. Bound testosterone cannot be used.",why:"Not tested this round. Was elevated at 62, reducing free testosterone availability.",how:"Strength training and maintaining lean muscle mass help regulate SHBG. Optimal insulin sensitivity helps. Some evidence for boron (3 to 10 mg per day) reducing SHBG. Correcting thyroid function may help since high TSH is associated with elevated SHBG.",related:"SHBG is produced by the liver so liver health matters. It rises with age naturally. High SHBG directly suppresses free testosterone and bioavailable testosterone. Estradiol levels also affect SHBG. Correcting thyroid function may help since hypothyroidism is sometimes associated with elevated SHBG."},
-  wbc:{label:"WBC",unit:"K/uL",cat:"Blood",optimal:[3.8,10.8],concern:[3.0,3.79],high:[0,2.99],data:[{d:"Oct 2018",v:9.1},{d:"Jan 2025",v:3.9},{d:"Mar 2026",v:8.5},{d:"Jun 2026",v:3.8}],what:"Your immune system soldiers. They fight infections viruses and invaders.",why:"At 3.8, right at the lower boundary of normal. Worth watching but not alarming.",how:"No specific intervention needed at your current level. Ensure adequate nutrition as zinc, vitamin B12, folate, and vitamin D all support immune cell production. Avoid smoking and manage chronic stress. If it drops below 3.5 consistently further investigation would be warranted.",related:"WBC is elevated during active infection which can transiently raise hs-CRP. Chronically elevated WBC alongside elevated hs-CRP would suggest chronic infection or inflammatory disease. Low WBC can be associated with vitamin B12 or folate deficiency, both currently optimal in your panel."},
-  hemoglobin:{label:"Hemoglobin",unit:"g/dL",cat:"Blood",optimal:[13.2,17.1],concern:[11,13.1],high:[0,10.9],data:[{d:"Oct 2018",v:14.4},{d:"Jan 2025",v:15.1},{d:"Mar 2026",v:15.6},{d:"Jun 2026",v:15.2}],hb:true,what:"The protein inside red blood cells that carries oxygen from lungs to every cell.",why:"Stable at 15.2, well within optimal range.",how:"You are maintaining this well. Ensure adequate iron from food, vitamin B12, and folate for red blood cell production. Regular moderate-intensity exercise stimulates red blood cell production over time. Stay well hydrated.",related:"Hemoglobin is reflected in hematocrit and they move together. MCV tells you the size of red blood cells and helps diagnose the cause of anemia. B12 deficiency causes large red blood cells while iron deficiency causes small ones. Testosterone directly stimulates red blood cell production."},
-  hematocrit:{label:"Hematocrit",unit:"%",cat:"Blood",optimal:[38.5,50],concern:[35,38.4],high:[0,34.9],data:[{d:"Oct 2018",v:40.7},{d:"Jan 2025",v:44.7},{d:"Mar 2026",v:44.1},{d:"Jun 2026",v:44.7}],what:"The percentage of your blood made up of red blood cells.",why:"Stable and optimal at 44.7 percent.",how:"No action needed at your current level. Hydration affects hematocrit so dehydration can raise it artificially. If testosterone therapy is ever started, hematocrit should be checked every 3 to 6 months as a safety measure.",related:"Hematocrit and hemoglobin tell the same story and are interpreted together. The MCHC tells you the hemoglobin concentration within each red cell. Elevated hematocrit is a downstream risk of testosterone therapy and would require monitoring if TRT is initiated."},
-  platelets:{label:"Platelet Count",unit:"K/uL",cat:"Blood",optimal:[140,400],concern:[100,139],high:[0,99],data:[{d:"Oct 2018",v:196},{d:"Jan 2025",v:213},{d:"Mar 2026",v:227},{d:"Jun 2026",v:216}],what:"Tiny fragments that clump together to stop bleeding at injured blood vessels.",why:"Stable and optimal at 216.",how:"No intervention needed. Avoid chronic regular NSAID use as it impairs platelet function. Nattokinase which you take has mild fibrinolytic effects worth mentioning to Dr. Nguyen. Vitamin K2 which you also take supports appropriate clotting factor activation.",related:"Platelets work alongside clotting factors in the coagulation cascade. Nattokinase in your supplement stack acts on fibrin downstream of platelet aggregation, so the combination of normal platelets plus nattokinase is reasonable but worth flagging to Dr. Nguyen. Low platelet counts can accompany liver disease."},
-  vitD:{label:"Vitamin D",unit:"ng/mL",cat:"Vitamins",optimal:[40,100],concern:[30,39],high:[0,29],data:[{d:"Jan 2025",v:68}],hb:true,what:"Made by skin in sunlight. Acts more like a hormone than a vitamin.",why:"Not retested. Was 68 ng/mL, optimal. Supplements are maintaining this well.",how:"You are maintaining this well with your D3+K2 supplement. Take it with your fattiest meal for maximum absorption. Test annually. Most adults need 2000 to 5000 IU of D3 daily to maintain optimal levels depending on sun exposure.",related:"Vitamin D is activated by the kidneys so declining eGFR can impair vitamin D activation. It influences immune function and may modestly reduce hs-CRP. It plays a role in testosterone production since there are vitamin D receptors in the testes. Vitamin D and K2 work together on calcium metabolism."},
-  vitB12:{label:"Vitamin B12",unit:"pg/mL",cat:"Vitamins",optimal:[300,1100],concern:[200,299],high:[0,199],data:[{d:"Jan 2025",v:596}],hb:true,what:"Found mainly in animal products. Essential for red blood cells and nervous system.",why:"Not retested. Was 596 pg/mL, optimal.",how:"Your O.N.E. Multivitamin maintains this well. If absorption issues ever develop, sublingual B12 bypasses gut absorption entirely. Animal protein in your diet contributes significantly. No changes needed.",related:"B12 works closely with folate since both are required for DNA synthesis and red blood cell formation. B12 deficiency raises homocysteine, a cardiovascular risk factor worth adding to future panels. B12 also supports methylation processes relevant to gene expression and inflammation regulation."},
-  folate:{label:"Folate",unit:"ng/mL",cat:"Vitamins",optimal:[5.4,99],concern:[3.4,5.3],high:[0,3.3],data:[{d:"Jan 2025",v:16.5}],hb:true,what:"Vitamin B9. Helps build DNA and make new cells especially red blood cells.",why:"Not retested. Was 16.5 ng/mL, optimal.",how:"Your O.N.E. Multivitamin covers this well and likely contains methylfolate, the activated form, which is significantly better utilized than folic acid. Eating dark leafy greens, legumes, and avocado provides additional natural folate.",related:"Folate and B12 are intimately connected and both must be adequate for normal red blood cell production. Elevated homocysteine is the downstream consequence of deficiency in either. Folate is also connected to methylation which affects gene expression, mood, and cardiovascular risk over the long term."},
-  psa:{label:"PSA Total",unit:"ng/mL",cat:"Prostate",optimal:[0,2.5],concern:[2.5,4.0],high:[4.0,99],data:[{d:"Jan 2025",v:0.26}],what:"A protein made by prostate cells. Small amounts normally enter the blood.",why:"Not retested. Was 0.26 ng/mL, optimal.",how:"Regular ejaculation may modestly reduce PSA. Avoid cycling, digital rectal exam, or sexual activity within 48 hours of a PSA blood draw as these can temporarily elevate it. Maintaining a healthy weight and eating lycopene-rich foods like tomatoes may support prostate health long-term.",related:"PSA is specific to prostate tissue and does not directly interact with other biomarkers in your panel. Testosterone and prostate health are connected since testosterone therapy historically requires PSA monitoring. Inflammation markers like hs-CRP can be elevated by prostatitis which also raises PSA."}
+  totalCholesterol:{label:"Total Cholesterol",food:"Soluble fiber from oats, barley, beans, lentils and apples binds cholesterol; fatty fish (salmon, sardines, mackerel), almonds, walnuts, olive oil and avocado supply heart-healthy fats. Go easy on red meat, butter and full-fat dairy.",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,200],concern:[200,239],high:[240,999],data:[{d:"Oct 2018",v:164},{d:"Jan 2025",v:203},{d:"Mar 2026",v:224},{d:"Jun 2026",v:187}],what:"A waxy fat in your blood. Total adds up all types.",why:"Too much clogs arteries over time, raising heart attack and stroke risk.",how:"Reduce saturated fat from red meat, butter, and full-fat dairy. Increase soluble fiber from oats, beans, and psyllium, which physically binds cholesterol in your gut. Regular aerobic exercise raises HDL and modestly lowers total cholesterol. Berberine, plant sterols, and omega-3s all have evidence behind them.",related:"Total cholesterol is the sum of LDL, HDL, and other particles. A high total driven by high HDL is much less concerning than one driven by high LDL. Triglycerides contribute to it. ApoB and LDL particle number give a more precise picture of actual risk than total cholesterol alone."},
+  ldl:{label:"LDL Cholesterol",food:"Soluble fiber from oats, beans, lentils, Brussels sprouts and apples is the biggest lever; add fatty fish, nuts, olive oil and soy, and limit red and processed meat.",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,100],concern:[100,129],high:[130,999],data:[{d:"Oct 2018",v:97},{d:"Jan 2025",v:127},{d:"Mar 2026",v:153},{d:"Jun 2026",v:113}],what:"The bad cholesterol. When too high it sticks to artery walls and builds plaque.",why:"One of the biggest drivers of heart disease. Still above optimal but heading in the right direction.",how:"Soluble fiber (psyllium, oats, beans) binds LDL in the gut. Berberine can lower LDL 15 to 25 mg/dL. Reduce saturated fat intake and increase plant-based meals. Omega-3s improve the overall lipid picture. If lifestyle and supplements are insufficient, Dr. Nguyen may discuss statin therapy or alternatives like ezetimibe.",related:"LDL is directly reflected in ApoB (one ApoB per LDL particle), LDL particle number, and LDL small. Non-HDL cholesterol includes LDL plus other harmful particles. Triglycerides affect LDL particle size. HDL works in opposition to LDL, clearing it from circulation."},
+  hdl:{axis:{min:45,max:70,step:5},label:"HDL Cholesterol",food:"Extra-virgin olive oil, fatty fish, nuts, seeds and avocado nudge HDL up, though regular aerobic exercise moves it more than any single food.",unit:"mg/dL",cat:"Cardiovascular",optimal:[60,999],concern:[40,59],high:[0,39],data:[{d:"Oct 2018",v:50},{d:"Jan 2025",v:55},{d:"Mar 2026",v:49},{d:"Jun 2026",v:52}],hb:true,what:"The good cholesterol. Acts like a cleanup crew returning excess cholesterol to your liver.",why:"Higher HDL means better protection. Low HDL leaves harmful cholesterol in your arteries.",how:"Aerobic exercise is the single most effective HDL-raiser. Reducing refined carbs and trans fats helps. Omega-3s support HDL quality. Losing visceral fat also raises HDL. Target at least 150 minutes of moderate-intensity cardio per week.",related:"HDL is the counterbalance to LDL in the chol/HDL ratio. Low HDL magnifies the risk of elevated LDL and total cholesterol. HDL large particle size is the most protective subfraction. When HDL is higher, vascular inflammation as measured by hs-CRP and Lp-PLA2 tends to be lower."},
+  triglycerides:{label:"Triglycerides",food:"Fatty fish (salmon, mackerel, sardines), olive oil and nuts help; the fastest drop comes from cutting added sugar, refined carbs, fruit juice and alcohol.",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,150],concern:[150,199],high:[200,999],data:[{d:"Oct 2018",v:79},{d:"Jan 2025",v:107},{d:"Mar 2026",v:103},{d:"Jun 2026",v:71}],what:"Blood fats from sugar, alcohol, and refined carbs.",why:"High levels thicken blood and make LDL particles smaller and more dangerous.",how:"Cut back on added sugars, refined carbohydrates, fruit juice, and alcohol. Increase omega-3 fatty acids. Regular exercise burns triglycerides directly. Losing even modest body fat can drop triglycerides significantly. Berberine and psyllium also contribute.",related:"Triglycerides directly influence LDL particle size and pattern. High triglycerides drive Pattern B, which you have. They are also used to calculate LDL. Closely linked to fasting glucose and HbA1c since metabolic health and triglyceride levels move together."},
+  nonHdl:{label:"Non-HDL Cholesterol",food:"The same foods that help LDL and triglycerides: soluble fiber (oats, beans, lentils), fatty fish, nuts and olive oil, with fewer refined carbs and less saturated fat.",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,130],concern:[130,159],high:[160,999],data:[{d:"Oct 2018",v:114},{d:"Jan 2025",v:148},{d:"Mar 2026",v:165},{d:"Jun 2026",v:129}],what:"All harmful cholesterol combined, everything except your protective HDL.",why:"A more complete heart risk picture than LDL alone.",how:"Everything that lowers LDL and triglycerides also lowers non-HDL. Soluble fiber, omega-3s, reducing saturated fat and refined carbs, exercise, and berberine all help. Raising HDL also improves the ratio.",related:"Non-HDL is downstream of both LDL and triglycerides. It is more predictive of cardiovascular events than LDL alone in people with high triglycerides. ApoB tracks the particle count within the non-HDL pool and provides an even more precise risk measure."},
+  cholHdlRatio:{axis:{min:0,max:6,step:1},label:"Chol/HDL Ratio",food:"Fatty fish, oats, beans, nuts and olive oil lower the LDL side while aerobic exercise raises HDL; both improve the ratio.",unit:"",cat:"Cardiovascular",optimal:[0,3.5],concern:[3.5,5.0],high:[5,99],data:[{d:"Oct 2018",v:3.3},{d:"Jan 2025",v:3.7},{d:"Mar 2026",v:4.4},{d:"Jun 2026",v:3.5}],what:"Total cholesterol divided by HDL. The ratio of bad to good.",why:"High ratio means more junk than cleanup capacity. Lower is better.",how:"Raise HDL through exercise and omega-3s. Lower total cholesterol through diet and supplements. The most powerful lever is HDL. Losing visceral fat improves both sides of the ratio simultaneously.",related:"Directly calculated from total cholesterol and HDL. Triglycerides indirectly affect it by raising total cholesterol and suppressing HDL. LDL reduction improves it. The ratio contextualizes LDL since someone with high HDL and moderate LDL may have a better ratio than the reverse."},
+  apoB:{axis:{min:60,max:140,step:20},label:"ApoB",food:"The fiber- and omega-3-rich foods that lower LDL also lower ApoB: oats, beans, lentils, fatty fish and nuts, plus fewer refined carbs.",unit:"mg/dL",cat:"Cardiovascular",optimal:[0,90],concern:[90,129],high:[130,999],data:[{d:"Mar 2026",v:129},{d:"Jun 2026",v:99}],what:"Counts the actual number of harmful cholesterol particles. Every LDL has exactly one ApoB.",why:"Even if LDL looks okay you may have many small dangerous particles. ApoB catches that.",how:"Everything that lowers LDL also lowers ApoB. Berberine, psyllium, omega-3s, reduced saturated fat, and exercise all apply. Reducing refined carbohydrates lowers VLDL particles which also carry ApoB. The target for your risk profile is ideally below 80 mg/dL.",related:"ApoB is the particle-level version of LDL. Every LDL particle has exactly one ApoB so they are closely aligned. ApoB is also elevated by high triglycerides via VLDL particles. It provides context that LDL alone cannot since your ApoB of 99 with LDL of 113 suggests moderately elevated particle count."},
+  lpa:{label:"Lipoprotein(a)",food:"Lp(a) is set by your genes and barely responds to diet, so no specific foods will move it; put your food efforts toward your other lipids.",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,75],concern:[75,125],high:[125,999],data:[{d:"Mar 2026",v:13},{d:"Jun 2026",v:10}],what:"A cholesterol particle almost entirely determined by genes.",why:"High Lp(a) makes blood more likely to clot. Yours is low and stable, a genuine win.",how:"Because Lp(a) is genetically fixed there is limited modifiable intervention. Niacin modestly lowers it but has side effects. New RNA therapies targeting Lp(a) are in development. Your low level means no urgent action is needed.",related:"Lp(a) operates independently of LDL and does not meaningfully affect other standard lipid values. However it compounds risk when LDL is also elevated. Low Lp(a) is a genuine protective factor worth noting on any cardiovascular risk calculator you share with Dr. Nguyen."},
+  ldlParticle:{label:"LDL Particle #",food:"Soluble fiber (oats, beans, psyllium-rich foods), fatty fish and nuts lower particle number; cutting refined carbs shifts particles from small-dense to large-buoyant.",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,1138],concern:[1138,1409],high:[1409,9999],data:[{d:"Mar 2026",v:2097},{d:"Jun 2026",v:1387}],what:"Counts the actual number of LDL particles rather than how much cholesterol they carry.",why:"More particles means more chances to invade artery walls. Down dramatically but still elevated.",how:"Same interventions that lower LDL lower particle number. Soluble fiber, berberine, omega-3s, reduced saturated fat all help. Reducing refined carbs shifts particles from small-dense to large-buoyant. Exercise reduces particle number independently. The goal is below 1138.",related:"LDL particle number and ApoB tell a similar story from different angles. Small LDL is the most dangerous subset of total LDL particles. Pattern B on your Cardio IQ reflects predominantly small dense particles. Triglycerides drive particle number up by promoting VLDL and IDL production."},
+  ldlSmall:{label:"LDL Small",food:"Cutting refined carbs and sugar is the strongest lever for shrinking small-dense particles; fatty fish and olive oil help shift size too.",unit:"nmol/L",cat:"Cardiovascular",optimal:[0,142],concern:[142,219],high:[219,9999],data:[{d:"Mar 2026",v:596},{d:"Jun 2026",v:321}],what:"Small dense LDL, the most dangerous type, slipping through artery walls most easily.",why:"High small LDL dramatically increases plaque buildup. Yours dropped 46 percent, real progress.",how:"Reducing refined carbohydrates and sugar is the most powerful way to shift particles from small to large. Omega-3s directly shift LDL particle size toward large buoyant. Exercise has a similar effect. Your triglyceride improvement is directly connected to this improvement.",related:"Small LDL is driven primarily by high triglycerides through the triglyceride-LDL exchange mechanism. This is why your triglyceride improvement and small LDL improvement happened together. LDL pattern B means predominantly small dense LDL. ApoB and particle number reflect total count while small LDL reflects the dangerous subtype."},
+  hsCRP:{axis:{min:0,max:2,step:0.5},label:"hs-CRP",food:"An anti-inflammatory plate helps: olive oil, fatty fish, berries, leafy greens, turmeric, ginger and nuts, while minimizing ultra-processed foods, refined sugar and fried foods.",unit:"mg/L",cat:"Cardiovascular",optimal:[0,1.0],concern:[1.0,3.0],high:[3.0,999],data:[{d:"Mar 2026",v:1.4},{d:"Jun 2026",v:0.2}],what:"A protein your liver makes when your body is inflamed.",why:"Went from 1.4 to under 0.2, a dramatic improvement in vascular inflammation.",how:"Your current stack of omega-3s, turmeric, sulforaphane, and probiotic is exactly the right approach. Beyond supplements: prioritize sleep (poor sleep spikes CRP), manage stress, maintain a healthy weight, and avoid ultra-processed foods.",related:"hs-CRP reflects systemic inflammation worsened by high LDL, high blood sugar, visceral fat, and poor sleep. It is downstream of lifestyle quality and upstream of atherosclerosis progression. Lp-PLA2 is more specific to vascular inflammation than hs-CRP which responds to any inflammation in the body."},
+  lpPla2:{axis:{min:120,max:200,step:20},label:"Lp-PLA2 Activity",food:"Omega-3-rich fatty fish has the best evidence; a broader anti-inflammatory pattern (olive oil, vegetables, berries) supports it.",unit:"nmol/min/mL",cat:"Cardiovascular",optimal:[0,123],concern:[0,123],high:[123,999],data:[{d:"Mar 2026",v:179},{d:"Jun 2026",v:155}],what:"An enzyme active specifically inside artery walls when cholesterol is building up there.",why:"Still elevated but dropped 24 points. Heading in the right direction.",how:"Omega-3 fatty acids have the strongest evidence for lowering Lp-PLA2. Anti-inflammatory diet, curcumin, and statin therapy all lower it. Reducing small dense LDL is closely linked to lowering Lp-PLA2 activity.",related:"Lp-PLA2 is directly activated by oxidized LDL inside artery walls, so lowering LDL directly reduces Lp-PLA2 activity. It works alongside hs-CRP to tell the vascular inflammation story. Your hs-CRP reaching near zero while Lp-PLA2 remains elevated suggests localized vascular inflammation even when systemic inflammation is controlled."},
+  glucose:{label:"Fasting Glucose",food:"Build meals around non-starchy vegetables, beans, whole grains, nuts and protein; eating veg or protein before carbs and limiting sugary drinks, white bread and sweets blunts spikes.",unit:"mg/dL",cat:"Metabolic",optimal:[65,99],concern:[100,125],high:[126,999],data:[{d:"Oct 2018",v:80},{d:"Jan 2025",v:90},{d:"Mar 2026",v:88},{d:"Jun 2026",v:96}],what:"The amount of sugar in your blood after not eating. Your bodys main fuel.",why:"Ticked up slightly to 96 but still comfortably within the optimal range.",how:"Your current approach is working well. Continue limiting refined carbohydrates and added sugars, prioritize fiber, and maintain regular exercise. Both Zone 2 cardio and strength training improve insulin sensitivity. Berberine has evidence comparable to metformin for blood sugar control.",related:"Fasting glucose and HbA1c tell the same story over different time horizons. Insulin resistance is reflected indirectly by glucose and triglycerides moving up together. High glucose over time damages blood vessels and worsens LDL, hs-CRP, and eGFR."},
+  hba1c:{label:"HbA1c",food:"Same as glucose: fiber-rich whole foods, legumes, vegetables and protein, with minimal refined carbs and sugar-sweetened drinks.",unit:"%",cat:"Metabolic",optimal:[0,5.7],concern:[5.7,6.4],high:[6.5,99],data:[{d:"Jan 2025",v:4.6},{d:"Mar 2026",v:4.5}],what:"Shows your average blood sugar over 2 to 3 months.",why:"Not tested this round but was 4.5 percent last draw, excellent metabolic control.",how:"You are maintaining this well. The key drivers are consistent: limiting refined carbs, regular exercise, adequate sleep, and managing stress. Berberine helps. As long as fasting glucose stays below 100 this number should remain excellent.",related:"HbA1c is the long-term version of fasting glucose. Triglycerides and HbA1c tend to move together, both influenced by carbohydrate intake and insulin sensitivity. High HbA1c over time damages kidneys reflected in eGFR and is connected to testosterone through insulin resistance."},
+  creatinine:{axis:{min:0.6,max:1.4,step:0.2},label:"Creatinine",food:"Diet does not really improve creatinine; just know a large meat meal or creatine right before a draw can raise it, and staying well hydrated keeps it steady.",unit:"mg/dL",cat:"Metabolic",optimal:[0.6,1.29],concern:[1.29,1.7],high:[1.7,99],data:[{d:"Oct 2018",v:0.97},{d:"Jan 2025",v:1.16},{d:"Mar 2026",v:1.26},{d:"Jun 2026",v:1.26}],what:"A waste product from muscle use. Kidneys filter it out of your blood.",why:"Stable at 1.26. Creatine supplements affect this number.",how:"Stay well hydrated. Avoid regular NSAID use as they reduce kidney blood flow. For supplement-related elevation, discontinuing creatine temporarily before a lab draw can clarify the true picture. Tell Brian Barragan about your creatine use.",related:"Creatinine is used to calculate eGFR so they move in opposite directions. BUN also reflects kidney function and together the BUN/creatinine ratio helps distinguish causes. Creatinine is artificially elevated by creatine supplements, intense exercise before a blood draw, and high meat intake."},
+  egfr:{label:"eGFR",food:"Plenty of water, plus a pattern rich in vegetables, fruit and whole grains and lower in sodium and processed meat, is protective for the kidneys.",unit:"mL/min",cat:"Metabolic",optimal:[90,999],concern:[60,89],high:[0,59],data:[{d:"Oct 2018",v:98},{d:"Jan 2025",v:79},{d:"Mar 2026",v:71},{d:"Jun 2026",v:71}],hb:true,what:"Estimates how well your kidneys filter your blood per minute.",why:"Stable at 71 with no further decline. The plateauing is a positive sign.",how:"Stay very well hydrated. Avoid regular NSAID use. Control blood pressure and keep blood sugar optimal. Discuss with Brian Barragan whether a cystatin C test would give a clearer picture of your true kidney function independent of creatine effects.",related:"eGFR is calculated from creatinine so creatine supplementation artificially lowers eGFR by raising creatinine. BUN is a parallel kidney marker. High blood pressure and high blood sugar are the two leading causes of kidney function decline and are reflected elsewhere in your panel."},
+  alt:{label:"ALT",food:"Coffee is genuinely liver-protective; cruciferous vegetables (broccoli, Brussels sprouts), leafy greens and olive oil help, while alcohol, added sugar and fried or ultra-processed foods hurt.",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:48},{d:"Jan 2025",v:34},{d:"Mar 2026",v:39},{d:"Jun 2026",v:54}],what:"An enzyme inside liver cells. Leaks into blood when liver cells are stressed or damaged.",why:"Back above range at 54 after normalizing last draw. Worth discussing with Brian Barragan.",how:"Reduce alcohol if applicable. Review your supplement stack with your doctor. Sulforaphane and NAC support liver detoxification. Maintain a healthy weight to reduce fatty liver risk. Consider a supplement holiday of 2 weeks before your next test to establish a clean baseline.",related:"ALT is interpreted alongside AST. An ALT rise without AST elevation points more specifically to liver rather than muscle injury. Elevated ALT can be downstream of high triglycerides from fatty liver and insulin resistance. A heavy supplement load can also contribute."},
+  ast:{axis:{min:10,max:40,step:5},label:"AST",food:"The same liver-friendly plate as ALT: coffee, cruciferous and leafy vegetables, olive oil, and less alcohol and added sugar.",unit:"U/L",cat:"Metabolic",optimal:[0,40],concern:[40,80],high:[80,999],data:[{d:"Oct 2018",v:31},{d:"Jan 2025",v:22},{d:"Mar 2026",v:24},{d:"Jun 2026",v:31}],what:"An enzyme in liver heart and muscle cells. Rises when any of those tissues are stressed.",why:"Back to 31, within normal range. Together with ALT gives a fuller liver picture.",how:"Avoid intense exercise 48 hours before a blood draw as it can temporarily raise AST from muscle breakdown. Stay well hydrated. Adding a GGT test to your next panel would help clarify whether ALT elevation is truly liver-specific.",related:"The AST/ALT ratio provides diagnostic clues. A ratio above 2 to 1 can suggest alcohol-related liver disease while below 1 to 1 is more typical of non-alcoholic causes. AST also rises with intense exercise due to muscle breakdown which can confuse interpretation."},
+  albumin:{label:"Albumin",food:"Albumin reflects protein status, so steady protein from eggs, fish, poultry, dairy, beans and your whey protein keeps it healthy.",unit:"g/dL",cat:"Metabolic",optimal:[3.6,5.1],concern:[3.0,6.0],high:[0,2.9],data:[{d:"Oct 2018",v:5.1},{d:"Jan 2025",v:4.8},{d:"Mar 2026",v:5.0},{d:"Jun 2026",v:5.2}],hb:true,what:"The most abundant blood protein, made by your liver. Carries hormones and vitamins.",why:"At 5.2 the lab flagged it high but this is barely over the upper limit and not clinically concerning.",how:"Your protein intake appears excellent given consistently high albumin. Maintain it with your current whey protein supplementation. Adequate hydration matters. No action needed given your consistently excellent levels.",related:"Albumin is made by the liver so liver health affects its production. Kidney disease causes albumin to leak into urine so low albumin can be a downstream consequence of declining eGFR. Albumin also carries sex hormones and subtly affects free testosterone availability."},
+  bun:{label:"BUN",food:"BUN climbs with very high protein intake and dehydration before a draw; normal protein portions and good hydration keep it level.",unit:"mg/dL",cat:"Metabolic",optimal:[7,25],concern:[25,35],high:[35,999],data:[{d:"Oct 2018",v:22},{d:"Jan 2025",v:29},{d:"Mar 2026",v:25},{d:"Jun 2026",v:19}],what:"A waste product from protein breakdown. Kidneys filter it out.",why:"Dropped back into optimal range at 19. A good sign for kidney function.",how:"Stay well hydrated especially on days leading up to a blood draw. Avoid very high protein intake in the 24 hours before testing for the most accurate reading. Your current level of 19 is well within range.",related:"BUN and creatinine are both kidney filtration markers interpreted together as the BUN/creatinine ratio. When BUN rises alone without creatinine changing, dehydration or high protein intake is the more likely cause. Albumin and BUN together tell the protein metabolism story."},
+  tsh:{axis:{min:0,max:10,step:2},label:"TSH",food:"Selenium (1-2 Brazil nuts a day, sardines, eggs), iodine (seafood, dairy, iodized salt) and zinc (shellfish, beef, pumpkin seeds) support thyroid output; keep them 4+ hours from your Levothyroxine.",unit:"mIU/L",cat:"Thyroid",optimal:[0.4,2.5],concern:[2.5,4.5],high:[4.5,99],data:[{d:"Oct 2018",v:8.52},{d:"Jan 2025",v:8.09},{d:"Mar 2026",v:4.67},{d:"Jun 2026",v:5.36}],what:"The signal your brain sends to your thyroid to make more hormone, like a thermostat reading.",why:"Ticked back up from 4.67 to 5.36 after years of improvement. Being tracked with Brian Barragan; rechecking in the September 2026 panel.",how:"The primary intervention is medication management with Dr. Barragan. Ensure strict Levothyroxine timing: fasted 30 to 60 minutes before food, separated from Magnesium, Psyllium, and multivitamin by at least 4 hours, and from Berberine by 2 hours. Selenium supports T4 to T3 conversion.",related:"TSH is the master regulator upstream of Free T4 and Free T3. When TSH rises it signals inadequate thyroid hormone. TSH affects metabolism, energy, weight, and heart rate. Low thyroid function is linked to elevated cholesterol, triglycerides, worsened insulin sensitivity, and can suppress testosterone."},
+  freeT4:{axis:{min:0.8,max:1.8,step:0.2},label:"Free T4",food:"Selenium (Brazil nuts, sardines), zinc (shellfish, beef, pumpkin seeds) and iodine (fish, dairy) are the raw materials, spaced away from your medication by 4 hours.",unit:"ng/dL",cat:"Thyroid",optimal:[0.8,1.8],concern:[0.5,0.79],high:[0,0.49],data:[{d:"Oct 2018",v:1.1},{d:"Jan 2025",v:1.0},{d:"Mar 2026",v:1.2},{d:"Jun 2026",v:1.4}],what:"Your thyroids main hormone. Free means the portion your cells can actually use.",why:"Improved to 1.4, best reading yet. The medication is converting well.",how:"Levothyroxine is the direct source of T4. Dose, timing, and absorption are everything. Selenium, zinc, and iodine are cofactors for thyroid hormone. Avoid iron, calcium, and magnesium within 4 hours of your medication as they bind to it and block absorption.",related:"Free T4 is produced in response to TSH and converted to Free T3 in peripheral tissues. It is upstream of T3. Free T4 and TSH should move in opposite directions in a healthy system. Your combination of rising TSH with rising T4 is a pattern worth investigating with Dr. Barragan."},
+  freeT3:{label:"Free T3",food:"Selenium is the key cofactor for converting T4 to T3 (Brazil nuts, sardines, eggs), with zinc from oysters, beef or pumpkin seeds.",unit:"pg/mL",cat:"Thyroid",optimal:[2.3,4.2],concern:[1.8,2.29],high:[0,1.79],data:[{d:"Oct 2018",v:3.2},{d:"Mar 2026",v:3.1},{d:"Jun 2026",v:3.1}],what:"The active thyroid hormone your cells actually use, the gas pedal for metabolism.",why:"Stable at 3.1, solidly in the optimal range.",how:"Selenium is the key cofactor for T4-to-T3 conversion. Zinc and iron are also needed. Chronic calorie restriction suppresses T3 conversion. Optimizing your TSH and T4 through medication management is the primary lever.",related:"Free T3 is the endpoint of the TSH to T4 to T3 cascade. If TSH is high but T3 is normal the body is compensating. T3 affects cholesterol metabolism since low T3 is associated with elevated LDL and triglycerides. It also influences testosterone production through its effects on metabolism."},
+  totalTesto:{label:"Total Testosterone",food:"Protein and healthy fats support testosterone (eggs, fatty fish, olive oil, nuts), with zinc (oysters, beef, pumpkin seeds) and vitamin D (fatty fish, egg yolks) as key cofactors.",unit:"ng/dL",cat:"Hormones",optimal:[400,1100],concern:[250,399],high:[0,249],data:[{d:"Jan 2025",v:632},{d:"Mar 2026",v:526}],hb:true,what:"All testosterone in your blood, both bound to proteins and freely available.",why:"Not tested this round. Last reading of 526 was in optimal range but declining.",how:"Resistance training is the most evidence-backed natural testosterone booster. Prioritize sleep as testosterone is produced during deep sleep. Zinc and vitamin D are cofactors for testosterone production, both in your stack. An endocrinology evaluation is the right next step.",related:"Total testosterone is directly suppressed by high SHBG. Thyroid dysfunction can suppress testosterone production. LH and FSH from the brain drive testosterone production upstream. Adding LH and FSH to your next panel would reveal whether the issue is in the brain signal or testicular response."},
+  freeTesto:{label:"Free Testosterone",food:"The same testosterone-supporting foods (zinc, vitamin D, healthy fats), plus boron-containing foods such as prunes, raisins, nuts and avocado that may modestly lower SHBG.",unit:"pg/mL",cat:"Hormones",optimal:[46,224],concern:[30,45],high:[0,29],data:[{d:"Jan 2025",v:58.9},{d:"Mar 2026",v:39.8}],hb:true,what:"The portion of testosterone not bound to proteins, what your body can actually use right now.",why:"Not tested this round. Was below optimal at 39.8. Endocrinology consult still warranted.",how:"Addressing SHBG is the key. Strength training and vitamin D help. Some evidence supports boron supplementation for reducing SHBG. If lifestyle measures are insufficient, testosterone replacement therapy may be appropriate but needs evaluation with both Dr. Barragan and Dr. Nguyen.",related:"Free testosterone is directly suppressed by SHBG which is currently your main issue. Total testosterone, LH, FSH, estradiol, and prolactin are all part of the same hormonal network. Thyroid hormone affects SHBG levels and elevated TSH can raise SHBG, further reducing free testosterone."},
+  shbg:{label:"SHBG",food:"Adequate protein and calories help keep SHBG in range; boron-rich foods like prunes, raisins and nuts may nudge it down.",unit:"nmol/L",cat:"Hormones",optimal:[10,50],concern:[50,70],high:[70,999],data:[{d:"Jan 2025",v:52},{d:"Mar 2026",v:62}],what:"A protein that binds testosterone in blood. Bound testosterone cannot be used.",why:"Not tested this round. Was elevated at 62, reducing free testosterone availability.",how:"Strength training and maintaining lean muscle mass help regulate SHBG. Optimal insulin sensitivity helps. Some evidence for boron (3 to 10 mg per day) reducing SHBG. Correcting thyroid function may help since high TSH is associated with elevated SHBG.",related:"SHBG is produced by the liver so liver health matters. It rises with age naturally. High SHBG directly suppresses free testosterone and bioavailable testosterone. Estradiol levels also affect SHBG. Correcting thyroid function may help since hypothyroidism is sometimes associated with elevated SHBG."},
+  wbc:{label:"White Blood Cells",food:"Immune-cell production needs zinc (shellfish, beef, pumpkin seeds), B12 (meat, eggs, dairy), folate (leafy greens, legumes) and vitamin D (fatty fish).",unit:"K/uL",cat:"Blood",optimal:[3.8,10.8],concern:[3.0,3.79],high:[0,2.99],data:[{d:"Oct 2018",v:9.1},{d:"Jan 2025",v:3.9},{d:"Mar 2026",v:8.5},{d:"Jun 2026",v:3.8}],what:"Your immune system soldiers. They fight infections viruses and invaders.",why:"At 3.8, right at the lower boundary of normal. Worth watching but not alarming.",how:"No specific intervention needed at your current level. Ensure adequate nutrition as zinc, vitamin B12, folate, and vitamin D all support immune cell production. Avoid smoking and manage chronic stress. If it drops below 3.5 consistently further investigation would be warranted.",related:"WBC is elevated during active infection which can transiently raise hs-CRP. Chronically elevated WBC alongside elevated hs-CRP would suggest chronic infection or inflammatory disease. Low WBC can be associated with vitamin B12 or folate deficiency, both currently optimal in your panel."},
+  hemoglobin:{label:"Hemoglobin",food:"Iron (red meat, shellfish, lentils, spinach, pairing plant iron with vitamin C), B12 (meat, eggs, dairy) and folate (leafy greens, legumes, avocado) build red blood cells.",unit:"g/dL",cat:"Blood",optimal:[13.2,17.1],concern:[11,13.1],high:[0,10.9],data:[{d:"Oct 2018",v:14.4},{d:"Jan 2025",v:15.1},{d:"Mar 2026",v:15.6},{d:"Jun 2026",v:15.2}],hb:true,what:"The protein inside red blood cells that carries oxygen from lungs to every cell.",why:"Stable at 15.2, well within optimal range.",how:"You are maintaining this well. Ensure adequate iron from food, vitamin B12, and folate for red blood cell production. Regular moderate-intensity exercise stimulates red blood cell production over time. Stay well hydrated.",related:"Hemoglobin is reflected in hematocrit and they move together. MCV (mean corpuscular volume) tells you the size of red blood cells and helps diagnose the cause of anemia. B12 deficiency causes large red blood cells while iron deficiency causes small ones. Testosterone directly stimulates red blood cell production."},
+  hematocrit:{label:"Hematocrit",food:"The same red-cell builders (iron-rich foods, B12 and folate) and good hydration, since dehydration falsely raises it.",unit:"%",cat:"Blood",optimal:[38.5,50],concern:[35,38.4],high:[0,34.9],data:[{d:"Oct 2018",v:40.7},{d:"Jan 2025",v:44.7},{d:"Mar 2026",v:44.1},{d:"Jun 2026",v:44.7}],what:"The percentage of your blood made up of red blood cells.",why:"Stable and optimal at 44.7 percent.",how:"No action needed at your current level. Hydration affects hematocrit so dehydration can raise it artificially. If testosterone therapy is ever started, hematocrit should be checked every 3 to 6 months as a safety measure.",related:"Hematocrit and hemoglobin tell the same story and are interpreted together. The MCHC (mean corpuscular hemoglobin concentration) tells you the hemoglobin concentration within each red cell. Elevated hematocrit is a downstream risk of testosterone therapy and would require monitoring if TRT is initiated."},
+  platelets:{label:"Platelet Count",food:"No specific food changes a normal platelet count; folate and B12 support healthy production. Your nattokinase and fish oil thin the blood, so keep Dr. Nguyen informed.",unit:"K/uL",cat:"Blood",optimal:[140,400],concern:[100,139],high:[0,99],data:[{d:"Oct 2018",v:196},{d:"Jan 2025",v:213},{d:"Mar 2026",v:227},{d:"Jun 2026",v:216}],what:"Tiny fragments that clump together to stop bleeding at injured blood vessels.",why:"Stable and optimal at 216.",how:"No intervention needed. Avoid chronic regular NSAID use as it impairs platelet function. Nattokinase which you take has mild fibrinolytic effects worth mentioning to Dr. Nguyen. Vitamin K2 which you also take supports appropriate clotting factor activation.",related:"Platelets work alongside clotting factors in the coagulation cascade. Nattokinase in your supplement stack acts on fibrin downstream of platelet aggregation, so the combination of normal platelets plus nattokinase is reasonable but worth flagging to Dr. Nguyen. Low platelet counts can accompany liver disease."},
+  vitD:{label:"Vitamin D",food:"Fatty fish (salmon, mackerel, sardines), egg yolks and fortified milk or yogurt provide some, but sunlight and your D3 do most of the work; food alone rarely reaches optimal.",unit:"ng/mL",cat:"Vitamins",optimal:[40,100],concern:[30,39],high:[0,29],data:[{d:"Jan 2025",v:68}],hb:true,what:"Made by skin in sunlight. Acts more like a hormone than a vitamin.",why:"Not retested. Was 68 ng/mL, optimal. Supplements are maintaining this well.",how:"You are maintaining this well with your D3+K2 supplement. Take it with your fattiest meal for maximum absorption. Test annually. Most adults need 2000 to 5000 IU of D3 daily to maintain optimal levels depending on sun exposure.",related:"Vitamin D is activated by the kidneys so declining eGFR can impair vitamin D activation. It influences immune function and may modestly reduce hs-CRP. It plays a role in testosterone production since there are vitamin D receptors in the testes. Vitamin D and K2 work together on calcium metabolism."},
+  vitB12:{label:"Vitamin B12",food:"Found only in animal foods (meat, fish, shellfish, eggs and dairy), so fortified foods or a supplement matter if you cut back on animal protein.",unit:"pg/mL",cat:"Vitamins",optimal:[300,1100],concern:[200,299],high:[0,199],data:[{d:"Jan 2025",v:596}],hb:true,what:"Found mainly in animal products. Essential for red blood cells and nervous system.",why:"Not retested. Was 596 pg/mL, optimal.",how:"Your O.N.E. Multivitamin maintains this well. If absorption issues ever develop, sublingual B12 bypasses gut absorption entirely. Animal protein in your diet contributes significantly. No changes needed.",related:"B12 works closely with folate since both are required for DNA synthesis and red blood cell formation. B12 deficiency raises homocysteine, a cardiovascular risk factor worth adding to future panels. B12 also supports methylation processes relevant to gene expression and inflammation regulation."},
+  folate:{label:"Folate",food:"Leafy greens (spinach, romaine), legumes (lentils, chickpeas), asparagus, broccoli, avocado and citrus are rich in natural folate.",unit:"ng/mL",cat:"Vitamins",optimal:[5.4,99],concern:[3.4,5.3],high:[0,3.3],data:[{d:"Jan 2025",v:16.5}],hb:true,what:"Vitamin B9. Helps build DNA and make new cells especially red blood cells.",why:"Not retested. Was 16.5 ng/mL, optimal.",how:"Your O.N.E. Multivitamin covers this well and likely contains methylfolate, the activated form, which is significantly better utilized than folic acid. Eating dark leafy greens, legumes, and avocado provides additional natural folate.",related:"Folate and B12 are intimately connected and both must be adequate for normal red blood cell production. Elevated homocysteine is the downstream consequence of deficiency in either. Folate is also connected to methylation which affects gene expression, mood, and cardiovascular risk over the long term."},
+  psa:{label:"PSA Total",food:"Cooked tomatoes (lycopene), cruciferous vegetables (broccoli, cauliflower), green tea and a lower-saturated-fat pattern are linked to prostate health, though none directly lower PSA.",unit:"ng/mL",cat:"Prostate",optimal:[0,2.5],concern:[2.5,4.0],high:[4.0,99],data:[{d:"Jan 2025",v:0.26}],what:"A protein made by prostate cells. Small amounts normally enter the blood.",why:"Not retested. Was 0.26 ng/mL, optimal.",how:"Regular ejaculation may modestly reduce PSA. Avoid cycling, digital rectal exam, or sexual activity within 48 hours of a PSA blood draw as these can temporarily elevate it. Maintaining a healthy weight and eating lycopene-rich foods like tomatoes may support prostate health long-term.",related:"PSA is specific to prostate tissue and does not directly interact with other biomarkers in your panel. Testosterone and prostate health are connected since testosterone therapy historically requires PSA monitoring. Inflammation markers like hs-CRP can be elevated by prostatitis which also raises PSA."}
 };
 var CATS=["All","Cardiovascular","Metabolic","Thyroid","Hormones","Blood","Vitamins","Prostate"];
 var CICONS={Cardiovascular:"❤️",Metabolic:"🔥",Thyroid:"⚡️",Hormones:"⚖️",Blood:"🩸",Vitamins:"🛡️",Prostate:"🧬"};
@@ -358,7 +356,7 @@ var INSIGHTS=[
   {type:"positive",title:"LDL: Real Progress Down 40 Points",body:"LDL dropped from 153 to 113 mg/dL, the first meaningful decline after three consecutive rises. ApoB fell 129 to 99, LDL particle # dropped from 2,097 to 1,387, and LDL Small nearly halved. Your Omega-3s, Berberine, and Psyllium stack appears to be working."},
   {type:"positive",title:"hs-CRP: Dramatic Improvement",body:"hs-CRP went from 1.4 mg/L down to under 0.2 mg/L, essentially undetectable. This is a major win for vascular inflammation. Lp-PLA2 also dropped from 179 to 155. The anti-inflammatory combination in your stack is clearly having an effect."},
   {type:"positive",title:"Triglycerides: Excellent Drop",body:"Triglycerides fell from 103 to 71 mg/dL, now in an excellent range. This likely reflects your dietary improvements and Omega-3 supplementation."},
-  {type:"warning",title:"TSH: Ticked Back Up",body:"TSH rose from 4.67 to 5.36 mIU/L, moving in the wrong direction after years of improvement. Free T4 improved to 1.4, best reading yet. This pattern may suggest your Levothyroxine dose needs adjustment. Discuss with Brian Barragan soon."},
+  {type:"warning",title:"TSH: Ticked Back Up",body:"TSH rose from 4.67 to 5.36 mIU/L, moving in the wrong direction after years of improvement. Free T4 improved to 1.4, best reading yet. This pattern is being tracked with Brian Barragan, with a recheck in the September 2026 panel (now every 3 months)."},
   {type:"warning",title:"ALT: Back Above Range",body:"ALT jumped from 39 to 54 U/L, back above the 46 cutoff after normalizing last draw. Could reflect increased supplement load, exercise intensity, or diet. Worth flagging with Brian Barragan."},
   {type:"stabilized",title:"eGFR: Holding Steady",body:"eGFR remained at 71 mL/min with no further decline from March 2026. After dropping 27 points over the prior 7 years, stabilization is meaningful. Continue staying well hydrated."},
   {type:"turning",title:"LDL Particle and Small LDL: Turning a Corner",body:"LDL particle # dropped from 2,097 to 1,387, still in concern zone but significant. LDL Small dropped from 596 to 321. Pattern B persists but the direction is clearly improving."},
@@ -367,20 +365,19 @@ var INSIGHTS=[
   {type:"rx",title:"Levothyroxine Timing Still Critical",body:"TSH rising despite good T4 may reflect timing or absorption issues. Ensure Levothyroxine is taken fasted 30 to 60 minutes before food, and at least 4 hours before Magnesium, Psyllium, and the O.N.E. Multivitamin."}
 ];
 var ACTIONS=[
-  {priority:1,action:"Discuss TSH rising to 5.36 with Brian Barragan, Levothyroxine dose review",why:"TSH went backward 4.67 to 5.36 despite good Free T4. Dose adjustment may be needed.",urgency:"high",doctor:"Brian Barragan, PA"},
-  {priority:2,action:"Discuss ALT elevation of 54 with Brian Barragan",why:"Back above range after normalizing last draw. Cause needs to be identified.",urgency:"high",doctor:"Brian Barragan, PA"},
-  {priority:3,action:"Follow up with Dr. Nguyen, share improved lipid results",why:"LDL down 40 pts, hs-CRP near zero, Lp-PLA2 improving. Discuss whether current approach is sufficient.",urgency:"medium",doctor:"Huy Nguyen, MD"},
-  {priority:4,action:"Get endocrinology referral for free testosterone evaluation",why:"Still unaddressed from last panel, 39.8 pg/mL below optimal, SHBG elevated.",urgency:"medium",doctor:"Brian Barragan, PA"},
-  {priority:5,action:"Retest LDL particle #, ApoB, and Lp-PLA2 in 3 to 4 months",why:"Lipid picture improving but still needs to reach optimal. Track the momentum.",urgency:"low",doctor:"Brian Barragan, PA"}
+  {priority:1,action:"Discuss ALT elevation of 54 with Brian Barragan",why:"Back above range after normalizing last draw. Cause needs to be identified.",urgency:"high",doctor:"Brian Barragan, PA"},
+  {priority:2,action:"Follow up with Dr. Nguyen, share improved lipid results",why:"LDL down 40 pts, hs-CRP near zero, Lp-PLA2 improving. Discuss whether current approach is sufficient.",urgency:"medium",doctor:"Huy Nguyen, MD"},
+  {priority:3,action:"Get endocrinology referral for free testosterone evaluation",why:"Still unaddressed from last panel, 39.8 pg/mL below optimal, SHBG elevated.",urgency:"medium",doctor:"Brian Barragan, PA"},
+  {priority:4,action:"Retest LDL particle #, ApoB, and Lp-PLA2 in 3 to 4 months",why:"Lipid picture improving but still needs to reach optimal. Track the momentum.",urgency:"low",doctor:"Brian Barragan, PA"}
 ];
-var NEXT_PANEL=["TSH + Free T4 (Levothyroxine dose review)","ALT + AST + GGT (liver enzyme follow-up)","Free testosterone + SHBG + LH/FSH","Repeat ApoB + LDL-P (track improvement)","Lp-PLA2 + hs-CRP (confirm inflammation trend)","HbA1c + fasting glucose (metabolic check)"];
+var NEXT_PANEL=["TSH + Free T4 (Levothyroxine monitoring)","ALT + AST + GGT (liver enzyme follow-up)","Free testosterone + SHBG + LH/FSH","Repeat ApoB + LDL-P (track improvement)","Lp-PLA2 + hs-CRP (confirm inflammation trend)","HbA1c + fasting glucose (metabolic check)"];
 var CONTACTS=[
   {id:"pcp",icon:"🩺",role:"Primary Care Physician",name:"Brian Barragan, PA",practice:"South Coast Medical Group OC",address:"5 Journey #130, Aliso Viejo, CA 92656",phone:"949-360-1069",email:"info@southcoastmedgroup.com",tags:["TSH","Free T4","ALT","AST","eGFR"]},
   {id:"cardio",icon:"🫀",role:"Cardiologist",name:"Huy Nguyen, MD, FACC",practice:"Coastal Cardiology of Orange County",address:"333 Corporate Drive Ste 102, Ladera Ranch, CA 92694",phone:"949-276-2446",email:"",tags:["LDL","ApoB","Lp-PLA2","hs-CRP","LDL Particle #"]},
   {id:"walgreens",icon:"👩🏻‍⚕️",role:"Pharmacy",name:"Walgreens",practice:"Prescription Refills",phone:"949-448-0082",email:"",address:"26531 Aliso Creek Rd, Aliso Viejo, CA 92656",tags:["Levothyroxine refills"]}
 ];
 var MEDS=[
-  {name:"Levothyroxine",dose:"50 mcg",freq:"Daily, morning fasted",rx:"Brian Barragan, PA",purpose:"Thyroid hormone replacement for hypothyroidism.",how:"Replaces T4 your thyroid does not produce enough of. Body converts it to active T3, driving metabolism and energy.",impact:["Free T4 improved to 1.4, best reading yet","Free T3 stable at 3.1, optimal","TSH ticked back up to 5.36, dose review needed"],note:"TSH rose from 4.67 to 5.36 despite improving Free T4. Discuss urgently with Brian Barragan. Ensure strict separation from Mg, psyllium, and multivitamin by 4+ hours.",color:"#60a5fa"}
+  {name:"Levothyroxine",dose:"75 mcg",freq:"Daily, morning fasted",rx:"Brian Barragan, PA",purpose:"Thyroid hormone replacement for hypothyroidism.",how:"Replaces T4 your thyroid does not produce enough of. Body converts it to active T3, driving metabolism and energy.",impact:["Free T4 improved to 1.4, best reading yet","Free T3 stable at 3.1, optimal","TSH ticked back up to 5.36 — tracking with Brian Barragan"],note:"TSH rose from 4.67 to 5.36 despite improving Free T4 — an ongoing item tracked with Brian Barragan. Next panel September 2026, repeating every 3 months. Keep strict separation from Mg, psyllium, and multivitamin by 4+ hours.",color:"#60a5fa"}
 ];
 var SUPPS=[
   {name:"Ultimate Omega",brand:"Nordic Naturals",dose:"2 caps/day",goal:"Cardiovascular",color:"#f87171",effect:"Reduces triglycerides and vascular inflammation via EPA and DHA.",impact:["hs-CRP: 1.4 to 0.2, dramatic improvement","Triglycerides: 103 to 71, excellent","Lp-PLA2: 179 to 155, improving"],note:"This is doing exactly what it should. hs-CRP is near zero and triglycerides have dropped significantly."},
@@ -417,11 +414,11 @@ function gt(data){
   var p=(v[v.length-1].v-v[v.length-2].v)/v[v.length-2].v*100;
   return Math.abs(p)<3?"s":p>0?"u":"d";
 }
-function gc(s){return s==="o"?"#4ade80":s==="c"?"#fbbf24":s==="h"?"#f87171":"#64748b";}
+function gc(s){return s==="o"?"#4ade80":s==="c"?"#fbbf24":s==="h"?"#f87171":"#7a8699";}
 function mkdot(s,sz){sz=sz||8;return'<span class="dot" style="width:'+sz+'px;height:'+sz+'px;background:'+gc(s)+(s==="o"?';box-shadow:0 0 7px '+gc(s)+'90':'')+';"></span>';}
 function mkarrow(tr,hb){
   var good=(tr==="u"&&hb)||(tr==="d"&&!hb);
-  var c=tr==="s"?"#64748b":good?"#4ade80":"#f87171";
+  var c=tr==="s"?"#7a8699":good?"#4ade80":"#f87171";
   return'<span style="color:'+c+';font-size:12px;font-weight:700">'+(tr==="u"?"&#8593;":tr==="d"?"&#8595;":"&#8594;")+'</span>';
 }
 function opts(bm){return bm.optimal[1]>900?"Above "+bm.optimal[0]:bm.optimal[0]+" - "+bm.optimal[1];}
@@ -466,7 +463,7 @@ function buildSuppsHTML(){
   return '<div class="dr-supp-header"><span style="font-size:16px">&#127807;</span><div><div class="dr-supp-score">SuppCo Stack &middot; Score: 89/100</div><div class="dr-supp-sub">Tap each to see biomarker impact</div></div></div>'
     +SUPPS.map(function(s,i){
       return '<div class="dr-supp-item" style="border-color:'+s.color+'25">'
-        +'<div class="dr-supp-row" data-suppidx="'+i+'">'
+        +'<div class="dr-supp-row" role="button" tabindex="0" aria-label="'+s.name+' details" data-suppidx="'+i+'">'
         +'<div class="dr-supp-dot" style="background:'+s.color+'"></div>'
         +'<div style="flex:1;min-width:0"><div class="dr-supp-name">'+s.name+'</div><div class="dr-supp-brand">'+s.brand+' &middot; '+s.dose+'</div></div>'
         +'<span class="dr-supp-goal" style="color:'+s.color+';background:'+s.color+'18">'+s.goal+'</span>'
@@ -481,53 +478,87 @@ function buildSuppsHTML(){
 }
 
 var PILL_CONFIG={
-  rx:{emoji:"&#128138;",title:"Medications",sub:"Levothyroxine 50mcg",bg:"#0a1628",border:"#3b82f640",titleColor:"#60a5fa"},
+  rx:{emoji:"&#128138;",title:"Medications",sub:"Levothyroxine 75mcg",bg:"#0a1628",border:"#3b82f640",titleColor:"#60a5fa"},
   supplements:{emoji:"&#127807;",title:"Supplements",sub:"SuppCo score: 89",bg:"#0a0e1e",border:"#a78bfa40",titleColor:"#c4b5fd"},
   contacts:{emoji:"&#128241;",title:"Contacts",sub:"Doctors & Pharmacy",bg:"#051a12",border:"#34d39940",titleColor:"#34d399"}
 };
 
-function togglePillDrawer(id){
-  if(openDrawer===id){closePillDrawer();return;}
-  openDrawer=id;
+function prefersReducedMotion(){return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}
+// F6 — modal accessibility: focus trap, Escape to close, focus returned to the trigger
+var modalTrigger=null;
+function openModal(m){
+  modalTrigger=document.activeElement;
+  m.classList.add("open");
+  requestAnimationFrame(function(){var c=m.querySelector(".info-close");if(c)c.focus();});
+}
+function closeModal(m){
+  m.classList.remove("open");
+  if(modalTrigger&&modalTrigger.focus)modalTrigger.focus();
+  modalTrigger=null;
+}
+function modalFocusables(m){
+  var els=m.querySelectorAll('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  return Array.prototype.filter.call(els,function(el){return !el.disabled&&el.offsetParent!==null;});
+}
+function getOpenModal(){
+  var i=document.getElementById("info-modal");
+  if(i&&i.classList.contains("open"))return i;
+  var p=document.getElementById("pill-modal");
+  if(p&&p.classList.contains("open"))return p;
+  return null;
+}
+document.addEventListener("keydown",function(e){
+  var m=getOpenModal();
+  if(!m)return;
+  if(e.key==="Escape"){e.preventDefault();closeModal(m);return;}
+  if(e.key==="Tab"){
+    var f=modalFocusables(m);
+    if(!f.length){e.preventDefault();return;}
+    var first=f[0],last=f[f.length-1],cur=document.activeElement;
+    if(e.shiftKey&&cur===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&cur===last){e.preventDefault();first.focus();}
+    else if(f.indexOf(cur)===-1){e.preventDefault();first.focus();}
+  }
+});
+function openPillModal(id){
   var cfg=PILL_CONFIG[id];
-  // Build content
-  var body=document.getElementById("pill-drawer-body");
+  var body=document.getElementById("pill-modal-body");
   if(id==="contacts") body.innerHTML=buildContactsHTML();
   else if(id==="rx") body.innerHTML=buildMedsHTML();
   else if(id==="supplements") body.innerHTML=buildSuppsHTML();
-  body.style.borderColor=cfg.border;
-  // Set active pill appearance
-  var pb=document.getElementById("pb-active");
-  pb.style.background=cfg.bg;
-  pb.style.borderColor=cfg.border;
-  document.getElementById("pb-active-emoji").innerHTML=cfg.emoji;
-  document.getElementById("pb-active-title").textContent=cfg.title;
-  document.getElementById("pb-active-title").style.color=cfg.titleColor;
-  document.getElementById("pb-active-sub").textContent=cfg.sub;
-  // Animate: hide collapsed pills, show expanded
-  document.getElementById("pills-collapsed").style.display="none";
-  document.getElementById("pill-expanded").style.display="block";
-  setTimeout(function(){document.getElementById("pill-area").scrollIntoView({behavior:"smooth",block:"nearest"});},60);
+  var nm=document.getElementById("pill-modal-name");
+  nm.textContent=cfg.title;
+  nm.style.color=cfg.titleColor;
+  openModal(document.getElementById("pill-modal"));
 }
-
-function closePillDrawer(){
-  openDrawer=null;
-  document.getElementById("pill-expanded").style.display="none";
-  document.getElementById("pills-collapsed").style.display="flex";
-}
+function closePillModal(){closeModal(document.getElementById("pill-modal"));}
 
 // ── CHARTS ───────────────────────────────────────────────────────────────────
-function chartYMin(bm){
-  // Start at 0 if optimal starts at 0, else 80% of optimal floor
-  if(bm.optimal[0]===0)return 0;
-  return Math.floor(bm.optimal[0]*0.8);
+// Y-axis: clean, consistent increments with breathing room top & bottom
+// (no bottoming out, no random top numbers; data sits in the middle band)
+function niceStep(span){
+  if(!(span>0)||!isFinite(span)) span=1;
+  var raw=span/2;                       // aim for ~2 gridline steps across the data span
+  var mag=Math.pow(10,Math.floor(Math.log10(raw)));
+  var norm=raw/mag;                     // 1..10
+  var nice=norm<=1?1:norm<=2?2:norm<=5?5:10;
+  return nice*mag;
 }
-function chartYMax(bm){
-  // 20% above highest historical value
+function stepDecimals(step){if(step>=1)return 0;var s=step.toString(),i=s.indexOf(".");return i<0?0:s.length-i-1;}
+function chartAxis(bm){
+  if(bm.axis)return{min:bm.axis.min,max:bm.axis.max,step:bm.axis.step,dec:stepDecimals(bm.axis.step)};
   var vals=bm.data.filter(function(d){return d.v!=null;}).map(function(d){return d.v;});
-  if(!vals.length)return bm.optimal[1]>900?bm.optimal[0]*2:bm.optimal[1]*1.2;
-  var mx=Math.max.apply(null,vals);
-  return Math.ceil(mx*1.2);
+  if(!vals.length)return{min:0,max:1,step:1,dec:0};
+  var lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals);
+  var span=hi-lo;
+  if(span<=0) span=(hi!==0?Math.abs(hi)*0.4:1);   // flat / single data point
+  var step=niceStep(span);
+  var pad=Math.max(span*0.25,step*0.75);
+  var min=Math.floor((lo-pad)/step)*step;
+  var max=Math.ceil((hi+pad)/step)*step;
+  if(min<0) min=0;                                 // never dip below zero
+  if(lo<=step*1.2&&min>0) min=0;                   // readings hugging zero -> anchor baseline at 0
+  return{min:+min.toFixed(6),max:+max.toFixed(6),step:+step.toFixed(6),dec:stepDecimals(step)};
 }
 var charts={},openKey=null;
 function buildChart(k){
@@ -546,6 +577,16 @@ function buildChart(k){
     +'<div class="chart-close-row"><button class="chart-close-btn closechartbtn" data-key="'+k+'">Close &#8963;</button></div>'
     +'</div></div>';
 }
+function showChartFallback(cv){
+  if(!cv||cv.dataset.fallback)return;
+  cv.dataset.fallback="1";
+  cv.style.display="none";
+  var msg=document.createElement("div");
+  msg.className="chart-fallback";
+  msg.setAttribute("role","status");
+  msg.innerHTML="&#9888;&#65039; Chart unavailable offline &mdash; historical values are shown below.";
+  cv.parentNode.insertBefore(msg,cv);
+}
 function openCh(k){
   if(openKey&&openKey!==k)closeCh(openKey);
   if(openKey===k){closeCh(k);return;}
@@ -554,18 +595,22 @@ function openCh(k){
   if(!el)return;
   el.classList.add("open");
   setTimeout(function(){
-    var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),cv=document.getElementById("cv-"+k);
+    var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),cv=document.getElementById("cv-"+k),ax=chartAxis(bm);
     if(!cv)return;
-    if(charts[k])charts[k].destroy();
-    charts[k]=new Chart(cv.getContext("2d"),{
-      type:"line",
-      data:{labels:vd.map(function(d){return d.d;}),datasets:[{data:vd.map(function(d){return d.v;}),borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,0.12)",borderWidth:2.5,pointBackgroundColor:vd.map(function(d){return gc(gs(bm,d.v));}),pointRadius:5,fill:true,tension:0.35}]},
-      options:{responsive:true,maintainAspectRatio:true,animation:{duration:500},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+" "+bm.unit;}}}},scales:{x:{ticks:{color:"#64748b",font:{size:9}},grid:{color:"#1e293b"}},y:{ticks:{color:"#64748b",font:{size:9}},grid:{color:"#1e293b"},min:chartYMin(bm),max:chartYMax(bm)}}}
-    });
+    // F1: graceful fallback if Chart.js (CDN) failed to load or chart creation throws
+    if(typeof Chart==="undefined"){showChartFallback(cv);return;}
+    try{
+      if(charts[k])charts[k].destroy();
+      charts[k]=new Chart(cv.getContext("2d"),{
+        type:"line",
+        data:{labels:vd.map(function(d){return d.d;}),datasets:[{data:vd.map(function(d){return d.v;}),borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,0.12)",borderWidth:2.5,pointBackgroundColor:vd.map(function(d){return gc(gs(bm,d.v));}),pointRadius:5,fill:true,tension:0.35}]},
+        options:{responsive:true,maintainAspectRatio:true,animation:{duration:prefersReducedMotion()?0:500},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+" "+bm.unit;}}}},scales:{x:{ticks:{color:"#7a8699",font:{size:9}},grid:{color:"#1e293b"}},y:{ticks:{color:"#7a8699",font:{size:9},stepSize:ax.step,callback:function(v){return (+(+v).toFixed(ax.dec)).toLocaleString();}},grid:{color:"#1e293b"},min:ax.min,max:ax.max}}}
+      });
+    }catch(err){showChartFallback(cv);}
   },60);
   var card=document.getElementById("bc-"+k);
   if(card)card.style.borderColor="#60a5fa50";
-  setTimeout(function(){var c2=document.getElementById("bc-"+k);if(c2)c2.scrollIntoView({behavior:"smooth",block:"nearest"});},120);
+  setTimeout(function(){var c2=document.getElementById("bc-"+k);if(c2)c2.scrollIntoView({behavior:prefersReducedMotion()?"auto":"smooth",block:"nearest"});},120);
 }
 function closeCh(k){
   var el=document.getElementById("ic-"+k);
@@ -584,11 +629,13 @@ function openInfo(k){
   document.getElementById("info-what").textContent=bm.what||"";
   document.getElementById("info-why").textContent=bm.why||"";
   document.getElementById("info-how").textContent=bm.how||"";
+  var fb=document.getElementById("info-food-block");
+  if(bm.food){document.getElementById("info-food").textContent=bm.food;fb.style.display="";}else{fb.style.display="none";}
   document.getElementById("info-related").textContent=bm.related||"";
   document.getElementById("info-range").textContent=opts(bm)+" "+bm.unit;
-  document.getElementById("info-modal").classList.add("open");
+  openModal(document.getElementById("info-modal"));
 }
-function closeInfo(){document.getElementById("info-modal").classList.remove("open");}
+function closeInfo(){closeModal(document.getElementById("info-modal"));}
 
 // ── TABS ──────────────────────────────────────────────────────────────────────
 var curTab="overview";
@@ -640,7 +687,7 @@ function renderOverview(){
     var ks=Object.keys(BM).filter(function(k){return BM[k].cat===c;});
     var opt=ks.filter(function(k){return gsk(k)==="o";}).length,tot=ks.length;
     var ws=ks.some(function(k){return gsk(k)==="h";})?"h":ks.some(function(k){return gsk(k)==="c";})?"c":"o";
-    return'<div class="cat-card catcard" data-cat="'+c+'" style="border-color:'+gc(ws)+'25">'
+    return'<div class="cat-card catcard" role="button" tabindex="0" aria-label="View '+c+' labs" data-cat="'+c+'" style="border-color:'+gc(ws)+'25">'
       +'<div class="cat-top"><span style="font-size:16px">'+CICONS[c]+'</span>'+mkdot(ws,7)+'</div>'
       +'<div class="cat-name">'+c+'</div><div class="cat-sub">'+opt+'/'+tot+' optimal</div>'
       +'<div class="cat-bar-bg"><div class="cat-bar" style="width:'+Math.round(opt/tot*100)+'%;background:'+gc(ws)+'"></div></div>'
@@ -656,6 +703,17 @@ function renderCatBtns(){
   }).join("");
 }
 function filterCat(c){curCat=c;activeSF=null;clearPills();if(openKey)closeCh(openKey);renderLabs();}
+function labsEmptyHTML(){
+  var bits=[];
+  if(activeSF)bits.push("status");
+  if(curCat!=="All")bits.push("category");
+  return'<div class="empty-state" role="status">'
+    +'<div class="empty-emoji" aria-hidden="true">&#128269;</div>'
+    +'<div class="empty-title">No biomarkers match this filter</div>'
+    +'<div class="empty-sub">Nothing here for the current '+(bits.join(" + ")||"filter")+' selection.</div>'
+    +'<button class="empty-clear" id="labs-clear-filters">Clear filters</button>'
+    +'</div>';
+}
 function renderLabs(){
   renderCatBtns();
   var keys=Object.keys(BM).filter(function(k){return curCat==="All"||BM[k].cat===curCat;});
@@ -667,9 +725,10 @@ function renderLabs(){
     document.getElementById("sfb-label").style.color=gc(activeSF[0]);
     banner.classList.add("visible");
   } else {banner.classList.remove("visible");}
+  if(!keys.length){document.getElementById("bm-list").innerHTML=labsEmptyHTML();return;}
   document.getElementById("bm-list").innerHTML=keys.map(function(k){
     var bm=BM[k],vd=bm.data.filter(function(d){return d.v!=null;}),lat=vd[vd.length-1],prev=vd[vd.length-2],s=gs(bm,lat?.v),tr=gt(bm.data);
-    return'<div class="bm-card labbm" id="bc-'+k+'" data-key="'+k+'" style="border-color:'+gc(s)+'20">'
+    return'<div class="bm-card labbm" id="bc-'+k+'" role="button" tabindex="0" aria-label="'+bm.label+' chart" data-key="'+k+'" style="border-color:'+gc(s)+'20">'
       +'<div class="bm-inner">'+mkdot(s,8)
       +'<div style="flex:1;min-width:0"><div class="bm-label-row"><span class="bm-name" style="font-size:12px">'+bm.label+'</span>'
       +'<button class="ibtn infobtn" data-key="'+k+'">i</button></div>'
@@ -683,10 +742,19 @@ function renderLabs(){
 var ITC={turning:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"&#8599;"},stabilized:{color:"#c4b5fd",bg:"#130f2a",border:"#a78bfa30",icon:"&#9672;"},alert:{color:"#f87171",bg:"#1a0808",border:"#ef444430",icon:"&#9888;"},warning:{color:"#fbbf24",bg:"#1a1208",border:"#f59e0b30",icon:"&#9888;"},positive:{color:"#4ade80",bg:"#051a0f",border:"#22c55e30",icon:"&#10003;"},rx:{color:"#60a5fa",bg:"#0a1628",border:"#60a5fa30",icon:"&#128138;"}};
 var IFC=[{id:"all",lb:"All"},{id:"alert",lb:"Alerts"},{id:"warning",lb:"Warnings"},{id:"turning",lb:"Turning"},{id:"stabilized",lb:"Stabilized"},{id:"positive",lb:"Wins"},{id:"rx",lb:"Rx"}];
 var curIF="all";
+function insightsEmptyHTML(){
+  return'<div class="empty-state" role="status">'
+    +'<div class="empty-emoji" aria-hidden="true">&#128202;</div>'
+    +'<div class="empty-title">No insights of this type</div>'
+    +'<div class="empty-sub">There are no insights in this category right now.</div>'
+    +'<button class="empty-clear" id="ins-clear-filter">Show all insights</button>'
+    +'</div>';
+}
 function renderInsights(f){
   curIF=f;
   document.getElementById("ins-filter-btns").innerHTML=IFC.map(function(x){return'<button class="ins-btn insfilterbtn'+(x.id===f?" active":"")+'" data-filter="'+x.id+'">'+x.lb+'</button>';}).join("");
   var list=f==="all"?INSIGHTS:INSIGHTS.filter(function(i){return i.type===f;});
+  if(!list.length){document.getElementById("ins-list").innerHTML=insightsEmptyHTML();return;}
   document.getElementById("ins-list").innerHTML=list.map(function(ins){
     var cfg=ITC[ins.type]||ITC.positive;
     return'<div class="ins-card" style="background:'+cfg.bg+';border-color:'+cfg.border+'"><div class="ins-row"><span class="ins-icon">'+cfg.icon+'</span><div><div class="ins-title" style="color:'+cfg.color+'">'+ins.title+'</div><div class="ins-body">'+ins.body+'</div></div></div></div>';
@@ -713,9 +781,13 @@ function renderActions(){
 document.addEventListener("click",function(e){
   var t=e.target;
 
+  // F2: empty-state clear-filter actions
+  if(t.closest("#labs-clear-filters")){curCat="All";activeSF=null;clearPills();renderLabs();return;}
+  if(t.closest("#ins-clear-filter")){renderInsights("all");return;}
+
   // Pill drawer buttons
   var pillBtn=t.closest(".pill-btn[data-drawer]");
-  if(pillBtn){togglePillDrawer(pillBtn.getAttribute("data-drawer"));return;}
+  if(pillBtn){openPillModal(pillBtn.getAttribute("data-drawer"));return;}
 
   // Supplement toggle inside drawer
   var suppRow=t.closest("[data-suppidx]");
@@ -753,6 +825,16 @@ document.addEventListener("click",function(e){
   // Insights filter button
   var insBtn=t.closest(".insfilterbtn");
   if(insBtn){renderInsights(insBtn.getAttribute("data-filter"));return;}
+});
+
+// F3: keyboard operability for role="button" elements (Enter / Space activate; routes through the click delegation above)
+document.addEventListener("keydown",function(e){
+  if(e.key!=="Enter"&&e.key!==" "&&e.key!=="Spacebar")return;
+  var el=document.activeElement;
+  if(el&&el.getAttribute&&el.getAttribute("role")==="button"){
+    e.preventDefault();
+    el.click();
+  }
 });
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
